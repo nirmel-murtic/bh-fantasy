@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'leagues/:id',
     component: LeagueComponent
+  },
+  {
+    path: 'leagues',
+    component: LeagueComponent
   }
 ];
 

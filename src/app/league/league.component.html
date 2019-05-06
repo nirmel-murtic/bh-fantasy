@@ -1,8 +1,34 @@
-<div class="row pt-4">
+<div *ngIf="league" class="row pt-4">
   <div class="col-md-12 text-center">
     <h2 class="text-black">{{league.name}}</h2>
   </div>
 </div>
 
-<app-standings [leagueId]="leagueId"></app-standings>
-<app-top-players [leagueId]="leagueId"></app-top-players>
+<app-standings *ngIf="leagueId" [leagueId]="leagueId"></app-standings>
+<app-top-players *ngIf="leagueId" [leagueId]="leagueId"></app-top-players>
+
+<div *ngIf="!leagueId" class="site-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md-12 text-center">
+        <h2 class="text-black">Available Leagues</h2>
+      </div>
+    </div>
+    <div class="feature-matchs">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>League</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let value of leagues; let i = index">
+          <td>{{i + 1}}</td>
+          <td><a href="/leagues/{{value.id}}">{{value.name}}</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

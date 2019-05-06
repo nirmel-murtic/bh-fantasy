@@ -15,11 +15,15 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   public league: League;
 
+  public leagues: League[];
+
   private subscription: any;
 
   constructor(private store: Store<State>,
               private route: ActivatedRoute) {
     store.select(getLeagues).subscribe(leagues => {
+      this.leagues = leagues;
+
       leagues.forEach(league => {
         if(league.id == this.leagueId) {
           this.league = league;
