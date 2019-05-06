@@ -1,0 +1,27 @@
+<div class="site-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md-12 text-center">
+        <h2 class="text-black">Top Players</h2>
+      </div>
+    </div>
+    <div class="feature-matchs">
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Goal scored</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let value of topPlayers; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{value.fullName}}</td>
+          <td><b>{{value.goalsScored}}</b></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
