@@ -1,6 +1,4 @@
-import {Id} from './id';
-
-export interface StandingValue extends Id {
+export interface StandingValue {
   teamId: number;
   teamName: string;
   draw: number;

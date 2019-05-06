@@ -1,4 +1,5 @@
 export const Endpoint = {
   LEAGUES: '/leagues',
-  STANDINGS: '/standings'
+  STANDINGS: '/standings',
+  TOP_PLAYERS: '/top-players'
 };

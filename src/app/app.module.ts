@@ -10,12 +10,16 @@ import {ApiInterceptor} from './shared/http/api-interceptor';
 import {LeagueService} from './shared/services/league.service';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './shared/reducers/index';
+import { LeagueComponent } from './league/league.component';
+import { TopPlayersComponent } from './top-players/top-players.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    StandingsComponent
+    StandingsComponent,
+    LeagueComponent,
+    TopPlayersComponent
   ],
   imports: [
     BrowserModule,

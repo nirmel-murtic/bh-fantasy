@@ -5,7 +5,9 @@ import {getLeagues, State} from '../reducers';
 import {Observable} from 'rxjs';
 import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
-import {LoadLeaguesAction, LoadStandingsAction} from '../actions/leagues.actions';
+import {LoadLeaguesAction, LoadStandingsAction, LoadTopPlayersAction} from '../actions/leagues.actions';
+import {StandingValue} from "../models/standing-value";
+import {TopPlayerValue} from "../models/top-player-value";
 
 @Injectable()
 export class LeagueService {
@@ -27,9 +29,17 @@ export class LeagueService {
 
   loadStandings(leagueId: number): void {
     this.http
-      .get<League[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.STANDINGS))
+      .get<StandingValue[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.STANDINGS))
       .subscribe(data => {
         this.store.dispatch(new LoadStandingsAction(data, leagueId));
+      });
+  }
+
+  loadTopPlayers(leagueId: number): void {
+    this.http
+      .get<TopPlayerValue[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.TOP_PLAYERS))
+      .subscribe(data => {
+        this.store.dispatch(new LoadTopPlayersAction(data, leagueId));
       });
   }
 }

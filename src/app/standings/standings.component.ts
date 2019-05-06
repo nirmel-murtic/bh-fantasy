@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
 import {getStandings, State} from '../shared/reducers';
@@ -14,7 +14,7 @@ export class StandingsComponent implements OnInit {
 
   public standings: StandingValue[];
 
-  public leagueId = 1;
+  @Input() leagueId : number;
 
   constructor(
     private store: Store<State>,
