@@ -23,9 +23,28 @@
               "src/assets"
             ],
             "styles": [
+              "src/style/bootstrap.min.css",
+              "src/style/bootstrap/bootstrap-grid.css",
+              "src/style/bootstrap/bootstrap-reboot.css",
+              "src/style/aos.css",
+              "src/style/jquery-ui.css",
+              "src/style/magnific-popup.css",
+              "src/style/owl.carousel.min.css",
+              "src/style/owl.theme.default.min.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery-migrate/dist/jquery-migrate.js",
+              "./src/js/bootstrap.min.js",
+              "./src/js/jquery.magnific-popup.min.js",
+              "./src/js/owl.carousel.min.js",
+              "./src/js/jquery.stellar.min.js",
+              "./src/js/aos.js",
+              "./src/js/jquery-ui.js",
+              "./src/js/jquery.countdown.min.js",
+              "./src/js/main.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
