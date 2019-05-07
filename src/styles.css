@@ -1181,3 +1181,12 @@ a:hover {
 .row {
   margin-right: 0;
 }
+
+.website-slogan {
+  margin-left: 65px;
+}
+
+.website-slogan:hover {
+  color: white !important;
+  cursor: default;
+}
