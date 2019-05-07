@@ -3,7 +3,7 @@
     <div class="col-md-12 text-center">
       <div class="site-block-27">
         <ul>
-          <li (click)="selectVisibleRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
+          <li (click)="selectVisibleRound(visibleRoundIndex - 1, selectedRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
             <a href="#">&lt;</a>
           </li>
           <li *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
@@ -33,7 +33,7 @@
             <a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a>
           </li>
 
-          <li (click)="selectVisibleRound(visibleRoundIndex + 1, $event)"
+          <li (click)="selectVisibleRound(visibleRoundIndex + 1, selectedRoundIndex + 1, $event)"
               *ngIf="visibleRoundIndex < league.rounds.length - 2">
             <a href="#">&gt;</a>
           </li>

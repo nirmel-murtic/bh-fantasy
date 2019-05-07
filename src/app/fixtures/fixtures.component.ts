@@ -55,9 +55,9 @@ export class FixturesComponent implements OnInit {
     event.preventDefault();
   }
 
-  public selectVisibleRound(index: number, event) {
+  public selectVisibleRound(index: number, selectIndex: number, event) {
     this.visibleRoundIndex = index;
 
-    event.preventDefault();
+    this.selectRound(selectIndex, event);
   }
 }
