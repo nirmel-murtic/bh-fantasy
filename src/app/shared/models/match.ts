@@ -8,4 +8,5 @@ export interface Match extends Id {
   team1: Team;
   team2: Team;
   stadium: Stadium;
+  dateTime: Date;
 }
