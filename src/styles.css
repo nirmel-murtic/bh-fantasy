@@ -791,10 +791,6 @@ a:hover {
   }
 }
 
-.site-blocks-vs .image img {
-  border-radius: 50%;
-}
-
 .site-blocks-vs .image.image-small {
   width: 50px;
   -webkit-box-flex: 0;

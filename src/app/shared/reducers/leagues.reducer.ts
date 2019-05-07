@@ -72,6 +72,35 @@ export function reducer(state = initialState, action: Action): State {
         leagues: newLeagues
       };
     }
+    case leagues.LOAD_ROUND: {
+      const newLeagues = [];
+
+      state.leagues.forEach(league => {
+        if (league.id === action.leagueId) {
+          const newRounds = [];
+
+          league.rounds.forEach(round => {
+            if(round.id == action.roundId) {
+              newRounds.push(action.payload)
+            } else {
+              newRounds.push(round);
+            }
+          });
+
+          newLeagues.push({
+            ...league,
+            rounds: newRounds
+          });
+        } else {
+          newLeagues.push(league);
+        }
+      });
+
+      return {
+        ...state,
+        leagues: newLeagues
+      };
+    }
     default:
       return state;
 }

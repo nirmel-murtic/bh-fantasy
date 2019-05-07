@@ -1,284 +1,85 @@
-<div class="row mb-3 mt-3" *ngIf="league.rounds">
-  <div class="col-md-12 text-center">
-    <div class="site-block-27">
-      <ul>
-        <li (click)="selectVisibleRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
-          <a href="#">&lt;</a>
-        </li>
-        <li *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
-            (click)="selectRound(visibleRoundIndex - 1, $event)" class="active">
-          <span>{{league.rounds[visibleRoundIndex - 1].name}}</span>
-        </li>
-        <li *ngIf="selectedRoundIndex !== visibleRoundIndex - 1 && visibleRoundIndex > 0"
-            (click)="selectRound(visibleRoundIndex - 1, $event)">
-          <a href="#">{{league.rounds[visibleRoundIndex - 1].name}}</a>
-        </li>
+<div class="site-blocks-vs">
+  <div class="row mb-3 mt-3" *ngIf="league.rounds">
+    <div class="col-md-12 text-center">
+      <div class="site-block-27">
+        <ul>
+          <li (click)="selectVisibleRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
+            <a href="#">&lt;</a>
+          </li>
+          <li *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
+              (click)="selectRound(visibleRoundIndex - 1, $event)" class="active">
+            <span>{{league.rounds[visibleRoundIndex - 1].name}}</span>
+          </li>
+          <li *ngIf="selectedRoundIndex !== visibleRoundIndex - 1 && visibleRoundIndex > 0"
+              (click)="selectRound(visibleRoundIndex - 1, $event)">
+            <a href="#">{{league.rounds[visibleRoundIndex - 1].name}}</a>
+          </li>
 
-        <li *ngIf="selectedRoundIndex === visibleRoundIndex && visibleRoundIndex < league.rounds.length"
-            (click)="selectRound(visibleRoundIndex, $event)" class="active">
-          <span>{{league.rounds[visibleRoundIndex].name}}</span>
-        </li>
-        <li *ngIf="selectedRoundIndex !== visibleRoundIndex && visibleRoundIndex < league.rounds.length"
-            (click)="selectRound(visibleRoundIndex, $event)">
-          <a href="#">{{league.rounds[visibleRoundIndex].name}}</a>
-        </li>
+          <li *ngIf="selectedRoundIndex === visibleRoundIndex && visibleRoundIndex < league.rounds.length"
+              (click)="selectRound(visibleRoundIndex, $event)" class="active">
+            <span>{{league.rounds[visibleRoundIndex].name}}</span>
+          </li>
+          <li *ngIf="selectedRoundIndex !== visibleRoundIndex && visibleRoundIndex < league.rounds.length"
+              (click)="selectRound(visibleRoundIndex, $event)">
+            <a href="#">{{league.rounds[visibleRoundIndex].name}}</a>
+          </li>
 
-        <li *ngIf="selectedRoundIndex === visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
-            (click)="selectRound(visibleRoundIndex + 1, $event)" class="active">
-          <span>{{league.rounds[visibleRoundIndex + 1].name}}</span>
-        </li>
-        <li *ngIf="selectedRoundIndex !== visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
-            (click)="selectRound(visibleRoundIndex + 1, $event)">
-          <a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a>
-        </li>
+          <li *ngIf="selectedRoundIndex === visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+              (click)="selectRound(visibleRoundIndex + 1, $event)" class="active">
+            <span>{{league.rounds[visibleRoundIndex + 1].name}}</span>
+          </li>
+          <li *ngIf="selectedRoundIndex !== visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+              (click)="selectRound(visibleRoundIndex + 1, $event)">
+            <a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a>
+          </li>
 
-        <li (click)="selectVisibleRound(visibleRoundIndex + 1, $event)"
-            *ngIf="visibleRoundIndex < league.rounds.length - 2">
-          <a href="#">&gt;</a>
-        </li>
-      </ul>
+          <li (click)="selectVisibleRound(visibleRoundIndex + 1, $event)"
+              *ngIf="visibleRoundIndex < league.rounds.length - 2">
+            <a href="#">&gt;</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row align-items-center mb-5">
-  <div class="col-md-12">
+  <div class="row align-items-center mb-5" *ngIf="currentRound">
+    <div class="col-md-12">
+      <div *ngFor="let match of currentRound.matches;" class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
+        <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
 
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
+          <div class="text-center text-lg-left">
+            <div class="d-block d-lg-flex align-items-center">
+              <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
+                <img [src]="match.team1.profilePicture" alt="Image" class="img-fluid">
+              </div>
+              <div class="text">
+                <h3 class="h5 mb-0 text-black">{{match.team1.name}}</h3>
+              </div>
             </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Packers</h3>
-              <span class="text-uppercase small country">Brazil</span>
+          </div>
+
+        </div>
+        <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
+          <div class="d-inline-block">
+            <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded">
+              <span class="h5">{{match.score1}}:{{match.score2}}</span>
             </div>
           </div>
         </div>
 
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Steelers</h3>
-              <span class="text-uppercase small country">London</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- END row -->
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Patriots</h3>
-              <span class="text-uppercase small country">Brazil</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_3_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Cowboys</h3>
-              <span class="text-uppercase small country">London</span>
+        <div class="col-md-4 col-lg-4 text-center text-lg-right">
+          <div class="">
+            <div class="d-block d-lg-flex align-items-center">
+              <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
+                <img [src]="match.team2.profilePicture" alt="Image" class="img-fluid">
+              </div>
+              <div class="text order-1 w-100">
+                <h3 class="h5 mb-0 text-black">{{match.team2.name}}</h3>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- END row -->
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Raiders</h3>
-              <span class="text-uppercase small country">Brazil</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Chiefs</h3>
-              <span class="text-uppercase small country">London</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- END row -->
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Packers</h3>
-              <span class="text-uppercase small country">Brazil</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Steelers</h3>
-              <span class="text-uppercase small country">London</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- END row -->
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Patriots</h3>
-              <span class="text-uppercase small country">Brazil</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_3_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Cowboys</h3>
-              <span class="text-uppercase small country">London</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- END row -->
-
-    <div class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-      <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-
-        <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text">
-              <h3 class="h5 mb-0 text-black">Raiders</h3>
-              <span class="text-uppercase small country">Brazil</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
-        <div class="d-inline-block">
-          <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded"><span class="h5">3:2</span></div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-lg-4 text-center text-lg-right">
-        <div class="">
-          <div class="d-block d-lg-flex align-items-center">
-            <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
-              <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid">
-            </div>
-            <div class="text order-1 w-100">
-              <h3 class="h5 mb-0 text-black">Chiefs</h3>
-              <span class="text-uppercase small country">London</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- END row -->
-
   </div>
-
 </div>
