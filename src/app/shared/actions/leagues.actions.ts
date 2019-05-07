@@ -7,6 +7,7 @@ export const LOAD_LEAGUES = 'LOAD_LEAGUES';
 export const LOAD_STANDINGS = 'LOAD_STANDINGS';
 export const LOAD_TOP_PLAYERS = 'LOAD_TOP_PLAYERS';
 export const LOAD_ROUNDS = 'LOAD_ROUNDS';
+export const LOAD_ROUND = 'LOAD_ROUND';
 
 export class LoadLeaguesAction implements Action {
     readonly type = LOAD_LEAGUES;
@@ -36,8 +37,16 @@ export class LoadRoundsAction implements Action {
   }
 }
 
+export class LoadRoundAction implements Action {
+  readonly type = LOAD_ROUND;
+
+  constructor(public payload: Round, public leagueId: number, public roundId: number) {
+  }
+}
+
 export type Actions
     = LoadLeaguesAction
     | LoadStandingsAction
     | LoadTopPlayersAction
-    | LoadRoundsAction;
+    | LoadRoundsAction
+    | LoadRoundAction;

@@ -5,7 +5,7 @@ import {getLeagues, State} from '../reducers';
 import {Observable} from 'rxjs';
 import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
-import {LoadLeaguesAction, LoadRoundsAction, LoadStandingsAction, LoadTopPlayersAction} from '../actions/leagues.actions';
+import {LoadLeaguesAction, LoadRoundAction, LoadRoundsAction, LoadStandingsAction, LoadTopPlayersAction} from '../actions/leagues.actions';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
@@ -49,6 +49,15 @@ export class LeagueService {
       .get<Round[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.ROUNDS))
       .subscribe(data => {
         this.store.dispatch(new LoadRoundsAction(data, leagueId));
+      });
+  }
+
+  loadRoundDetails(leagueId: number, roundId: number): void {
+    this.http
+      .get<Round>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString())
+        .concat(Endpoint.ROUNDS).concat('/').concat(roundId.toString()))
+      .subscribe(data => {
+        this.store.dispatch(new LoadRoundAction(data, leagueId, roundId));
       });
   }
 }

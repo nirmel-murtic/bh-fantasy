@@ -1,3 +1,46 @@
+<div class="row mb-3 mt-3" *ngIf="league.rounds">
+  <div class="col-md-12 text-center">
+    <div class="site-block-27">
+      <ul>
+        <li (click)="selectVisibleRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
+          <a href="#">&lt;</a>
+        </li>
+        <li *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
+            (click)="selectRound(visibleRoundIndex - 1, $event)" class="active">
+          <span>{{league.rounds[visibleRoundIndex - 1].name}}</span>
+        </li>
+        <li *ngIf="selectedRoundIndex !== visibleRoundIndex - 1 && visibleRoundIndex > 0"
+            (click)="selectRound(visibleRoundIndex - 1, $event)">
+          <a href="#">{{league.rounds[visibleRoundIndex - 1].name}}</a>
+        </li>
+
+        <li *ngIf="selectedRoundIndex === visibleRoundIndex && visibleRoundIndex < league.rounds.length"
+            (click)="selectRound(visibleRoundIndex, $event)" class="active">
+          <span>{{league.rounds[visibleRoundIndex].name}}</span>
+        </li>
+        <li *ngIf="selectedRoundIndex !== visibleRoundIndex && visibleRoundIndex < league.rounds.length"
+            (click)="selectRound(visibleRoundIndex, $event)">
+          <a href="#">{{league.rounds[visibleRoundIndex].name}}</a>
+        </li>
+
+        <li *ngIf="selectedRoundIndex === visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+            (click)="selectRound(visibleRoundIndex + 1, $event)" class="active">
+          <span>{{league.rounds[visibleRoundIndex + 1].name}}</span>
+        </li>
+        <li *ngIf="selectedRoundIndex !== visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+            (click)="selectRound(visibleRoundIndex + 1, $event)">
+          <a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a>
+        </li>
+
+        <li (click)="selectVisibleRound(visibleRoundIndex + 1, $event)"
+            *ngIf="visibleRoundIndex < league.rounds.length - 2">
+          <a href="#">&gt;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div class="row align-items-center mb-5">
   <div class="col-md-12">
 
@@ -238,18 +281,4 @@
 
   </div>
 
-</div>
-<div class="row">
-  <div class="col-md-12 text-center">
-    <div class="site-block-27">
-      <ul>
-        <li (click)="selectVisibleRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1"><a href="#">&lt;</a></li>
-        <li (click)="selectRound(visibleRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 0"><a href="#">{{league.rounds[visibleRoundIndex - 1].name}}</a></li>
-        <li *ngIf="selectedRoundIndex === visibleRoundIndex && visibleRoundIndex < league.rounds.length" class="active"><span>{{league.rounds[visibleRoundIndex].name}}</span></li>
-        <li *ngIf="selectedRoundIndex !== visibleRoundIndex && visibleRoundIndex < league.rounds.length"><a href="#">{{league.rounds[visibleRoundIndex].name}}</a></li>
-        <li (click)="selectRound(visibleRoundIndex + 1, $event)" *ngIf="visibleRoundIndex < league.rounds.length - 1"><a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a></li>
-        <li (click)="selectVisibleRound(visibleRoundIndex + 1, $event)" *ngIf="visibleRoundIndex < league.rounds.length - 2"><a href="#">&gt;</a></li>
-      </ul>
-    </div>
-  </div>
 </div>

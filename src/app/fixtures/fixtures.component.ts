@@ -28,7 +28,9 @@ export class FixturesComponent implements OnInit {
 
   public selectRound(index: number, event) {
     this.selectedRoundIndex = index;
-    this.visibleRoundIndex = index;
+
+    this.leagueService.loadRoundDetails(
+      this.league.id, this.league.rounds[this.selectedRoundIndex].id);
 
     event.preventDefault();
   }
