@@ -49,7 +49,7 @@
 
           <div class="text-center text-lg-left">
             <div class="d-block d-lg-flex align-items-center">
-              <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3">
+              <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3" *ngIf="match.team1.profilePicture">
                 <img [src]="match.team1.profilePicture" alt="Image" class="img-fluid">
               </div>
               <div class="text">
@@ -70,7 +70,7 @@
         <div class="col-md-4 col-lg-4 text-center text-lg-right">
           <div class="">
             <div class="d-block d-lg-flex align-items-center">
-              <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2">
+              <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2" *ngIf="match.team2.profilePicture">
                 <img [src]="match.team2.profilePicture" alt="Image" class="img-fluid">
               </div>
               <div class="text order-1 w-100">

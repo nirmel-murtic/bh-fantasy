@@ -1168,6 +1168,8 @@ a:hover {
   line-height: 40px;
   border-radius: 5%;
   border: 1px solid #ccc;
+  vertical-align: middle;
+  overflow: hidden;
 }
 
 .site-block-27 ul li.active a, .site-block-27 ul li.active span {
