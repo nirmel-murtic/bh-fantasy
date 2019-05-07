@@ -14,7 +14,7 @@ export class StandingsComponent implements OnInit {
 
   public standings: StandingValue[];
 
-  @Input() leagueId : number;
+  @Input() leagueId: number;
 
   constructor(
     private store: Store<State>,

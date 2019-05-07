@@ -13,7 +13,9 @@ export class TopPlayersComponent implements OnInit {
 
   public topPlayers: TopPlayerValue[];
 
-  @Input() leagueId : number;
+  @Input() leagueId: number;
+
+  @Input() limit: number;
 
   constructor(
     private store: Store<State>,
@@ -22,6 +24,10 @@ export class TopPlayersComponent implements OnInit {
       standings.forEach((value, key) => {
         if (key === this.leagueId) {
           this.topPlayers = value;
+
+          if (this.limit) {
+            this.topPlayers = this.topPlayers.slice(0, this.limit);
+          }
         }
       });
     }));

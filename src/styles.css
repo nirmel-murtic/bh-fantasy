@@ -1155,7 +1155,7 @@ a:hover {
 }
 
 .site-block-27 ul, .site-block-27 ul li {
-  padding: 0;
+  padding: 2px;
   margin: 0;
 }
 
@@ -1167,10 +1167,10 @@ a:hover {
 .site-block-27 ul li a, .site-block-27 ul li span {
   text-align: center;
   display: inline-block;
-  width: 40px;
+  width: 140px;
   height: 40px;
   line-height: 40px;
-  border-radius: 50%;
+  border-radius: 5%;
   border: 1px solid #ccc;
 }
 
@@ -1178,4 +1178,8 @@ a:hover {
   background: #f23a2e;
   color: #fff;
   border: 1px solid transparent;
+}
+
+.row {
+  margin-right: 0;
 }

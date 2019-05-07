@@ -12,6 +12,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './shared/reducers/index';
 import { LeagueComponent } from './league/league.component';
 import { TopPlayersComponent } from './top-players/top-players.component';
+import { FixturesComponent } from './fixtures/fixtures.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TopPlayersComponent } from './top-players/top-players.component';
     HomeComponent,
     StandingsComponent,
     LeagueComponent,
-    TopPlayersComponent
+    TopPlayersComponent,
+    FixturesComponent
   ],
   imports: [
     BrowserModule,

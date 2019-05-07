@@ -1,7 +1,7 @@
 import * as leagues from '../actions/leagues.actions';
 import {League} from '../models/league';
 import {StandingValue} from '../models/standing-value';
-import {TopPlayerValue} from "../models/top-player-value";
+import {TopPlayerValue} from '../models/top-player-value';
 
 export type Action = leagues.Actions;
 
@@ -52,6 +52,25 @@ export function reducer(state = initialState, action: Action): State {
           ...state,
           topPlayers: map
         };
+    }
+    case leagues.LOAD_ROUNDS: {
+      const newLeagues = [];
+
+      state.leagues.forEach(l => {
+        if (l.id === action.leagueId) {
+          newLeagues.push({
+            ...l,
+            rounds: action.payload
+          });
+        } else {
+          newLeagues.push(l);
+        }
+      });
+
+      return {
+        ...state,
+        leagues: newLeagues
+      };
     }
     default:
       return state;
