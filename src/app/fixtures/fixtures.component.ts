@@ -18,7 +18,12 @@ export class FixturesComponent implements OnInit {
   set league(value: League) {
     this._league = value;
 
-    if (this._league.rounds) {
+    if (this._league.rounds && this._league.teams) {
+      if(this.selectedRoundIndex == null) {
+        this.selectedRoundIndex = this.getCurrentRoundIndex();
+        this.visibleRoundIndex = this.selectedRoundIndex;
+      }
+
       this.currentRound = this._league.rounds[this.selectedRoundIndex];
 
       if(!this.currentRound.matches) {
@@ -27,13 +32,25 @@ export class FixturesComponent implements OnInit {
     }
   }
 
+  public getCurrentRoundIndex() {
+    if (this.league.rounds) {
+      for(let i = 0; i < this._league.rounds.length; i++) {
+        if(this._league.rounds[i].id === this.league.currentRoundId) {
+          return i;
+        }
+      }
+    }
+
+    return 0;
+  }
+
   get league() {
     return this._league;
   }
 
-  public visibleRoundIndex = 0;
+  public visibleRoundIndex = null;
 
-  public selectedRoundIndex = 0;
+  public selectedRoundIndex = null;
 
   public currentRound: Round;
 

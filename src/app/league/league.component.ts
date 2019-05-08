@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {getLeagues, State} from '../shared/reducers';
 import {Store} from '@ngrx/store';
 import {League} from '../shared/models/league';
+import {LeagueService} from "../shared/services/league.service";
 
 @Component({
   selector: 'app-league',
@@ -20,6 +21,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
   private subscription: any;
 
   constructor(private store: Store<State>,
+              private leagueService: LeagueService,
               private route: ActivatedRoute) {
     store.select(getLeagues).subscribe(leagues => {
       this.leagues = leagues;
@@ -35,6 +37,8 @@ export class LeagueComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.leagueId = +params.id;
+
+      this.leagueService.loadLeagueDetails(this.leagueId);
     });
   }
 

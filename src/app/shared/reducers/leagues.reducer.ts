@@ -101,6 +101,26 @@ export function reducer(state = initialState, action: Action): State {
         leagues: newLeagues
       };
     }
+    case leagues.LOAD_LEAGUE: {
+      const newLeagues = [];
+
+      state.leagues.forEach(league => {
+        if (league.id === action.leagueId) {
+          newLeagues.push({
+            ...league,
+            currentRoundId: action.payload.currentRoundId,
+            teams: action.payload.teams,
+          });
+        } else {
+          newLeagues.push(league);
+        }
+      });
+
+      return {
+        ...state,
+        leagues: newLeagues
+      };
+    }
     default:
       return state;
 }
