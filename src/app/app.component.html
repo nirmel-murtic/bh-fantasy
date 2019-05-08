@@ -28,7 +28,13 @@
             <a routerLink="/leagues">Leagues</a>
             <ul class="dropdown arrow-top">
               <ng-container *ngFor="let value of leagues | async">
-                <li *ngIf="value.type == LeagueType.RegularLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
+                <li class="has-children" *ngIf="value.type == LeagueType.RegularLeague">
+                  <a routerLink="/leagues/{{value.id}}">{{value.name}}</a>
+                  <ul class="dropdown">
+                    <li><a routerLink="/leagues/{{value.id}}/standings">Standings</a></li>
+                    <li><a routerLink="/leagues/{{value.id}}/top-players">Top Players</a></li>
+                  </ul>
+                </li>
               </ng-container>
             </ul>
           </li>

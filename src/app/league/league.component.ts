@@ -47,4 +47,10 @@ export class LeagueComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  scrollOnTop(event) {
+    window.scroll(0,0);
+
+    event.preventDefault();
+  }
 }

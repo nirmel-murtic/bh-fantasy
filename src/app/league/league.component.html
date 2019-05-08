@@ -12,7 +12,7 @@
   <div class="offset-1 col-6">
     <div class="row mb-5">
       <div class="col-md-12 text-center">
-        <h2 class="text-black">Standings</h2>
+        <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
       </div>
     </div>
     <app-standings [leagueId]="leagueId"></app-standings>
@@ -20,7 +20,7 @@
   <div class="pl-5 col-4">
     <div class="row mb-5">
       <div class="col-md-12 text-center">
-        <h2 class="text-black">Top Players</h2>
+        <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
       </div>
     </div>
     <app-top-players [leagueId]="leagueId" limit="10"></app-top-players>
