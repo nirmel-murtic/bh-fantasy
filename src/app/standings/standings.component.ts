@@ -10,11 +10,24 @@ import {StandingValue} from '../shared/models/standing-value';
   templateUrl: './standings.component.html',
   styleUrls: ['./standings.component.css']
 })
-export class StandingsComponent implements OnInit {
+export class StandingsComponent {
 
   public standings: StandingValue[];
 
-  @Input() leagueId: number;
+  _leagueId: number;
+
+  @Input()
+  set leagueId(value: number) {
+    if(value != null && value !== this._leagueId) {
+      this.leagueService.loadStandings(value);
+    }
+
+    this._leagueId = value;
+  }
+
+  get leagueId() {
+    return this._leagueId;
+  }
 
   constructor(
     private store: Store<State>,
@@ -26,9 +39,5 @@ export class StandingsComponent implements OnInit {
           }
         });
       }));
-  }
-
-  ngOnInit() {
-    this.leagueService.loadStandings(this.leagueId);
   }
 }

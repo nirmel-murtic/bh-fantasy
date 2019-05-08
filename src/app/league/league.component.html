@@ -45,7 +45,7 @@
         <tbody>
         <tr *ngFor="let value of leagues; let i = index">
           <td>{{i + 1}}</td>
-          <td><a href="/leagues/{{value.id}}">{{value.name}}</a></td>
+          <td><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></td>
         </tr>
         </tbody>
       </table>

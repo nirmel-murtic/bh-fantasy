@@ -25,18 +25,18 @@
         <ul class="site-menu js-clone-nav d-none d-md-block">
           <li class="float-left"><a class="website-slogan">ONE TOWN, ONE TEAM, ONE DREAM!</a></li>
           <li class="has-children">
-            <a href="/leagues">Leagues</a>
+            <a routerLink="/leagues">Leagues</a>
             <ul class="dropdown arrow-top">
               <ng-container *ngFor="let value of leagues | async">
-                <li *ngIf="value.type == LeagueType.RegularLeague"><a href="/leagues/{{value.id}}">{{value.name}}</a></li>
+                <li *ngIf="value.type == LeagueType.RegularLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
               </ng-container>
             </ul>
           </li>
           <li class="has-children">
-            <a href="/leagues">Fantasy</a>
+            <a routerLink="/leagues">Fantasy</a>
             <ul class="dropdown arrow-top">
               <ng-container *ngFor="let value of leagues | async">
-                <li *ngIf="value.type == LeagueType.FantasyLeague"><a href="/leagues/{{value.id}}">{{value.name}}</a></li>
+                <li *ngIf="value.type == LeagueType.FantasyLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
               </ng-container>
             </ul>
           </li>

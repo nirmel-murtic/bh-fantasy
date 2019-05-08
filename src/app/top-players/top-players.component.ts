@@ -9,12 +9,24 @@ import {TopPlayerValue} from "../shared/models/top-player-value";
   templateUrl: './top-players.component.html',
   styleUrls: ['./top-players.component.css']
 })
-export class TopPlayersComponent implements OnInit {
+export class TopPlayersComponent {
 
   public topPlayers: TopPlayerValue[];
 
-  @Input() leagueId: number;
+  _leagueId: number;
 
+  @Input()
+  set leagueId(value: number) {
+    if(value != null && value !== this._leagueId) {
+      this.leagueService.loadTopPlayers(value);
+    }
+
+    this._leagueId = value;
+  }
+
+  get leagueId() {
+    return this._leagueId;
+  }
   @Input() limit: number;
 
   constructor(
@@ -31,9 +43,5 @@ export class TopPlayersComponent implements OnInit {
         }
       });
     }));
-  }
-
-  ngOnInit() {
-    this.leagueService.loadTopPlayers(this.leagueId);
   }
 }

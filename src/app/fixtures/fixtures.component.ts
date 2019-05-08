@@ -10,12 +10,21 @@ import {Round} from '../shared/models/round';
   templateUrl: './fixtures.component.html',
   styleUrls: ['./fixtures.component.css']
 })
-export class FixturesComponent implements OnInit {
+export class FixturesComponent {
 
   _league: League;
 
   @Input('league')
   set league(value: League) {
+    if(this._league && value.id !== this._league.id) {
+      this.selectedRoundIndex = null;
+      this.visibleRoundIndex = null;
+    }
+
+    if(!this._league || value.id !== this._league.id) {
+      this.leagueService.loadRounds(value.id);
+    }
+
     this._league = value;
 
     if (this._league.rounds && this._league.teams) {
@@ -57,9 +66,6 @@ export class FixturesComponent implements OnInit {
   constructor(
     private store: Store<State>,
     private leagueService: LeagueService) {
-  }
-  ngOnInit() {
-    this.leagueService.loadRounds(this.league.id);
   }
 
   public selectRound(index: number, event) {
