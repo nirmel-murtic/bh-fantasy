@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="134px" height="316px" viewBox="0 0 134 316" style="enable-background:new 0 0 134 316;" xml:space="preserve">
+<g>
+	<polyline style="fill:none;stroke:#e5f6df;stroke-width:2;stroke-miterlimit:10;" points="1,84 40,84 40,230
+		1,230"/>
+	<polyline style="fill:none;stroke:#e5f6df;stroke-width:2;stroke-miterlimit:10;" points="1,314 76,314 76,1 1,1 	"/>
+	<path style="fill:none;stroke:#e5f6df;stroke-width:2;stroke-miterlimit:10;" d="M76,233c26-15,44-43,44-76
+		c0-32-17-60-44-76"/>
+</g>
+</svg>
