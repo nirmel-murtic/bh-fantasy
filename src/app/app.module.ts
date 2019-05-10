@@ -13,6 +13,7 @@ import { LeagueComponent } from './league/league.component';
 import { TopPlayersComponent } from './top-players/top-players.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { LineupComponent } from './lineup/lineup.component';
+import { MatchComponent } from './match/match.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LineupComponent } from './lineup/lineup.component';
     LeagueComponent,
     TopPlayersComponent,
     FixturesComponent,
-    LineupComponent
+    LineupComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,10 @@
 .lineups-terrain {
   position: relative;
-  height: 420px;
+  min-height: 388px;
+  min-width: 269px;
   background-color: #bee9af;
   border: 2px solid #e5f6df;
+  height: 100%;
 }
 
 .lineups-terrain-home {
@@ -17,21 +19,262 @@
 
 .lineups-pane {
   top: 0;
-  #position: absolute;
   transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
   border: 6px solid #bee9af;
 }
 
 .lineups-pane-home {
   border-right: none;
+  width: 50%;
 }
 
 .lineups-pane-away {
   border-left: none;
+  width: 50%;
 }
 
 .lineups-content {
   position: relative;
-  width: 100%;
   overflow: hidden;
+  display: flex;
+  transform: rotate(90deg);
+  width: 550px;
+  height: 400px;
+}
+
+.lineups-players {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.player {
+  transform: rotate(-90deg);
+  position: absolute;
+  display: inline-block;
+  height: 60px;
+  width: 80px;
+  font-size: 12px;
+  overflow-wrap: break-word;
+  padding: 5px;
+}
+
+.goalkeeper {
+  top: 43%;
+  right: -1%;
+}
+
+.defender-4-1 {
+  top: 73%;
+  right: 13%;
+}
+
+.defender-4-2 {
+  top: 14%;
+  right: 13%;
+}
+
+.defender-4-3 {
+  top: 53%;
+  right: 13%;
+}
+
+.defender-4-4 {
+  top: 34%;
+  right: 13%;
+}
+
+.defender-1 {
+  top: 62%;
+  right: 13%;
+}
+
+.defender-2 {
+  top: 24%;
+  right: 13%;
+}
+
+.defender-3 {
+  top: 43%;
+  right: 13%;
+}
+
+.defender-4 {
+  top: 83%;
+  right: 13%;
+}
+
+.defender-5 {
+  top: 3%;
+  right: 13%;
+}
+
+.defender-3-1 {
+  top: 43%;
+  right: 26%;
+}
+
+.defender-3-2 {
+  top: 62%;
+  right: 26%;
+}
+
+.defender-3-3 {
+  top: 24%;
+  right: 26%;
+}
+
+.middler-3-1 {
+  top: 43%;
+  right: 52%;
+}
+
+.middler-3-2 {
+  top: 62%;
+  right: 52%;
+}
+
+.middler-3-3 {
+  top: 24%;
+  right: 52%;
+}
+
+.middler-4-1 {
+  top: 73%;
+  right: 40%;
+}
+
+.middler-4-2 {
+  top: 14%;
+  right: 40%;
+}
+
+.middler-4-3 {
+  top: 53%;
+  right: 40%;
+}
+
+.middler-4-4 {
+  top: 34%;
+  right: 40%;
+}
+
+.middler-3 {
+  top: 62%;
+  right: 40%;
+}
+
+.middler-2 {
+  top: 24%;
+  right: 40%;
+}
+
+.middler-1 {
+  top: 43%;
+  right: 40%;
+}
+
+.middler-4 {
+  top: 83%;
+  right: 40%;
+}
+
+.middler-5 {
+  top: 3%;
+  right: 40%;
+}
+
+.striker-1 {
+  top: 43%;
+  right: 65%;
+}
+
+.striker-2 {
+  top: 62%;
+  right: 65%;
+}
+
+.striker-3 {
+  top: 24%;
+  right: 65%;
+}
+
+.striker-4 {
+  top: 83%;
+  right: 65%;
+}
+
+.striker-5 {
+  top: 3%;
+  right: 65%;
+}
+
+.striker-3-1 {
+  top: 43%;
+  right: 78%;
+}
+
+.striker-3-2 {
+  top: 62%;
+  right: 78%;
+}
+
+.striker-3-3 {
+  top: 24%;
+  right: 78%;
+}
+
+.player-name {
+  text-shadow: 1px 1px 1px #fff;
+  color: #000;
+  text-align: center;
+}
+
+.player .team-number {
+  width: 25px;
+  height: 25px;
+  background: #000;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  border: 1px solid;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.player .team-number > span {
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+.player .position {
+  font-size: 14px;
+  color: #b3b3b3;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1300px) {
+  .player {
+    height: 30px;
+    width: 50px;
+    font-size: 10px;
+  }
+
+  .player .team-number {
+    width: 18px;
+    height: 18px;
+  }
+
+  .lineups-terrain {
+    min-height: 250px;
+  }
+
+  .lineups-content {
+    min-width: 500px;
+  }
 }
