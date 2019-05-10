@@ -1,8 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
-import {getStandings, State} from '../shared/reducers';
-import {Observable} from 'rxjs';
+import {getCurrentStandings, State} from '../shared/reducers';
 import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
 
@@ -17,18 +16,13 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   _leagueId: number;
 
-  private subscription: any;
+  private subscriptions = [];
 
   public standalone = true;
 
   @Input()
   set leagueId(value: number) {
     this.standalone = false;
-
-    if(value != null && value !== this._leagueId) {
-      this.leagueService.loadStandings(value);
-    }
-
     this._leagueId = value;
   }
 
@@ -37,29 +31,28 @@ export class StandingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
-      if(params.id) {
-        this._leagueId = +params.id;
+    this.subscriptions.push(this.route.params.subscribe(params => {
+      if(params.leagueId) {
+        this._leagueId = +params.leagueId;
 
         this.leagueService.loadStandings(this._leagueId);
       }
-    });
+    }));
+
+    this.subscriptions.push(
+      this.store.select(getCurrentStandings).subscribe(value => {
+        this.standings = value;
+      })
+    )
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(value => value.unsubscribe());
   }
 
   constructor(
     private store: Store<State>,
     private route: ActivatedRoute,
     private leagueService: LeagueService) {
-      store.select(getStandings).subscribe((standings => {
-        standings.forEach((value, key) => {
-          if (key === this._leagueId) {
-            this.standings = value;
-          }
-        });
-      }));
   }
 }

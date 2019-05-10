@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { TopPlayersComponent } from './top-players/top-players.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { LineupComponent } from './lineup/lineup.component';
 import { MatchComponent } from './match/match.component';
+import { LeaguesComponent } from './leagues/leagues.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +25,17 @@ import { MatchComponent } from './match/match.component';
     TopPlayersComponent,
     FixturesComponent,
     LineupComponent,
-    MatchComponent
+    MatchComponent,
+    LeaguesComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot({...reducers,
+      router: routerReducer,
+    }),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [
     LeagueService,

@@ -7,7 +7,7 @@ import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
 import {
   LoadLeagueAction,
-  LoadLeaguesAction,
+  LoadLeaguesAction, LoadMatchAction,
   LoadRoundAction,
   LoadRoundsAction,
   LoadStandingsAction,
@@ -16,6 +16,7 @@ import {
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
+import {Match} from '../models/match';
 
 @Injectable()
 export class LeagueService {
@@ -73,6 +74,16 @@ export class LeagueService {
         .concat(Endpoint.ROUNDS).concat('/').concat(roundId.toString()))
       .subscribe(data => {
         this.store.dispatch(new LoadRoundAction(data, leagueId, roundId));
+      });
+  }
+
+  loadMatchDetails(leagueId: number, roundId: number, matchId: number): void {
+    this.http
+      .get<Match>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString())
+        .concat(Endpoint.ROUNDS).concat('/').concat(roundId.toString())
+        .concat(Endpoint.MATCHES).concat('/').concat(matchId.toString()))
+      .subscribe(data => {
+        this.store.dispatch(new LoadMatchAction(data, leagueId, roundId, matchId));
       });
   }
 }

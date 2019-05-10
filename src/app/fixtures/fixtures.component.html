@@ -61,9 +61,11 @@
         </div>
         <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
           <div class="d-inline-block">
-            <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded">
-              <span class="h5">{{match.score1}}:{{match.score2}}</span>
-            </div>
+            <a class="match-link" routerLink="/leagues/{{league.id}}/rounds/{{currentRound.id}}/matches/{{match.id}}">
+              <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded">
+                  <span class="h5">{{match.score1}}:{{match.score2}}</span>
+              </div>
+            </a>
             <p class="mb-0" *ngIf="match.dateTime">
               <small class="text-uppercase text-black font-weight-bold">{{match.dateTime | date : 'EEEE, MMM d, y h:mm a'}}</small>
             </p>

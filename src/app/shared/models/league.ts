@@ -1,6 +1,6 @@
 import {Id} from './id';
 import {Round} from './round';
-import {Team} from "./team";
+import {Team} from './team';
 
 export interface League extends Id {
   name: string;

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {getLeagues, State} from '../shared/reducers';
+import {getCurrentLeague, State} from '../shared/reducers';
 import {Store} from '@ngrx/store';
 import {League} from '../shared/models/league';
 import {LeagueService} from "../shared/services/league.service";
@@ -16,36 +16,29 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   public league: League;
 
-  public leagues: League[];
-
-  private subscription: any;
+  private subscriptions = [];
 
   constructor(private store: Store<State>,
               private leagueService: LeagueService,
               private route: ActivatedRoute) {
-    store.select(getLeagues).subscribe(leagues => {
-      this.leagues = leagues;
-
-      leagues.forEach(league => {
-        if (league.id === this.leagueId) {
-          this.league = league;
-        }
-      });
-    });
   }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
-      if(params.id) {
-        this.leagueId = +params.id;
+    this.subscriptions.push(this.route.params.subscribe(params => {
+      if(params.leagueId) {
+        this.leagueId = +params.leagueId;
 
         this.leagueService.loadLeagueDetails(this.leagueId);
       }
-    });
+    }));
+
+    this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
+      this.league = league;
+    }));
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(value => value.unsubscribe());
   }
 
   scrollOnTop(event) {

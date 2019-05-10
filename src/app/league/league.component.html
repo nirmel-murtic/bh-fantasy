@@ -1,54 +1,30 @@
-<div *ngIf="league" class="row pt-4">
-  <div class="col-md-12 text-center">
-    <h2 class="text-black">{{league.name}}</h2>
+<ng-container *ngIf="league">
+  <div class="row pt-4">
+    <div class="col-md-12 text-center">
+      <h2 class="text-black">{{league.name}}</h2>
+    </div>
   </div>
-</div>
 
-<div class="offset-2 col-8" *ngIf="league">
-  <app-fixtures [league]="league"></app-fixtures>
-</div>
+  <div class="offset-2 col-8">
+    <app-fixtures [league]="league"></app-fixtures>
+  </div>
 
-<div class="row site-section" *ngIf="leagueId">
-  <div class="offset-1 col-6">
-    <div class="row mb-5">
-      <div class="col-md-12 text-center">
-        <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
+  <div class="row site-section">
+    <div class="offset-1 col-6">
+      <div class="row mb-5">
+        <div class="col-md-12 text-center">
+          <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
+        </div>
       </div>
+      <app-standings [leagueId]="leagueId"></app-standings>
     </div>
-    <app-standings [leagueId]="leagueId"></app-standings>
-  </div>
-  <div class="pl-5 col-4">
-    <div class="row mb-5">
-      <div class="col-md-12 text-center">
-        <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
+    <div class="pl-5 col-4">
+      <div class="row mb-5">
+        <div class="col-md-12 text-center">
+          <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
+        </div>
       </div>
-    </div>
-    <app-top-players [leagueId]="leagueId" limit="10"></app-top-players>
-  </div>
-</div>
-
-<div *ngIf="!leagueId" class="site-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-md-12 text-center">
-        <h2 class="text-black">Available Leagues</h2>
-      </div>
-    </div>
-    <div class="feature-matchs">
-      <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>League</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let value of leagues; let i = index">
-          <td>{{i + 1}}</td>
-          <td><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></td>
-        </tr>
-        </tbody>
-      </table>
+      <app-top-players [leagueId]="leagueId" limit="10"></app-top-players>
     </div>
   </div>
-</div>
+</ng-container>

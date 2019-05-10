@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {getTopPlayers, State} from "../shared/reducers";
+import {getCurrentTopPlayers, State} from '../shared/reducers';
 import {LeagueService} from "../shared/services/league.service";
 import {TopPlayerValue} from "../shared/models/top-player-value";
 import {ActivatedRoute} from "@angular/router";
@@ -16,18 +16,15 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
 
   _leagueId: number;
 
-  private subscription: any;
+  private subscriptions = [];
 
   public standalone = true;
+
+  @Input() limit: number;
 
   @Input()
   set leagueId(value: number) {
     this.standalone = false;
-
-    if(value != null && value !== this._leagueId) {
-      this.leagueService.loadTopPlayers(value);
-    }
-
     this._leagueId = value;
   }
 
@@ -35,36 +32,31 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
     return this._leagueId;
   }
 
-  @Input() limit: number;
-
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
-      if(params.id) {
-        this._leagueId = +params.id;
+    this.subscriptions.push(this.route.params.subscribe(params => {
+      if(params.leagueId) {
+        this._leagueId = +params.leagueId;
 
         this.leagueService.loadTopPlayers(this._leagueId);
       }
-    });
+    }));
+
+    this.subscriptions.push(this.store.select(getCurrentTopPlayers).subscribe((value => {
+      this.topPlayers = value;
+
+      if (this.limit && this.topPlayers) {
+        this.topPlayers = this.topPlayers.slice(0, this.limit);
+      }
+    })));
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(value => value.unsubscribe());
   }
 
   constructor(
     private store: Store<State>,
     private route: ActivatedRoute,
     private leagueService: LeagueService) {
-    store.select(getTopPlayers).subscribe((standings => {
-      standings.forEach((value, key) => {
-        if (key === this._leagueId) {
-          this.topPlayers = value;
-
-          if (this.limit) {
-            this.topPlayers = this.topPlayers.slice(0, this.limit);
-          }
-        }
-      });
-    }));
   }
 }
