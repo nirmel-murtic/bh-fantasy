@@ -15,12 +15,15 @@
 
       </div>
     </div>
-    <div class="lineups-players" *ngIf="lineup && playerTypeClasses">
-      <div *ngFor="let type of startingPlayersKeys" class="players-container" ngClass="{{type.toLowerCase()}}">
-        <div *ngFor="let player of startingPlayers.get(type)" class="player">
-          <span class="team-number">{{player.numberoOnDress}}</span>
-          <div class="player-name">{{player.lastName}}</div>
-        </div>
+    <div class="lineups-players" *ngIf="lineup && startingPlayers">
+      <div *ngFor="let players of startingPlayers; let i = index" class="players-container" ngClass="line-{{i+1}}">
+          <div *ngFor="let player of players" class="player"
+               data-toggle="popover" data-placement="top" data-html="true"
+               data-trigger="hover"
+               [attr.data-content]="getPlayerInfo(player)">
+            <span class="team-number">{{player.numberoOnDress}}</span>
+            <div class="player-name">{{player.lastName}}</div>
+          </div>
       </div>
     </div>
   </div>

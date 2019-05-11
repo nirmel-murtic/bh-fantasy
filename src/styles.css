@@ -1150,3 +1150,22 @@ a:hover {
   color: white !important;
   cursor: default;
 }
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.player-info .profile-image {
+  max-width: 65px;
+  padding: 0 0 0 10px;
+  margin-right: 10px;
+}
+
+.player-info .info {
+  width: 180px;
+}
+
+.player-info .rounded-circle {
+  border-radius: 10%!important;
+}
