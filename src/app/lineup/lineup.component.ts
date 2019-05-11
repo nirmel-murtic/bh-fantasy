@@ -67,7 +67,7 @@ export class LineupComponent implements OnInit {
         return 12;
       } else if(p.type == PlayerType.DEFENDER) {
         return 11;
-      } else if(p.type == PlayerType.GOALKEEPER) {
+      } else if(p.type == PlayerType.GOALKEEPER || p.type == 'Goalkeaper') {
         return 13;
       }
     };
@@ -76,6 +76,8 @@ export class LineupComponent implements OnInit {
     this.startingPlayers = [[], [], [], [], [], []];
 
     const sorted = this.lineup.startingPlayers.sort((p1, p2) => getSortCoeficient(p2) - getSortCoeficient(p1));
+
+    console.log(sorted);
 
     let formationParts = this.lineupFormation.split("-").filter(
       value => value.length > 0).map(value => parseInt(value));
