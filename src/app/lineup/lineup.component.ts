@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Lineup} from '../shared/models/lineup';
-import {Player, PlayerPosition, PlayerType} from '../shared/models/player';
+import {Player, PlayerEvent, PlayerPosition, PlayerType} from '../shared/models/player';
+import {Goal} from '../shared/models/goal';
 
 declare var $: any;
 
@@ -13,9 +14,10 @@ export class LineupComponent implements OnInit {
 
   _lineup: Lineup;
 
-  public startingPlayers: Array<Player[]> = [[], [], [], [], [], []];
+  @Input()
+  public playerEvents: Map<number, PlayerEvent[]>;
 
-  public playerTypeClasses = [];
+  public startingPlayers: Array<Player[]> = [[], [], [], [], [], []];
 
   @Input()
   public set lineup(value) {
@@ -23,10 +25,6 @@ export class LineupComponent implements OnInit {
 
     if(value) {
       this.populatePlayers();
-
-      setTimeout(() => {
-        $('[data-toggle="popover"]').popover();
-      });
     }
   }
 
@@ -76,8 +74,6 @@ export class LineupComponent implements OnInit {
     this.startingPlayers = [[], [], [], [], [], []];
 
     const sorted = this.lineup.startingPlayers.sort((p1, p2) => getSortCoeficient(p2) - getSortCoeficient(p1));
-
-    console.log(sorted);
 
     let formationParts = this.lineupFormation.split("-").filter(
       value => value.length > 0).map(value => parseInt(value));
@@ -168,26 +164,24 @@ export class LineupComponent implements OnInit {
     return formation;
   }
 
-  public getPlayerInfo(player: Player) {
-    return `
-        <div class="player-info">
-          <div class="row mb-2">
-             <div class="col-12">
-              ${player.fullName}
-             </div>
-          </div>
-          <div class="row">
-             <div class="profile-image">
-              <img src="${player.profilePicture}" class="img-fluid image rounded-circle">
-             </div>
-             <div class="info">
-                <div>Date of birth: <span>${player.birthDate}</span></div>
-                <div>Position: <span>${player.positionName}</span></div>
-                <div>Market value: <span>${player.marketValueRaw}</span></div>
-              </div>
-          </div>
-        </div>
-    `
+  public getEventClass(event: PlayerEvent, player: Player) {
+    if(event.eventType === 'goal') {
+      if(event.player.id === player.id) {
+        return "icon-goal";
+      } else if(event.assist && event.assist.id === player.id) {
+        return "icon-assist";
+      }
+    }
+  }
+
+  public getEventInfo(event: PlayerEvent, player: Player) {
+    if(event.eventType === 'goal') {
+      if(event.player.id === player.id) {
+        return `Goal for ${event.score1}:${event.score2} scored in ${event.minute} minute.`
+      } else if(event.assist && event.assist.id === player.id) {
+        return `Assisted for ${event.score1}:${event.score2} in ${event.minute} minute.`
+      }
+    }
   }
 }
 

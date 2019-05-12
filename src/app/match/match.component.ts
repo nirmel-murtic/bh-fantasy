@@ -4,11 +4,13 @@ import {getCurrentLeague, getCurrentMatch, getCurrentRound, State} from '../shar
 import {LeagueService} from '../shared/services/league.service';
 import {ActivatedRoute} from '@angular/router';
 import {Match} from '../shared/models/match';
+import {Lineup} from '../shared/models/lineup';
+import {PlayerEvent} from '../shared/models/player';
 
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
-  styleUrls: ['./match.component.css']
+  styleUrls: ['./match.component.css'],
 })
 export class MatchComponent implements OnInit, OnDestroy {
 
@@ -27,6 +29,9 @@ export class MatchComponent implements OnInit, OnDestroy {
   private roundSubscription: any;
 
   private loading = false;
+
+  public playerEventsLineup1 = new Map<number, PlayerEvent[]>();
+  public playerEventsLineup2 = new Map<number, PlayerEvent[]>();
 
   constructor(private store: Store<State>,
               private route: ActivatedRoute,
@@ -67,6 +72,41 @@ export class MatchComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.leagueSubscription);
   }
 
+  private getPlayerEvents(lineup: Lineup) {
+    const players = [];
+
+    players.push(...lineup.startingPlayers.map(player => player.id));
+    players.push(...lineup.availableSubstitutions.map(player => player.id));
+
+    const playerEvents = new Map<number, PlayerEvent[]>();
+
+    if(!this.match || !this.match.goals) {
+      return playerEvents;
+    }
+
+    this.match.goals.forEach(goal => {
+      if(players.indexOf(goal.player.id) !== -1) {
+        if (!playerEvents.has(goal.player.id)) {
+          playerEvents.set(goal.player.id, []);
+        }
+
+        playerEvents.get(goal.player.id).push({...goal, eventType: 'goal'});
+      }
+
+      if(goal.assist) {
+        if(players.indexOf(goal.assist.id) !== -1) {
+          if (!playerEvents.has(goal.assist.id)) {
+            playerEvents.set(goal.assist.id, []);
+          }
+
+          playerEvents.get(goal.assist.id).push({...goal, eventType: 'goal'});
+        }
+      }
+    });
+
+    return playerEvents;
+  }
+
   loadRoundDetails() {
     this.roundSubscription = this.store.select(getCurrentRound).subscribe(round => {
       if(!round || !round.matches) {
@@ -99,6 +139,9 @@ export class MatchComponent implements OnInit, OnDestroy {
 
         this.loading = true;
       } else {
+        this.playerEventsLineup1 = this.getPlayerEvents(this.match.lineup1);
+        this.playerEventsLineup2 = this.getPlayerEvents(this.match.lineup2);
+
         this.loading = false;
       }
     }));

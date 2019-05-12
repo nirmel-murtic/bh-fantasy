@@ -1156,6 +1156,11 @@ a:hover {
   margin: 0 !important;
 }
 
+.player-info {
+  padding: 0 0 2px 5px;
+  min-width: 250px;
+}
+
 .player-info .profile-image {
   max-width: 65px;
   padding: 0 0 0 10px;
@@ -1164,8 +1169,35 @@ a:hover {
 
 .player-info .info {
   width: 180px;
+  display: inline-block;
 }
 
 .player-info .rounded-circle {
   border-radius: 10%!important;
+}
+
+.icons-sprite {
+  background-repeat: no-repeat;
+  background-image: url(./assets/images/iconset_sprite.png);
+  display: inline-block;
+  cursor: inherit !important;
+}
+
+.icon-lineup {
+  width: 15px;
+  height: 15px;
+  vertical-align: text-top;
+  margin-left: -2px;
+}
+
+.icon-goal {
+  background-position: -341px -87px;
+}
+
+.icon-assist {
+  background-position: -429px -87px;
+}
+
+.event-info {
+  width: 220px;
 }

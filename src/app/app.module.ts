@@ -16,6 +16,7 @@ import { FixturesComponent } from './fixtures/fixtures.component';
 import { LineupComponent } from './lineup/lineup.component';
 import { MatchComponent } from './match/match.component';
 import { LeaguesComponent } from './leagues/leagues.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LeaguesComponent } from './leagues/leagues.component';
     StoreModule.forRoot({...reducers,
       router: routerReducer,
     }),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    NgbModule
   ],
   providers: [
     LeagueService,

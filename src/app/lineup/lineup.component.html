@@ -1,4 +1,35 @@
-<div class="lineups-wrapper">
+<ng-template let-player="player" #playerInfoContentTemplate>
+  <div class="player-info">
+    <div class="row mb-2">
+      <div class="col-12">
+        {{player.fullName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="profile-image">
+        <img [src]="player.profilePicture" class="img-fluid image rounded-circle">
+      </div>
+      <div class="info">
+        <div>Date of birth: <span>{{player.birthDate}}</span></div>
+        <div>Position: <span>{{player.positionName}}</span></div>
+        <div>Market value: <span>{{player.marketValueRaw}}</span></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template let-player="player" let-event="event" #eventInfoContentTemplate>
+  <div class="event-info">
+    <span *ngIf="event.player.id === player.id">
+      Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+    </span>
+    <span *ngIf="event.assist && event.assist.id === player.id">
+      Assisted for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+    </span>
+  </div>
+</ng-template>
+
+
+<div class="lineups-wrapper" *ngIf="lineup">
   <div class="text-center mt-3 mb-3">
     <div>
       <span>Formation: {{formation}}</span>
@@ -15,16 +46,54 @@
 
       </div>
     </div>
-    <div class="lineups-players" *ngIf="lineup && startingPlayers">
+    <div class="lineups-players" *ngIf="startingPlayers">
       <div *ngFor="let players of startingPlayers; let i = index" class="players-container" ngClass="line-{{i+1}}">
-          <div *ngFor="let player of players" class="player"
-               data-toggle="popover" data-placement="top" data-html="true"
-               data-trigger="hover"
-               [attr.data-content]="getPlayerInfo(player)">
+        <div *ngFor="let player of players" class="player">
             <span class="team-number">{{player.numberoOnDress}}</span>
-            <div class="player-name">{{player.lastName}}</div>
+
+            <div class="player-name"
+                 placement="right"
+                 triggers="manual"
+                 #p1="ngbPopover"
+                 (mouseenter)="p1.open({player: player})"
+                 (mouseleave)="p1.close()"
+                 [ngbPopover]="playerInfoContentTemplate">{{player.lastName}}</div>
+
+            <div class="icons-container">
+              <div *ngFor="let event of playerEvents.get(player.id)" class="icons-sprite icon-lineup"
+                  placement="right"
+                  triggers="manual"
+                  #p3="ngbPopover"
+                  (mouseenter)="p3.open({player: player, event: event})"
+                  (mouseleave)="p3.close()"
+                  [ngbPopover]="eventInfoContentTemplate"
+                  ngClass="{{getEventClass(event, player)}}"></div>
+            </div>
           </div>
       </div>
+    </div>
+  </div>
+  <div class="substitutions-container mt-4 mb-4 ml-3">
+    <div *ngFor="let player of lineup.availableSubstitutions" class="player">
+      <span class="team-number mr-3">{{player.numberoOnDress}}</span>
+      <div class="player-name pr-2"
+           placement="right"
+           triggers="manual"
+           #p2="ngbPopover"
+           (mouseenter)="p2.open({player: player})"
+           (mouseleave)="p2.close()"
+           [ngbPopover]="playerInfoContentTemplate">{{player.fullName}}</div>
+      <span class="icons-container">
+        <span *ngFor="let event of playerEvents.get(player.id)"
+              class="icons-sprite icon-lineup"
+              placement="right"
+              triggers="manual"
+              #p3="ngbPopover"
+              (mouseenter)="p3.open({player: player, event: event})"
+              (mouseleave)="p3.close()"
+              [ngbPopover]="eventInfoContentTemplate"
+              ngClass="{{getEventClass(event, player)}}"></span>
+      </span>
     </div>
   </div>
 </div>

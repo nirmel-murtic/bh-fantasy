@@ -20,6 +20,11 @@ export enum PlayerType {
   MIDDLE = 'Middle'
 }
 
+export interface PlayerEvent {
+  eventType: string;
+  [key: string]: any;
+}
+
 export enum PlayerPosition {
   SS = 'SS',
   CF = 'CF',
