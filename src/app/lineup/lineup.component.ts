@@ -166,20 +166,12 @@ export class LineupComponent implements OnInit {
 
   public getEventClass(event: PlayerEvent, player: Player) {
     if(event.eventType === 'goal') {
-      if(event.player.id === player.id) {
+      if(event.player.id === player.id && event.ownGoal) {
+        return "icon-own-goal";
+      } else if(event.player.id === player.id) {
         return "icon-goal";
       } else if(event.assist && event.assist.id === player.id) {
         return "icon-assist";
-      }
-    }
-  }
-
-  public getEventInfo(event: PlayerEvent, player: Player) {
-    if(event.eventType === 'goal') {
-      if(event.player.id === player.id) {
-        return `Goal for ${event.score1}:${event.score2} scored in ${event.minute} minute.`
-      } else if(event.assist && event.assist.id === player.id) {
-        return `Assisted for ${event.score1}:${event.score2} in ${event.minute} minute.`
       }
     }
   }

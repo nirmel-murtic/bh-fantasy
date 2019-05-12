@@ -19,7 +19,10 @@
 </ng-template>
 <ng-template let-player="player" let-event="event" #eventInfoContentTemplate>
   <div class="event-info">
-    <span *ngIf="event.player.id === player.id">
+    <span *ngIf="event.player.id === player.id && event.ownGoal">
+      Scored own goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+    </span>
+    <span *ngIf="event.player.id === player.id && !event.ownGoal">
       Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
     </span>
     <span *ngIf="event.assist && event.assist.id === player.id">
