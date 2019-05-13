@@ -3,6 +3,7 @@ import {Team} from './team';
 import {Stadium} from './stadium';
 import {Lineup} from './lineup';
 import {Goal} from './goal';
+import {Card} from './card';
 
 export interface Match extends Id {
   score1: number;
@@ -14,4 +15,5 @@ export interface Match extends Id {
   lineup1: Lineup;
   lineup2: Lineup;
   goals: Goal[];
+  cards: Card[];
 }

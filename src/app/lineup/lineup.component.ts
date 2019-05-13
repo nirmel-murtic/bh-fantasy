@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Lineup} from '../shared/models/lineup';
 import {Player, PlayerEvent, PlayerPosition, PlayerType} from '../shared/models/player';
-import {Goal} from '../shared/models/goal';
+import {CardType} from '../shared/models/card';
 
 declare var $: any;
 
@@ -18,6 +18,8 @@ export class LineupComponent implements OnInit {
   public playerEvents: Map<number, PlayerEvent[]>;
 
   public startingPlayers: Array<Player[]> = [[], [], [], [], [], []];
+
+  public CardType = CardType;
 
   @Input()
   public set lineup(value) {
@@ -172,6 +174,20 @@ export class LineupComponent implements OnInit {
         return "icon-goal";
       } else if(event.assist && event.assist.id === player.id) {
         return "icon-assist";
+      }
+    } else if(event.eventType === 'card') {
+      if(event.cardType === CardType.RED) {
+        return "icon-red-card";
+      } else if(event.cardType === CardType.YELLOW) {
+        return "icon-yellow-card";
+      }
+    } else if(event.eventType === 'capiten') {
+      return "icon-capiten";
+    } else if(event.eventType === 'change') {
+      if(event.substitutePlayer && event.substitutePlayer.id == player.id) {
+        return "icon-change-out";
+      } else if(event.player && event.player.id == player.id) {
+        return "icon-change-in";
       }
     }
   }

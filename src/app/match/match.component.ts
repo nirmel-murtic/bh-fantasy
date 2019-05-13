@@ -80,28 +80,74 @@ export class MatchComponent implements OnInit, OnDestroy {
 
     const playerEvents = new Map<number, PlayerEvent[]>();
 
-    if(!this.match || !this.match.goals) {
+    if(!this.match) {
       return playerEvents;
     }
 
-    this.match.goals.forEach(goal => {
-      if(players.indexOf(goal.player.id) !== -1) {
-        if (!playerEvents.has(goal.player.id)) {
-          playerEvents.set(goal.player.id, []);
-        }
-
-        playerEvents.get(goal.player.id).push({...goal, eventType: 'goal'});
-      }
-
-      if(goal.assist) {
-        if(players.indexOf(goal.assist.id) !== -1) {
-          if (!playerEvents.has(goal.assist.id)) {
-            playerEvents.set(goal.assist.id, []);
+    if(this.match.cards) {
+      this.match.cards.forEach(card => {
+        if (players.indexOf(card.player.id) !== -1) {
+          if (!playerEvents.has(card.player.id)) {
+            playerEvents.set(card.player.id, []);
           }
 
-          playerEvents.get(goal.assist.id).push({...goal, eventType: 'goal'});
+          playerEvents.get(card.player.id).push({...card, eventType: 'card'});
         }
+      });
+    }
+
+    if(this.match.goals) {
+      this.match.goals.forEach(goal => {
+        if (players.indexOf(goal.player.id) !== -1) {
+          if (!playerEvents.has(goal.player.id)) {
+            playerEvents.set(goal.player.id, []);
+          }
+
+          playerEvents.get(goal.player.id).push({...goal, eventType: 'goal'});
+        }
+
+        if (goal.assist) {
+          if (players.indexOf(goal.assist.id) !== -1) {
+            if (!playerEvents.has(goal.assist.id)) {
+              playerEvents.set(goal.assist.id, []);
+            }
+
+            playerEvents.get(goal.assist.id).push({...goal, eventType: 'goal'});
+          }
+        }
+      });
+    }
+
+    if(lineup.substitutionChanges) {
+      lineup.substitutionChanges.forEach(change => {
+        if (change.player && players.indexOf(change.player.id) !== -1) {
+          if (!playerEvents.has(change.player.id)) {
+            playerEvents.set(change.player.id, []);
+          }
+
+          playerEvents.get(change.player.id).push({...change, eventType: 'change'});
+        }
+
+        if(change.substitutePlayer && players.indexOf(change.substitutePlayer.id) !== -1) {
+          if (!playerEvents.has(change.substitutePlayer.id)) {
+            playerEvents.set(change.substitutePlayer.id, []);
+          }
+
+          playerEvents.get(change.substitutePlayer.id).push({...change, eventType: 'change'});
+        }
+      });
+    }
+
+    if(lineup.capiten) {
+      if (!playerEvents.has(lineup.capiten.id)) {
+        playerEvents.set(lineup.capiten.id, []);
       }
+
+      playerEvents.get(lineup.capiten.id).push({eventType: 'capiten'});
+    }
+
+    playerEvents.forEach(value => {
+      value.sort((a,b) => a.minute - b.minute);
     });
 
     return playerEvents;

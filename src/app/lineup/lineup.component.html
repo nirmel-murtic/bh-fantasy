@@ -19,15 +19,36 @@
 </ng-template>
 <ng-template let-player="player" let-event="event" #eventInfoContentTemplate>
   <div class="event-info">
-    <span *ngIf="event.player.id === player.id && event.ownGoal">
-      Scored own goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
-    </span>
-    <span *ngIf="event.player.id === player.id && !event.ownGoal">
-      Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
-    </span>
-    <span *ngIf="event.assist && event.assist.id === player.id">
-      Assisted for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
-    </span>
+    <ng-container *ngIf="event.eventType === 'goal'">
+      <span *ngIf="event.player.id === player.id && event.ownGoal">
+        Scored own goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.player.id === player.id && !event.ownGoal">
+        Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.assist && event.assist.id === player.id">
+        Assisted for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+      </span>
+    </ng-container>
+    <ng-container *ngIf="event.eventType === 'card'">
+      <span *ngIf="event.cardType === CardType.RED">
+        Red card in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.cardType === CardType.YELLOW">
+        Yellow card in {{event.minute}} minute.
+      </span>
+    </ng-container>
+    <ng-container *ngIf="event.eventType === 'change'">
+      <span *ngIf="event.substitutePlayer && event.substitutePlayer.id === player.id && event.player">
+        Substituted by {{event.player.fullName}} in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.substitutePlayer && event.substitutePlayer.id === player.id && !event.player">
+        Left game in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.player && event.player.id === player.id && event.substitutePlayer">
+        Substitute {{event.substitutePlayer.fullName}} in {{event.minute}} minute.
+      </span>
+    </ng-container>
   </div>
 </ng-template>
 
@@ -67,7 +88,7 @@
                   placement="right"
                   triggers="manual"
                   #p3="ngbPopover"
-                  (mouseenter)="p3.open({player: player, event: event})"
+                  (mouseenter)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
                   (mouseleave)="p3.close()"
                   [ngbPopover]="eventInfoContentTemplate"
                   ngClass="{{getEventClass(event, player)}}"></div>
@@ -92,7 +113,7 @@
               placement="right"
               triggers="manual"
               #p3="ngbPopover"
-              (mouseenter)="p3.open({player: player, event: event})"
+              (mouseenter)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
               (mouseleave)="p3.close()"
               [ngbPopover]="eventInfoContentTemplate"
               ngClass="{{getEventClass(event, player)}}"></span>

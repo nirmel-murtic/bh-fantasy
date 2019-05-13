@@ -1202,6 +1202,27 @@ a:hover {
   background-position: -429px -87px;
 }
 
+.icon-red-card {
+  background-position: -383px -87px;
+}
+
+.icon-yellow-card {
+  background-position: -359px -87px;
+}
+
+.icon-capiten {
+  background-position: -373px -104px;
+}
+
+.icon-change-out {
+  background-position: -306px -87px;
+}
+
+.icon-change-in {
+  background-position: -287px -85px;
+  transform: rotate(180deg);
+}
+
 .event-info {
   width: 220px;
 }
