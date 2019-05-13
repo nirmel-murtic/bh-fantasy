@@ -170,6 +170,8 @@ export class LineupComponent implements OnInit {
     if(event.eventType === 'goal') {
       if(event.player.id === player.id && event.ownGoal) {
         return "icon-own-goal";
+      } else if(event.player.id === player.id && event.penalty) {
+        return "icon-penalty";
       } else if(event.player.id === player.id) {
         return "icon-goal";
       } else if(event.assist && event.assist.id === player.id) {
@@ -189,6 +191,8 @@ export class LineupComponent implements OnInit {
       } else if(event.player && event.player.id == player.id) {
         return "icon-change-in";
       }
+    } else if(event.eventType === 'missed-penalty') {
+      return 'icon-penalty-missed';
     }
   }
 }

@@ -4,6 +4,7 @@ import {Stadium} from './stadium';
 import {Lineup} from './lineup';
 import {Goal} from './goal';
 import {Card} from './card';
+import {MissedPenalty} from './missed-penalty';
 
 export interface Match extends Id {
   score1: number;
@@ -16,4 +17,5 @@ export interface Match extends Id {
   lineup2: Lineup;
   goals: Goal[];
   cards: Card[];
+  missedPenalties: MissedPenalty[];
 }

@@ -20,10 +20,13 @@
 <ng-template let-player="player" let-event="event" #eventInfoContentTemplate>
   <div class="event-info">
     <ng-container *ngIf="event.eventType === 'goal'">
+      <span *ngIf="event.player.id === player.id && event.penalty">
+        Scored from penalty for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+      </span>
       <span *ngIf="event.player.id === player.id && event.ownGoal">
         Scored own goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
       </span>
-      <span *ngIf="event.player.id === player.id && !event.ownGoal">
+      <span *ngIf="event.player.id === player.id && !event.ownGoal && !event.penalty">
         Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
       </span>
       <span *ngIf="event.assist && event.assist.id === player.id">
@@ -47,6 +50,17 @@
       </span>
       <span *ngIf="event.player && event.player.id === player.id && event.substitutePlayer">
         Substitute {{event.substitutePlayer.fullName}} in {{event.minute}} minute.
+      </span>
+    </ng-container>
+    <ng-container *ngIf="event.eventType === 'missed-penalty'">
+      <span *ngIf="event.player.id === player.id && !event.savedBy">
+          Missed penalty in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.player.id === player.id && event.savedBy">
+          Missed penalty in {{event.minute}} minute. Saved by {{event.savedBy.fullName}}
+      </span>
+      <span *ngIf="event.savedBy && event.savedBy.id === player.id">
+          Saved penalty in {{event.minute}} minute.
       </span>
     </ng-container>
   </div>

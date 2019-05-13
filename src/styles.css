@@ -1214,6 +1214,14 @@ a:hover {
   background-position: -373px -104px;
 }
 
+.icon-penalty {
+  background-position: -527px -87px;
+}
+
+.icon-penalty-missed {
+  background-position: -551px -87px;
+}
+
 .icon-change-out {
   background-position: -306px -87px;
 }

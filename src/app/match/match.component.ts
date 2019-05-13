@@ -96,6 +96,26 @@ export class MatchComponent implements OnInit, OnDestroy {
       });
     }
 
+    if(this.match.missedPenalties) {
+      this.match.missedPenalties.forEach(penalty => {
+        if (players.indexOf(penalty.player.id) !== -1) {
+          if (!playerEvents.has(penalty.player.id)) {
+            playerEvents.set(penalty.player.id, []);
+          }
+
+          playerEvents.get(penalty.player.id).push({...penalty, eventType: 'missed-penalty'});
+        }
+
+        if (penalty.savedBy && players.indexOf(penalty.savedBy.id) !== -1) {
+          if (!playerEvents.has(penalty.savedBy.id)) {
+            playerEvents.set(penalty.savedBy.id, []);
+          }
+
+          playerEvents.get(penalty.savedBy.id).push({...penalty, eventType: 'missed-penalty'});
+        }
+      });
+    }
+
     if(this.match.goals) {
       this.match.goals.forEach(goal => {
         if (players.indexOf(goal.player.id) !== -1) {
