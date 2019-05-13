@@ -28,6 +28,8 @@ export class MatchComponent implements OnInit, OnDestroy {
 
   private roundSubscription: any;
 
+  private matchSubscription: any;
+
   private loading = false;
 
   public playerEventsLineup1 = new Map<number, PlayerEvent[]>();
@@ -39,11 +41,11 @@ export class MatchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.route.params.subscribe(params => {
-      if(params.matchId) {
-        this.matchId = +params.matchId;
-        this.leagueId = +params.leagueId;
-        this.roundId = +params.roundId;
+      this.matchId = params.matchId ? +params.matchId : null;
+      this.leagueId = params.leagueId ? +params.leagueId : null;
+      this.roundId = params.roundId ? +params.roundId : null;
 
+      if(this.matchId) {
         this.loadLeagueDetails();
       }
     }));
@@ -63,6 +65,7 @@ export class MatchComponent implements OnInit, OnDestroy {
 
         if (this.leagueSubscription) {
           this.leagueSubscription.unsubscribe();
+          this.leagueSubscription = null;
         }
 
         this.loadRoundDetails();
@@ -174,6 +177,10 @@ export class MatchComponent implements OnInit, OnDestroy {
   }
 
   loadRoundDetails() {
+    if(this.roundSubscription) {
+      return;
+    }
+
     this.roundSubscription = this.store.select(getCurrentRound).subscribe(round => {
       if(!round || !round.matches) {
         if(!this.loading) {
@@ -186,6 +193,7 @@ export class MatchComponent implements OnInit, OnDestroy {
 
         if(this.roundSubscription) {
           this.roundSubscription.unsubscribe();
+          this.roundSubscription = null;
         }
 
         this.loadMatchDetails();
@@ -195,7 +203,11 @@ export class MatchComponent implements OnInit, OnDestroy {
   }
 
   loadMatchDetails() {
-    this.subscriptions.push(this.store.select(getCurrentMatch).subscribe(match => {
+    if(this.matchSubscription) {
+      return;
+    }
+
+    this.matchSubscription = this.store.select(getCurrentMatch).subscribe(match => {
       this.match = match;
 
       if(!match || !this.match.lineup1) {
@@ -209,8 +221,12 @@ export class MatchComponent implements OnInit, OnDestroy {
         this.playerEventsLineup2 = this.getPlayerEvents(this.match.lineup2);
 
         this.loading = false;
+
+        this.matchSubscription.unsubscribe();
       }
-    }));
+    });
+
+    this.subscriptions.push(this.matchSubscription);
   }
 
   ngOnDestroy() {

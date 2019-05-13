@@ -25,14 +25,14 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(this.route.params.subscribe(params => {
-      if(params.leagueId) {
-        this.leagueId = +params.leagueId;
-
-        this.leagueService.loadLeagueDetails(this.leagueId);
-      }
+      this.leagueId = params.leagueId ? +params.leagueId : null;
     }));
 
     this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
+      if(!league && this.leagueId) {
+        this.leagueService.loadLeagueDetails(this.leagueId);
+      }
+
       this.league = league;
     }));
   }

@@ -1,9 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
-import {getCurrentStandings, State} from '../shared/reducers';
+import {getCurrentLeague, getCurrentStandings, State} from '../shared/reducers';
 import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
+import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'app-standings',
@@ -23,27 +24,28 @@ export class StandingsComponent implements OnInit, OnDestroy {
   @Input()
   set leagueId(value: number) {
     this.standalone = false;
+
+    if(value !== this._leagueId) {
+      this.leagueService.loadStandings(value).subscribe(result => {
+        this.standings = result;
+      });
+    }
+
     this._leagueId = value;
   }
 
-  get leagueId() {
-    return this._leagueId;
-  }
-
   ngOnInit() {
-    this.subscriptions.push(this.route.params.subscribe(params => {
-      if(params.leagueId) {
-        this._leagueId = +params.leagueId;
+    if(this.standalone) {
+      combineLatest(
+        this.store.select(getCurrentLeague),
+        this.store.select(getCurrentStandings)).subscribe(([league, standings]) => {
+         if(league && !standings) {
+           this.leagueService.loadStandings(league.id);
+         }
 
-        this.leagueService.loadStandings(this._leagueId);
-      }
-    }));
-
-    this.subscriptions.push(
-      this.store.select(getCurrentStandings).subscribe(value => {
-        this.standings = value;
-      })
-    )
+         this.standings = standings;
+      });
+    }
   }
 
   ngOnDestroy() {

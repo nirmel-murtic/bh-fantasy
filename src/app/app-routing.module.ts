@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'leagues',
     component: LeaguesComponent
-  }
+  },
+  {
+    path: 'leagues/:leagueId/rounds/:roundId',
+    component: LeagueComponent
+  },
 ];
 
 @NgModule({

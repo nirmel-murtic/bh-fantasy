@@ -17,6 +17,7 @@ import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
+import {share} from "rxjs/operators";
 
 @Injectable()
 export class LeagueService {
@@ -36,20 +37,28 @@ export class LeagueService {
       });
   }
 
-  loadStandings(leagueId: number): void {
-    this.http
+  loadStandings(leagueId: number): Observable<StandingValue[]> {
+    const result: Observable<StandingValue[]> = this.http
       .get<StandingValue[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.STANDINGS))
-      .subscribe(data => {
-        this.store.dispatch(new LoadStandingsAction(data, leagueId));
-      });
+      .pipe(share());
+
+    result.subscribe(data => {
+      this.store.dispatch(new LoadStandingsAction(data, leagueId));
+    });
+
+    return result;
   }
 
-  loadTopPlayers(leagueId: number): void {
-    this.http
+  loadTopPlayers(leagueId: number): Observable<TopPlayerValue[]> {
+    const result: Observable<TopPlayerValue[]> = this.http
       .get<TopPlayerValue[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.TOP_PLAYERS))
-      .subscribe(data => {
-        this.store.dispatch(new LoadTopPlayersAction(data, leagueId));
-      });
+      .pipe(share());
+
+    result.subscribe(data => {
+      this.store.dispatch(new LoadTopPlayersAction(data, leagueId));
+    });
+
+    return result;
   }
 
   loadRounds(leagueId: number): void {

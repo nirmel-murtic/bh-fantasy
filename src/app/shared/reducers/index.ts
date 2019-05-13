@@ -27,9 +27,21 @@ export const getCurrentLeague = createSelector(getLeagues, selectRouteParameters
 }));
 
 export const getCurrentRound = createSelector(getCurrentLeague, selectRouteParameters,
-  (league, route) => league && league.rounds ? league.rounds.find(round => {
-    return round.id === +route.roundId;
-  }) : null);
+  (league, route) => {
+    if (league && league.rounds) {
+      if(route.roundId) {
+        return league.rounds.find(round => {
+          return round.id === +route.roundId;
+        });
+      } else if(league.currentRoundId) {
+        return league.rounds.find(round => {
+          return round.id === league.currentRoundId;
+        });
+      }
+    } else {
+      return null;
+    }
+});
 
 export const getCurrentMatch = createSelector(getCurrentRound, selectRouteParameters,
   (round, route) => round && round.matches ? round.matches.find(match => {
