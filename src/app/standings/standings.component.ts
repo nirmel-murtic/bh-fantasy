@@ -1,10 +1,10 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
-import {getCurrentLeague, getCurrentStandings, State} from '../shared/reducers';
+import {getCurrentStandings, State} from '../shared/reducers';
 import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
-import {combineLatest} from "rxjs";
+import {addIfNotExist, removeItem} from "../shared/utils/utils";
 
 @Component({
   selector: 'app-standings',
@@ -24,11 +24,13 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   public standalone = true;
 
+  private static LOADING_IDS = [];
+
   @Input()
   set leagueId(value: number) {
     this.standalone = false;
 
-    if(value !== this._leagueId) {
+    if(value && value !== this._leagueId) {
       this.leagueService.loadStandings(value).subscribe(result => {
         this.standings = result;
       });
@@ -39,15 +41,17 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if(this.standalone) {
-      combineLatest(
-        this.store.select(getCurrentLeague),
-        this.store.select(getCurrentStandings)).subscribe(([league, standings]) => {
-         if(league && !standings) {
+        this.subscriptions.push(this.store.select(getCurrentStandings).subscribe(([standings, league]) => {
+         if(league && !standings && addIfNotExist(StandingsComponent.LOADING_IDS, league.id)) {
            this.leagueService.loadStandings(league.id);
          }
 
          this.standings = standings;
-      });
+
+         if(this.standings) {
+           removeItem(StandingsComponent.LOADING_IDS, league.id);
+         }
+      }));
     }
   }
 

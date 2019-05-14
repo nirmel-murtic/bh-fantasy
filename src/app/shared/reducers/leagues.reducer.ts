@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: Action): State {
     case leagues.LOAD_STANDINGS: {
       const map = new Map();
 
-      state.standings.forEach((key, value) => {
+      state.standings.forEach((value, key) => {
         map.set(key, value);
       });
 
@@ -43,7 +43,7 @@ export function reducer(state = initialState, action: Action): State {
     case leagues.LOAD_TOP_PLAYERS: {
         const map = new Map();
 
-        state.topPlayers.forEach((key, value) => {
+        state.topPlayers.forEach((value, key) => {
           map.set(key, value);
         });
 

@@ -185,7 +185,7 @@ export class MatchComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.roundSubscription = this.store.select(getCurrentRound).subscribe(round => {
+    this.roundSubscription = this.store.select(getCurrentRound).subscribe(([round]) => {
       if(!round || !round.matches) {
         if(!this.loading) {
           this.leagueService.loadRoundDetails(this.leagueId, this.roundId);
@@ -211,7 +211,7 @@ export class MatchComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.matchSubscription = this.store.select(getCurrentMatch).subscribe(match => {
+    this.matchSubscription = this.store.select(getCurrentMatch).subscribe(([match]) => {
       this.match = match;
 
       if(!match || !this.match.lineup1) {

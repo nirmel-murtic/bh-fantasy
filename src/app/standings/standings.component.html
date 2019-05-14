@@ -19,7 +19,12 @@
       <tbody>
         <tr *ngFor="let value of standings; let i = index">
           <td>{{i + 1}}</td>
-          <td><img src="images/img-01_004.png" alt="">{{value.teamName}}</td>
+          <td>
+            <div class="image image-small float-left mr-2" *ngIf="value.profilePicture">
+              <img [src]="value.profilePicture" class="img-fluid">
+            </div>
+            <div class="float-left">{{value.teamName}}</div>
+          </td>
           <td><b>{{value.points}}</b></td>
           <td>{{value.won}}</td>
           <td>{{value.draw}}</td>

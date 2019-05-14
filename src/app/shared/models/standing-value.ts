@@ -4,6 +4,7 @@ export interface StandingValue {
   draw: number;
   lose: number;
   won: number;
+  profilePicture: string;
   goalsScored: number;
   goalsConceded: number;
   points: number;

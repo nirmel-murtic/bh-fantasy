@@ -791,7 +791,7 @@ a:hover {
   }
 }
 
-.site-blocks-vs .image.image-small {
+.image.image-small {
   width: 50px;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 50px;

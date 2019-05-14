@@ -5,7 +5,7 @@ import {LeagueService} from '../shared/services/league.service';
 import {League} from '../shared/models/league';
 import {Round} from '../shared/models/round';
 import {ActivatedRoute, Router} from "@angular/router";
-import { combineLatest } from 'rxjs';
+import {addIfNotExist, removeItem} from "../shared/utils/utils";
 
 @Component({
   selector: 'app-fixtures',
@@ -24,17 +24,26 @@ export class FixturesComponent implements OnInit, OnDestroy {
 
   private subscriptions = [];
 
-  private loading = false;
+  private static LOADING_IDS = [];
+
+  private static LOADING_ROUNDS = false;
 
   @Input('league')
   set league(value: League) {
     if(this._league && value.id !== this._league.id) {
       this.selectedRoundIndex = null;
       this.visibleRoundIndex = null;
+      FixturesComponent.LOADING_ROUNDS = false;
+      FixturesComponent.LOADING_IDS = [];
     }
 
-    if(this._league && value.id !== this._league.id || !value.rounds) {
-      this.leagueService.loadRounds(value.id);
+    if(!value.rounds) {
+      if(!FixturesComponent.LOADING_ROUNDS) {
+        FixturesComponent.LOADING_ROUNDS = true;
+        this.leagueService.loadRounds(value.id);
+      }
+    } else {
+      FixturesComponent.LOADING_ROUNDS = false;
     }
 
     this._league = value;
@@ -84,19 +93,16 @@ export class FixturesComponent implements OnInit, OnDestroy {
       this.league = league;
     }));
 
-    this.subscriptions.push(combineLatest(
-      this.store.select(getCurrentRound),
-      this.store.select(getCurrentLeague)).subscribe(([round, league]) => {
+    this.subscriptions.push(
+      this.store.select(getCurrentRound).subscribe(([round, league]) => {
         if(round) {
           if(!round.matches) {
-            if(!this.loading) {
-              this.loading = true;
-
+            if(addIfNotExist(FixturesComponent.LOADING_IDS, round.id)) {
               this.leagueService.loadRoundDetails(
                 league.id, round.id);
             }
           } else {
-            this.loading = false;
+            removeItem(FixturesComponent.LOADING_IDS, round.id);
           }
         }
 

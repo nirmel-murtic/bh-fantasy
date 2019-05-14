@@ -30,29 +30,29 @@ export const getCurrentRound = createSelector(getCurrentLeague, selectRouteParam
   (league, route) => {
     if (league && league.rounds) {
       if(route.roundId) {
-        return league.rounds.find(round => {
+        return [league.rounds.find(round => {
           return round.id === +route.roundId;
-        });
+        }), league];
       } else if(league.currentRoundId) {
-        return league.rounds.find(round => {
+        return [league.rounds.find(round => {
           return round.id === league.currentRoundId;
-        });
+        }), league];
       }
-    } else {
-      return null;
     }
+
+    return [null, null];
 });
 
 export const getCurrentMatch = createSelector(getCurrentRound, selectRouteParameters,
-  (round, route) => round && round.matches ? round.matches.find(match => {
+  ([round, league], route) => round && round.matches ? [round.matches.find(match => {
       return match.id === +route.matchId;
-  }) : null);
+  }), round, league] : [null, null, null]);
 
-export const getCurrentTopPlayers = createSelector(getTopPlayers, selectRouteParameters,
-  (topPlayers, route) => topPlayers.get(+route.leagueId));
+export const getCurrentTopPlayers = createSelector(getCurrentLeague, getTopPlayers,
+  (league, topPlayers) => [topPlayers.get(league.id), league]);
 
-export const getCurrentStandings = createSelector(getStandings, selectRouteParameters,
-  (standings, route) => standings.get(+route.leagueId));
+export const getCurrentStandings = createSelector(getCurrentLeague, getStandings,
+  (league, standings) => [standings.get(league.id), league]);
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer

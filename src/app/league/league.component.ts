@@ -18,6 +18,8 @@ export class LeagueComponent implements OnInit, OnDestroy {
 
   private subscriptions = [];
 
+  private loading = false;
+
   constructor(private store: Store<State>,
               private leagueService: LeagueService,
               private route: ActivatedRoute) {
@@ -29,11 +31,16 @@ export class LeagueComponent implements OnInit, OnDestroy {
     }));
 
     this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
-      if(!league && this.leagueId) {
-        this.leagueService.loadLeagueDetails(this.leagueId);
+      if(this.leagueId && (!league || !league.teams) && !this.loading) {
+        this.loading = true;
+        this.leagueService.loadLeagueDetails(league ? league.id : this.leagueId);
       }
 
       this.league = league;
+
+      if(this.league && this.league.teams) {
+        this.loading = false;
+      }
     }));
   }
 
