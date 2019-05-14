@@ -33,7 +33,7 @@ export class FixturesComponent implements OnInit, OnDestroy {
       this.visibleRoundIndex = null;
     }
 
-    if(!this._league || value.id !== this._league.id && !this._league.rounds) {
+    if(this._league && value.id !== this._league.id || !value.rounds) {
       this.leagueService.loadRounds(value.id);
     }
 
@@ -100,10 +100,9 @@ export class FixturesComponent implements OnInit, OnDestroy {
           }
         }
 
+        this.currentRound = round;
         this.selectedRoundIndex = this.getCurrentRoundIndex();
         this.visibleRoundIndex = this.selectedRoundIndex;
-
-        this.currentRound = round;
       }));
   }
 

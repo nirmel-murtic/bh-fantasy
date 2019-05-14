@@ -52,6 +52,10 @@ export class MatchComponent implements OnInit, OnDestroy {
   }
 
   loadLeagueDetails() {
+    if(this.leagueSubscription) {
+      return;
+    }
+
     this.leagueSubscription = this.store.select(getCurrentLeague).subscribe(league => {
       if(!league || !league.teams || !league.rounds) {
         if(!this.loading) {
@@ -222,7 +226,10 @@ export class MatchComponent implements OnInit, OnDestroy {
 
         this.loading = false;
 
-        this.matchSubscription.unsubscribe();
+        if(this.matchSubscription) {
+          this.matchSubscription.unsubscribe();
+          this.matchSubscription = null;
+        }
       }
     });
 

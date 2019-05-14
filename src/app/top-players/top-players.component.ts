@@ -19,6 +19,9 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
 
   private subscriptions = [];
 
+  @Input()
+  public showHeader = true;
+
   public standalone = true;
 
   @Input() limit: number;
