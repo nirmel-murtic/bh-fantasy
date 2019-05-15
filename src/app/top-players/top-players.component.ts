@@ -34,7 +34,7 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
 
     if(value && value !== this._leagueId) {
       this.leagueService.loadTopPlayers(value).subscribe(result => {
-        this.topPlayers = result;
+        this.topPlayers = !this.limit || !result ? result : result.slice(0, this.limit);
       });
     }
 
@@ -52,7 +52,7 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
           this.leagueService.loadTopPlayers(league.id);
         }
 
-        this.topPlayers = topPlayers;
+        this.topPlayers = !this.limit || !topPlayers ? topPlayers : topPlayers.slice(0, this.limit);
 
         if (this.topPlayers) {
           removeItem(TopPlayersComponent.LOADING_IDS, league.id);
