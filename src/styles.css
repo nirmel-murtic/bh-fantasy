@@ -1184,50 +1184,53 @@ a:hover {
 }
 
 .icon-lineup {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   vertical-align: text-top;
   margin-left: -2px;
 }
 
 .icon-goal {
-  background-position: -341px -87px;
+  background-position: -341px -85px;
 }
 
 .icon-own-goal {
-  background-position: -405px -87px;
+  background-position: -405px -85px;
 }
 
 .icon-assist {
-  background-position: -429px -87px;
+  background-position: -429px -85px;
 }
 
 .icon-red-card {
-  background-position: -383px -87px;
+  background-position: -383px -86px;
 }
 
 .icon-yellow-card {
-  background-position: -359px -87px;
+  background-position: -357px -86px;
+  width: 15px;
+  margin-right: 4px;
+  margin-left: -6px;
 }
 
 .icon-capiten {
-  background-position: -373px -104px;
+  background-position: -372px -103px;
 }
 
 .icon-penalty {
-  background-position: -527px -87px;
+  background-position: -835px -154px;
 }
 
 .icon-penalty-missed {
-  background-position: -551px -87px;
+  background-position: -816px -154px;
 }
 
 .icon-change-out {
-  background-position: -306px -87px;
+  background-position: -306px -85px;
 }
 
 .icon-change-in {
-  background-position: -287px -84px;
+  background-position: -287px -83px;
   transform: rotate(180deg);
 }
 
