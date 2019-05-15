@@ -1,6 +1,11 @@
 import * as fromLeagues from './leagues.reducer';
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
+import {TopPlayerValue} from "../models/top-player-value";
+import {League} from "../models/league";
+import {StandingValue} from "../models/standing-value";
+import {Round} from "../models/round";
+import {Match} from "../models/match";
 
 export interface State {
   leagues: fromLeagues.State;
@@ -32,27 +37,27 @@ export const getCurrentRound = createSelector(getCurrentLeague, selectRouteParam
       if(route.roundId) {
         return [league.rounds.find(round => {
           return round.id === +route.roundId;
-        }), league];
+        }), league] as [Round, League];
       } else if(league.currentRoundId) {
         return [league.rounds.find(round => {
           return round.id === league.currentRoundId;
-        }), league];
+        }), league] as [Round, League];
       }
     }
 
-    return [null, null];
+    return [null, null] as [Round, League];
 });
 
 export const getCurrentMatch = createSelector(getCurrentRound, selectRouteParameters,
-  ([round, league], route) => round && round.matches ? [round.matches.find(match => {
+  ([round, league], route) => (round && round.matches ? [round.matches.find(match => {
       return match.id === +route.matchId;
-  }), round, league] : [null, null, null]);
+  }), round, league] : [null, null, null]) as [Match, Round, League]);
 
 export const getCurrentTopPlayers = createSelector(getCurrentLeague, getTopPlayers,
-  (league, topPlayers) => [topPlayers.get(league.id), league]);
+  (league, topPlayers) => [topPlayers.get(league.id), league] as [TopPlayerValue[], League]);
 
 export const getCurrentStandings = createSelector(getCurrentLeague, getStandings,
-  (league, standings) => [standings.get(league.id), league]);
+  (league, standings) => [standings.get(league.id), league] as [StandingValue[], League]);
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer
