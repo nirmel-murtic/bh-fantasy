@@ -1,0 +1,12 @@
+.image.image-small {
+  width: 20px;
+  flex: 0 0 20px;
+}
+
+.name-container {
+  display: inline-flex;
+}
+
+th {
+  font-size: 14px;
+}

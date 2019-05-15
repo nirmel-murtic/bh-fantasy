@@ -4,4 +4,5 @@ export interface TopPlayerValue {
   goalsScored: number;
   assistsMade: number;
   points: number;
+  teamProfilePicture: string;
 }

@@ -1234,3 +1234,7 @@ a:hover {
 .event-info {
   width: 220px;
 }
+
+.table thead th {
+  vertical-align: middle;
+}
