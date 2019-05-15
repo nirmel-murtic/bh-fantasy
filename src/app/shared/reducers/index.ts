@@ -54,10 +54,10 @@ export const getCurrentMatch = createSelector(getCurrentRound, selectRouteParame
   }), round, league] : [null, null, null]) as [Match, Round, League]);
 
 export const getCurrentTopPlayers = createSelector(getCurrentLeague, getTopPlayers,
-  (league, topPlayers) => [topPlayers.get(league.id), league] as [TopPlayerValue[], League]);
+  (league, topPlayers) => [league ? topPlayers.get(league.id) : null, league] as [TopPlayerValue[], League]);
 
 export const getCurrentStandings = createSelector(getCurrentLeague, getStandings,
-  (league, standings) => [standings.get(league.id), league] as [StandingValue[], League]);
+  (league, standings) => [league ? standings.get(league.id) : null, league] as [StandingValue[], League]);
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer

@@ -10,14 +10,18 @@
       <tr>
         <th>#</th>
         <th>Player</th>
-        <th>Goal scored</th>
+        <th *ngIf="topPlayers && topPlayers.length && topPlayers[0].points != null">Points</th>
+        <th>Goals scored</th>
+        <th>Assists made</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let value of topPlayers; let i = index">
         <td>{{i + 1}}</td>
         <td>{{value.fullName}}</td>
+        <td *ngIf="value.points != null"><b>{{value.points}}</b></td>
         <td><b>{{value.goalsScored}}</b></td>
+        <td><b>{{value.assistsMade}}</b></td>
       </tr>
       </tbody>
     </table>
