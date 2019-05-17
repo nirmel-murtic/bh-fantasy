@@ -89,6 +89,7 @@
         <div *ngFor="let player of players" class="player">
             <span class="team-number"
                   (click)="p1.open({player: player})"
+                  (mouseleave)="!touch && p1.close()"
                   (mouseenter)="!touch && p1.open({player: player})">{{player.numberoOnDress}}</span>
 
             <div class="player-name"
