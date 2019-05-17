@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Lineup} from '../shared/models/lineup';
 import {Player, PlayerEvent, PlayerPosition, PlayerType} from '../shared/models/player';
 import {CardType} from '../shared/models/card';
+import {detectTouch} from "../shared/utils/utils";
 
 declare var $: any;
 
@@ -21,6 +22,8 @@ export class LineupComponent implements OnInit {
 
   public CardType = CardType;
 
+  public touch = false;
+
   @Input()
   public set lineup(value) {
     this._lineup = value;
@@ -37,6 +40,7 @@ export class LineupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.touch = detectTouch();
   }
 
   public populatePlayers() {

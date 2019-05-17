@@ -16,3 +16,7 @@ export function addIfNotExist(array, value): boolean {
 
   return false;
 }
+
+export function detectTouch() {
+  return 'ontouchstart' in document.documentElement;
+}

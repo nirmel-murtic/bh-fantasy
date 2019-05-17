@@ -1158,13 +1158,12 @@ a:hover {
 }
 
 .player-info {
-  padding: 0 0 2px 5px;
-  min-width: 250px;
+  padding: 0 0 2px 0px;
+  min-width: 270px;
 }
 
 .player-info .profile-image {
-  max-width: 65px;
-  padding: 0 0 0 10px;
+  max-width: 46px;
   margin-right: 10px;
 }
 

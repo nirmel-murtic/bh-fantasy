@@ -1,7 +1,7 @@
 <ng-template let-player="player" #playerInfoContentTemplate>
   <div class="player-info">
     <div class="row mb-2">
-      <div class="col-12">
+      <div>
         {{player.fullName}}
       </div>
     </div>
@@ -87,14 +87,17 @@
     <div class="lineups-players" *ngIf="startingPlayers">
       <div *ngFor="let players of startingPlayers; let i = index" class="players-container" ngClass="line-{{i+1}}">
         <div *ngFor="let player of players" class="player">
-            <span class="team-number">{{player.numberoOnDress}}</span>
+            <span class="team-number"
+                  (click)="p1.open({player: player})"
+                  (mouseenter)="!touch && p1.open({player: player})">{{player.numberoOnDress}}</span>
 
             <div class="player-name"
                  placement="right"
                  triggers="manual"
                  #p1="ngbPopover"
-                 (mouseenter)="p1.open({player: player})"
-                 (mouseleave)="p1.close()"
+                 (click)="p1.open({player: player})"
+                 (mouseenter)="!touch && p1.open({player: player})"
+                 (mouseleave)="!touch && p1.close()"
                  [ngbPopover]="playerInfoContentTemplate">{{player.lastName}}</div>
 
             <div class="icons-container">
@@ -102,8 +105,9 @@
                   placement="right"
                   triggers="manual"
                   #p3="ngbPopover"
-                  (mouseenter)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
-                  (mouseleave)="p3.close()"
+                  (click)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
+                  (mouseenter)="!touch && event.eventType !== 'capiten' && p3.open({player: player, event: event})"
+                  (mouseleave)="!touch && p3.close()"
                   [ngbPopover]="eventInfoContentTemplate"
                   ngClass="{{getEventClass(event, player)}}"></div>
             </div>
@@ -118,8 +122,9 @@
            placement="right"
            triggers="manual"
            #p2="ngbPopover"
-           (mouseenter)="p2.open({player: player})"
-           (mouseleave)="p2.close()"
+           (click)="p2.open({player: player})"
+           (mouseenter)="!touch && p2.open({player: player})"
+           (mouseleave)="!touch && p2.close()"
            [ngbPopover]="playerInfoContentTemplate">{{player.fullName}}</div>
       <span class="icons-container">
         <span *ngFor="let event of playerEvents.get(player.id)"
@@ -127,8 +132,9 @@
               placement="right"
               triggers="manual"
               #p3="ngbPopover"
-              (mouseenter)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
-              (mouseleave)="p3.close()"
+              (click)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
+              (mouseenter)="!touch && event.eventType !== 'capiten' && p3.open({player: player, event: event})"
+              (mouseleave)="!touch && p3.close()"
               [ngbPopover]="eventInfoContentTemplate"
               ngClass="{{getEventClass(event, player)}}"></span>
       </span>
