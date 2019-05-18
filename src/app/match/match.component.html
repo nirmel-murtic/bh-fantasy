@@ -4,16 +4,24 @@
       <h2 class="text-black">Match info</h2>
     </div>
   </div>
-  <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 site-blocks-vs">
+  <div class="pl-sm-2 col-sm-12 pr-sm-2 offset-lg-1 col-lg-10 site-blocks-vs">
     <div class="row">
       <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
         <div class="text-center text-lg-left">
-          <div class="d-block d-lg-flex align-items-center">
+          <div class="team-info d-block d-lg-flex align-items-center">
             <div class="image image-small text-center mb-3 mb-lg-0 mr-lg-3" *ngIf="match.team1.profilePicture">
               <img [src]="match.team1.profilePicture" alt="Image" class="img-fluid">
             </div>
-            <div class="text">
+            <div class="text mb-2 w-100">
               <h3 class="h5 mb-0 text-black">{{match.team1.name}}</h3>
+            </div>
+            <div class="w-100">
+              <ng-container *ngFor="let goal of match.goals;">
+                <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup2 : match.lineup1)" class="float-right w-100">
+                  <small class="goal-info float-lg-right text-right" *ngIf="goal.ownGoal">{{goal.player.fullName}} - (own goal) - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-right text-right" *ngIf="!goal.ownGoal">{{goal.player.fullName}} - {{goal.minute}}'</small>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -24,19 +32,28 @@
             <span class="h5">{{match.score1}}:{{match.score2}}</span>
           </div>
           <p class="mb-0" *ngIf="match.dateTime">
-            <small class="text-uppercase text-black font-weight-bold">{{match.dateTime | date : 'EEEE, MMM d, y h:mm a'}}</small>
+            <small class="text-uppercase text-black font-weight-bold d-block">{{match.dateTime | date : 'EEEE, MMM d, y'}}</small>
+            <small class="text-uppercase text-black font-weight-bold d-block">{{match.dateTime | date : 'h:mm a'}}</small>
           </p>
         </div>
       </div>
 
       <div class="col-md-4 col-lg-4 text-center text-lg-right">
         <div class="">
-          <div class="d-block d-lg-flex align-items-center">
+          <div class="team-info d-block d-lg-flex align-items-center">
             <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2" *ngIf="match.team2.profilePicture">
               <img [src]="match.team2.profilePicture" alt="Image" class="img-fluid">
             </div>
-            <div class="text order-1 w-100">
+            <div class="text order-1 w-100 mb-2">
               <h3 class="h5 mb-0 text-black">{{match.team2.name}}</h3>
+            </div>
+            <div class="w-100">
+              <ng-container *ngFor="let goal of match.goals;">
+                <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup1 : match.lineup2)" class="float-left w-100">
+                  <small class="goal-info float-lg-left text-left" *ngIf="goal.ownGoal">{{goal.player.fullName}} - (own goal) - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-left text-left" *ngIf="!goal.ownGoal">{{goal.player.fullName}} - {{goal.minute}}'</small>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>

@@ -5,7 +5,8 @@ import {LeagueService} from '../shared/services/league.service';
 import {ActivatedRoute} from '@angular/router';
 import {Match} from '../shared/models/match';
 import {Lineup} from '../shared/models/lineup';
-import {PlayerEvent} from '../shared/models/player';
+import {Player, PlayerEvent} from '../shared/models/player';
+import {Team} from "../shared/models/team";
 
 @Component({
   selector: 'app-match',
@@ -234,6 +235,22 @@ export class MatchComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(this.matchSubscription);
+  }
+
+  public isPlayingFor(player: Player, lineup: Lineup): boolean {
+    for(let i = 0; i < lineup.startingPlayers.length; i++) {
+      if(lineup.startingPlayers[i].id === player.id) {
+        return true;
+      }
+    }
+
+    for(let i = 0; i < lineup.substitutionChanges.length; i++) {
+      if(lineup.substitutionChanges[i].player.id === player.id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   ngOnDestroy() {

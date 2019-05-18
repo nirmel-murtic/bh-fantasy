@@ -1,3 +1,13 @@
 .site-blocks-vs {
   min-height: 600px;
 }
+
+.team-info {
+  min-width: 270px;
+  min-height: 115px;
+}
+
+.goal-info {
+  min-width: 160px;
+  font-size: 12px;
+}
