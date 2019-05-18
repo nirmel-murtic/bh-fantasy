@@ -10,10 +10,14 @@
       <tr>
         <th>#</th>
         <th>Team</th>
-        <th>Points</th>
+        <th>Played</th>
         <th>Won</th>
         <th>Draw</th>
         <th>Lose</th>
+        <th>Goals Scored</th>
+        <th>Goals Conceded</th>
+        <th>Goals Difference</th>
+        <th>Points</th>
       </tr>
       </thead>
       <tbody>
@@ -25,10 +29,14 @@
             </div>
             <div class="float-left">{{value.teamName}}</div>
           </td>
-          <td><b>{{value.points}}</b></td>
+          <td>{{value.counterPlayed}}</td>
           <td>{{value.won}}</td>
           <td>{{value.draw}}</td>
           <td>{{value.lose}}</td>
+          <td>{{value.goalsScored}}</td>
+          <td>{{value.goalsConceded}}</td>
+          <td>{{value.goalsDifference}}</td>
+          <td><b>{{value.points}}</b></td>
         </tr>
       </tbody>
     </table>
