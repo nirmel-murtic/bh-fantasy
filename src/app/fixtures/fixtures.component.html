@@ -67,7 +67,9 @@
               </div>
             </a>
             <p class="mb-0" *ngIf="match.dateTime">
-              <small class="text-uppercase text-black font-weight-bold">{{match.dateTime | date : 'EEEE, MMM d, y h:mm a'}}</small>
+              <small class="text-uppercase text-black font-weight-bold">
+                {{match.dateTime | date : hasTime(match.dateTime) ? 'EEEE, MMM d, y h:mm a' : 'EEEE, MMM d, y'}}
+              </small>
             </p>
           </div>
         </div>

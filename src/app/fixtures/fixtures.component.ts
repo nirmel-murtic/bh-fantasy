@@ -112,6 +112,16 @@ export class FixturesComponent implements OnInit, OnDestroy {
       }));
   }
 
+  public hasTime(date: Date) {
+    const value = new Date(date);
+
+    if (value.getHours() == 0 && value.getMinutes() == 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(value => value.unsubscribe());
   }
