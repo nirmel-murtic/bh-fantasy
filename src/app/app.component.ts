@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
           'top': 0,
           'behavior': 'smooth'
         });
+
+        this.closeMenu();
       }
     });
 
@@ -61,6 +63,14 @@ export class AppComponent implements OnInit {
         }
       }
     });
+  }
+
+  private closeMenu() {
+    if ($('body').hasClass('offcanvas-menu') ) {
+      $('body').removeClass('offcanvas-menu');
+
+      this.menuOpened = false;
+    }
   }
 
   public toggleMenu() {
