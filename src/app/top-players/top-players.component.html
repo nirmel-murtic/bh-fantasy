@@ -30,6 +30,11 @@
         <td><b>{{value.goalsScored}}</b></td>
         <td><b>{{value.assistsMade}}</b></td>
       </tr>
+      <tr *ngIf="!fullView && league">
+        <td colspan="5" class="full-view">
+          <a routerLink="/leagues/{{league.id}}/top-players" class="float-right">View Full Table</a>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

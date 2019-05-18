@@ -11,12 +11,11 @@
         <th>#</th>
         <th>Team</th>
         <th>Played</th>
-        <th>Won</th>
-        <th>Draw</th>
-        <th>Lose</th>
-        <th>Goals Scored</th>
-        <th>Goals Conceded</th>
-        <th>Goals Difference</th>
+        <th class="full-view">Won</th>
+        <th class="full-view">Draw</th>
+        <th class="full-view">Lose</th>
+        <th *ngIf="fullView" class="full-view">Goals</th>
+        <th *ngIf="fullView" class="full-view">+/-</th>
         <th>Points</th>
       </tr>
       </thead>
@@ -30,13 +29,17 @@
             <div class="float-left">{{value.teamName}}</div>
           </td>
           <td>{{value.counterPlayed}}</td>
-          <td>{{value.won}}</td>
-          <td>{{value.draw}}</td>
-          <td>{{value.lose}}</td>
-          <td>{{value.goalsScored}}</td>
-          <td>{{value.goalsConceded}}</td>
-          <td>{{value.goalsDifference}}</td>
+          <td class="full-view">{{value.won}}</td>
+          <td class="full-view">{{value.draw}}</td>
+          <td class="full-view">{{value.lose}}</td>
+          <td class="full-view" *ngIf="fullView">{{value.goalsScored}}:{{value.goalsConceded}}</td>
+          <td class="full-view" *ngIf="fullView">{{value.goalsDifference}}</td>
           <td><b>{{value.points}}</b></td>
+        </tr>
+        <tr *ngIf="!fullView && league">
+          <td colspan="7" class="full-view-button">
+            <a routerLink="/leagues/{{league.id}}/standings" class="float-right">View Full Table</a>
+          </td>
         </tr>
       </tbody>
     </table>

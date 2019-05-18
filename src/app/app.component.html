@@ -3,13 +3,47 @@
   <div class="site-mobile-menu">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-logo">
-        <a href="#"><img src="assets/images/logo.png" alt="Image"></a>
+        <a routerLink="/"><img src="assets/images/logo.png" alt="Image"></a>
       </div>
       <div class="site-mobile-menu-close mt-3">
-        <span class="icon-close2 js-menu-toggle"></span>
+        <span class="icon-close2 js-menu-toggle"
+              ngClass="{{menuOpened ? 'active' : ''}}"
+              (click)="toggleMenu()"></span>
       </div>
     </div>
-    <div class="site-mobile-menu-body"></div>
+    <div class="site-mobile-menu-body">
+      <ul class="site-menu d-md-block site-nav-wrap">
+        <li class="has-children">
+          <div class="arrow-collapse" ngClass="{{!expandedIndices.get('Leagues') ? 'collapsed' : ''}}"
+               (click)="expandedIndices.set('Leagues', !expandedIndices.get('Leagues'))"></div>
+          <a routerLink="/leagues">Leagues</a>
+
+          <ul class="dropdown arrow-top" [ngbCollapse]="!expandedIndices.get('Leagues')">
+            <ng-container *ngFor="let value of leagues | async">
+              <li class="has-children" *ngIf="value.type == LeagueType.RegularLeague">
+                <div class="arrow-collapse" ngClass="{{!expandedIndices.get(value.name) ? 'collapsed' : ''}}"
+                     (click)="expandedIndices.set(value.name, !expandedIndices.get(value.name))"></div>
+                <a routerLink="/leagues/{{value.id}}">{{value.name}}</a>
+                <ul class="dropdown" [ngbCollapse]="!expandedIndices.get(value.name)">
+                  <li><a routerLink="/leagues/{{value.id}}/standings">Standings</a></li>
+                  <li><a routerLink="/leagues/{{value.id}}/top-players">Top Players</a></li>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+        <li class="has-children">
+          <div class="arrow-collapse" ngClass="{{!expandedIndices.get('Fantasy') ? 'collapsed' : ''}}"
+               (click)="expandedIndices.set('Fantasy', !expandedIndices.get('Fantasy'))"></div>
+          <a routerLink="/leagues">Fantasy</a>
+          <ul class="dropdown arrow-top" [ngbCollapse]="!expandedIndices.get('Fantasy')">
+            <ng-container *ngFor="let value of leagues | async">
+              <li *ngIf="value.type == LeagueType.FantasyLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
+            </ng-container>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <header class="site-navbar absolute transparent" role="banner">
@@ -17,15 +51,21 @@
     <nav class="site-navigation position-relative text-right bg-black text-md-right" role="navigation">
       <div class="container position-relative">
         <div class="site-logo">
-          <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+          <a href="/"><img src="assets/images/logo.png" alt=""></a>
         </div>
 
-        <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+        <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3">
+          <a href="#" class="site-menu-toggle js-menu-toggle text-white"
+             ngClass="{{menuOpened ? 'active' : ''}}" (click)="toggleMenu()">
+            <span class="icon-menu h3"></span>
+          </a>
+        </div>
 
-        <ul class="site-menu js-clone-nav d-none d-md-block">
+        <ul class="site-menu d-none d-md-block">
           <li class="float-left"><a class="website-slogan">ONE TOWN, ONE TEAM, ONE DREAM!</a></li>
           <li class="has-children">
             <a routerLink="/leagues">Leagues</a>
+
             <ul class="dropdown arrow-top">
               <ng-container *ngFor="let value of leagues | async">
                 <li class="has-children" *ngIf="value.type == LeagueType.RegularLeague">

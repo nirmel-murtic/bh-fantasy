@@ -1,10 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {getCurrentTopPlayers, State} from '../shared/reducers';
+import {getCurrentLeague, getCurrentTopPlayers, State} from '../shared/reducers';
 import {LeagueService} from "../shared/services/league.service";
 import {TopPlayerValue} from "../shared/models/top-player-value";
 import {ActivatedRoute} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
+import {League} from "../shared/models/league";
 
 @Component({
   selector: 'app-top-players',
@@ -24,6 +25,11 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
 
   public standalone = true;
 
+  public league: League;
+
+  @Input()
+  public fullView = true;
+
   private static LOADING_IDS = [];
 
   @Input() limit: number;
@@ -36,13 +42,13 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
       this.leagueService.loadTopPlayers(value).subscribe(result => {
         this.topPlayers = !this.limit || !result ? result : result.slice(0, this.limit);
       });
+
+      this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
+        this.league = league;
+      }));
     }
 
     this._leagueId = value;
-  }
-
-  get leagueId() {
-    return this._leagueId;
   }
 
   ngOnInit() {
@@ -52,6 +58,7 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
           this.leagueService.loadTopPlayers(league.id);
         }
 
+        this.league = league;
         this.topPlayers = !this.limit || !topPlayers ? topPlayers : topPlayers.slice(0, this.limit);
 
         if (this.topPlayers) {

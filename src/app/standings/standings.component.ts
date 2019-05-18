@@ -1,10 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
-import {getCurrentStandings, State} from '../shared/reducers';
+import {getCurrentLeague, getCurrentStandings, State} from '../shared/reducers';
 import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
+import {League} from "../shared/models/league";
 
 @Component({
   selector: 'app-standings',
@@ -22,7 +23,12 @@ export class StandingsComponent implements OnInit, OnDestroy {
   @Input()
   public showHeader = true;
 
+  @Input()
+  public fullView = true;
+
   public standalone = true;
+
+  public league: League;
 
   private static LOADING_IDS = [];
 
@@ -34,6 +40,10 @@ export class StandingsComponent implements OnInit, OnDestroy {
       this.leagueService.loadStandings(value).subscribe(result => {
         this.standings = result;
       });
+
+      this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
+        this.league = league;
+      }));
     }
 
     this._leagueId = value;
@@ -46,6 +56,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
            this.leagueService.loadStandings(league.id);
          }
 
+         this.league = league;
          this.standings = standings;
 
          if(this.standings) {

@@ -30,27 +30,29 @@ export class FixturesComponent implements OnInit, OnDestroy {
 
   @Input('league')
   set league(value: League) {
-    if(this._league && value.id !== this._league.id) {
-      this.selectedRoundIndex = null;
-      this.visibleRoundIndex = null;
-      FixturesComponent.LOADING_ROUNDS = false;
-      FixturesComponent.LOADING_IDS = [];
-    }
-
-    if(!value.rounds) {
-      if(!FixturesComponent.LOADING_ROUNDS) {
-        FixturesComponent.LOADING_ROUNDS = true;
-        this.leagueService.loadRounds(value.id);
+    if(value) {
+      if (this._league && value.id !== this._league.id) {
+        this.selectedRoundIndex = null;
+        this.visibleRoundIndex = null;
+        FixturesComponent.LOADING_ROUNDS = false;
+        FixturesComponent.LOADING_IDS = [];
       }
-    } else {
-      FixturesComponent.LOADING_ROUNDS = false;
+
+      if (!value.rounds) {
+        if (!FixturesComponent.LOADING_ROUNDS) {
+          FixturesComponent.LOADING_ROUNDS = true;
+          this.leagueService.loadRounds(value.id);
+        }
+      } else {
+        FixturesComponent.LOADING_ROUNDS = false;
+      }
     }
 
     this._league = value;
   }
 
   public getCurrentRoundIndex() {
-    if (this.league.rounds) {
+    if (this.league && this.league.rounds) {
       const roundId = this.currentRound ? this.currentRound.id : this.league.currentRoundId;
 
       for(let i = 0; i < this._league.rounds.length; i++) {

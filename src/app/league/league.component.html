@@ -13,18 +13,18 @@
     <div class="offset-lg-1 col-lg-6 offset-sm-1 col-sm-10">
       <div class="row mb-5">
         <div class="col-md-12 text-center">
-          <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
+          <a routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
         </div>
       </div>
-      <app-standings [showHeader]="false"></app-standings>
+      <app-standings [showHeader]="false" [fullView]="false"></app-standings>
     </div>
     <div class="pl-lg-5 offset-lg-0 col-lg-4 offset-sm-1 col-sm-10">
       <div class="row mb-5">
         <div class="col-md-12 text-center">
-          <a (click)="scrollOnTop($event)" routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
+          <a routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
         </div>
       </div>
-      <app-top-players limit="10" [showHeader]="false"></app-top-players>
+      <app-top-players limit="10" [showHeader]="false" [fullView]="false"></app-top-players>
     </div>
   </div>
 </ng-container>

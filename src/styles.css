@@ -1241,3 +1241,7 @@ a:hover {
 .table thead th {
   vertical-align: middle;
 }
+
+.site-mobile-menu-body .website-slogan {
+  display: none !important;
+}
