@@ -49,7 +49,7 @@
             <div class="w-100">
               <ng-container *ngFor="let goal of match.goals;">
                 <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup1 : match.lineup2)" class="float-left w-100">
-                  <small class="goal-info float-lg-left text-left" >{{goal.player.fullName}} - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-left text-left" >{{goal.minute}}' - {{goal.player.fullName}}</small>
                 </div>
               </ng-container>
             </div>
