@@ -4,7 +4,7 @@
       <h2 class="text-black">Match info</h2>
     </div>
   </div>
-  <div class="pl-sm-2 col-sm-12 pr-sm-2 offset-lg-1 col-lg-10 site-blocks-vs">
+  <div class="pl-sm-5 col-sm-12 pr-sm-5 offset-lg-1 col-lg-10 site-blocks-vs">
     <div class="row">
       <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
         <div class="text-center text-lg-left">
@@ -18,8 +18,7 @@
             <div class="w-100">
               <ng-container *ngFor="let goal of match.goals;">
                 <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup2 : match.lineup1)" class="float-right w-100">
-                  <small class="goal-info float-lg-right text-right" *ngIf="goal.ownGoal">{{goal.player.fullName}} - (own goal) - {{goal.minute}}'</small>
-                  <small class="goal-info float-lg-right text-right" *ngIf="!goal.ownGoal">{{goal.player.fullName}} - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-right text-right">{{goal.player.fullName}} - {{goal.minute}}'</small>
                 </div>
               </ng-container>
             </div>
@@ -50,8 +49,7 @@
             <div class="w-100">
               <ng-container *ngFor="let goal of match.goals;">
                 <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup1 : match.lineup2)" class="float-left w-100">
-                  <small class="goal-info float-lg-left text-left" *ngIf="goal.ownGoal">{{goal.player.fullName}} - (own goal) - {{goal.minute}}'</small>
-                  <small class="goal-info float-lg-left text-left" *ngIf="!goal.ownGoal">{{goal.player.fullName}} - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-left text-left" >{{goal.player.fullName}} - {{goal.minute}}'</small>
                 </div>
               </ng-container>
             </div>
