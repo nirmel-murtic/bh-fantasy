@@ -88,6 +88,7 @@ export function reducer(state = initialState, action: Action): State {
           ...league,
           currentRoundId: action.payload.currentRoundId,
           teams: action.payload.teams,
+          groups: action.payload.groups
         };
       }
 

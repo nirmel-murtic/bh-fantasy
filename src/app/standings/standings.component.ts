@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
-import {getCurrentLeague, getCurrentStandings, State} from '../shared/reducers';
+import {getCurrentStandings, getLeagueById, getStandingsForLeague, State} from '../shared/reducers';
 import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
@@ -26,6 +26,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
   @Input()
   public fullView = true;
 
+  @Input()
+  public viewLeagueDetails = false;
+
   public standalone = true;
 
   public league: League;
@@ -37,11 +40,23 @@ export class StandingsComponent implements OnInit, OnDestroy {
     this.standalone = false;
 
     if(value && value !== this._leagueId) {
-      this.leagueService.loadStandings(value).subscribe(result => {
-        this.standings = result;
-      });
+      this.subscriptions.push(this.store.select(getStandingsForLeague, {id: value}).subscribe(
+        result => {
+          if(result) {
+            this.standings = result;
+          } else {
+            this.subscriptions.push(this.leagueService.loadStandings(value).subscribe(result => {
+              this.standings = result;
+            }));
+          }
+        }
+      ));
 
-      this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
+      this.subscriptions.push(this.store.select(getLeagueById, {id: value}).subscribe(league => {
+        if(!this.league) {
+          this.leagueService.loadLeagueDetails(value);
+        }
+
         this.league = league;
       }));
     }

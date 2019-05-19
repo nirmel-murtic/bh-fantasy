@@ -10,7 +10,7 @@ th {
   padding: 2px 8px 2px 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   .full-view {
     display: none;
   }

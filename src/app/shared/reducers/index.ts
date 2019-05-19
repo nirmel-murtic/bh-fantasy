@@ -59,6 +59,16 @@ export const getCurrentTopPlayers = createSelector(getCurrentLeague, getTopPlaye
 export const getCurrentStandings = createSelector(getCurrentLeague, getStandings,
   (league, standings) => [league ? standings.get(league.id) : null, league] as [StandingValue[], League]);
 
+export const getStandingsForLeague = createSelector(getStandings,
+  (standings, props) => standings.get(props.id));
+
+export const getLeagueById = createSelector(getLeagues,
+  (leagues, props) => leagues.find(league => {
+    return league.id === props.id;
+  })
+);
+
+
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer
 };
