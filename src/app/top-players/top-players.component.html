@@ -12,7 +12,7 @@
         <th>Player</th>
         <th *ngIf="topPlayers && topPlayers.length && topPlayers[0].points != null">Points</th>
         <th>Goals scored</th>
-        <th>Assists made</th>
+        <th class="full-view">Assists made</th>
       </tr>
       </thead>
       <tbody>
@@ -28,7 +28,7 @@
         </td>
         <td *ngIf="value.points != null"><b>{{value.points}}</b></td>
         <td><b>{{value.goalsScored}}</b></td>
-        <td><b>{{value.assistsMade}}</b></td>
+        <td class="full-view"><b>{{value.assistsMade}}</b></td>
       </tr>
       <tr *ngIf="!fullView && league">
         <td colspan="5" class="full-view">
