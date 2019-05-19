@@ -8,15 +8,9 @@
 }
 
 th {
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .full-view-button {
   padding: 2px 8px 2px 0;
-}
-
-@media (max-width: 800px) {
-  .full-view {
-    display: none;
-  }
 }

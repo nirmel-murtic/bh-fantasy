@@ -6,6 +6,15 @@ body {
   font-size: 1.1rem;
 }
 
+@media (max-width: 768px) {
+  body {
+    line-height: 1.7;
+    color: #4d4d4d;
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+}
+
 ::-moz-selection {
   background: #000;
   color: #fff;
