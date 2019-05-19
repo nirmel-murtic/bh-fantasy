@@ -3,15 +3,37 @@
 }
 
 th {
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .full-view-button {
   padding: 2px 8px 2px 0;
 }
 
+@media (max-width: 500px) {
+  .partial-view {
+    display: none;
+  }
+
+  .standings {
+    font-size: 13px;
+  }
+}
+
 @media (max-width: 600px) {
   .full-view {
     display: none;
   }
+
+  .standings {
+    font-size: 12px;
+  }
+}
+
+.order-number {
+  width: 46px;
+}
+
+.points {
+  width: 58px;
 }

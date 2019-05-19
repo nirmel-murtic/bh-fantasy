@@ -4,19 +4,19 @@
       <h2 class="text-black">Standings</h2>
     </div>
   </div>
-  <div class="feature-matchs">
+  <div class="feature-matchs standings">
     <table class="table table-bordered table-hover">
       <thead>
       <tr>
-        <th>#</th>
+        <th class="order-number">#</th>
         <th>Team</th>
         <th>Played</th>
-        <th class="full-view">W</th>
-        <th class="full-view">D</th>
-        <th class="full-view">L</th>
+        <th class="partial-view">W</th>
+        <th class="partial-view">D</th>
+        <th class="partial-view">L</th>
         <th *ngIf="fullView" class="full-view">Goals</th>
         <th *ngIf="fullView" class="full-view">+/-</th>
-        <th>Points</th>
+        <th class="points">Points</th>
       </tr>
       </thead>
       <tbody>
@@ -29,9 +29,9 @@
             <div class="float-left">{{value.teamName}}</div>
           </td>
           <td>{{value.counterPlayed}}</td>
-          <td class="full-view">{{value.won}}</td>
-          <td class="full-view">{{value.draw}}</td>
-          <td class="full-view">{{value.lose}}</td>
+          <td class="partial-view">{{value.won}}</td>
+          <td class="partial-view">{{value.draw}}</td>
+          <td class="partial-view">{{value.lose}}</td>
           <td class="full-view" *ngIf="fullView">{{value.goalsScored}}:{{value.goalsConceded}}</td>
           <td class="full-view" *ngIf="fullView">{{value.goalsDifference}}</td>
           <td><b>{{value.points}}</b></td>

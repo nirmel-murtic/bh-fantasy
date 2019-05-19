@@ -1,26 +1,26 @@
 <ng-container *ngIf="league">
-  <div class="row pt-4">
+  <div class="row pt-5">
     <div class="col-md-12 text-center">
       <h2 class="text-black">{{league.name}}</h2>
     </div>
   </div>
 
   <ng-container *ngIf="!league.groups || !league.groups.length">
-    <div class="offset-lg-2 col-lg-8 offset-md-1 col-md-10">
-      <app-fixtures [league]="league"></app-fixtures>
+    <div class="offset-lg-1 col-lg-10 mt-5">
+      <app-standings [showHeader]="false" [fullView]="true"></app-standings>
     </div>
 
     <div class="row site-section">
       <div class="offset-lg-1 col-lg-6 offset-sm-1 col-sm-10">
-        <div class="row mb-5">
+        <div class="row mb-3">
           <div class="col-md-12 text-center">
-            <a routerLink="/leagues/{{leagueId}}/standings"><h2 class="text-black">Standings</h2></a>
+            <h2 class="text-black">Rounds</h2>
           </div>
         </div>
-        <app-standings [showHeader]="false" [fullView]="false"></app-standings>
+        <app-fixtures [league]="league"></app-fixtures>
       </div>
       <div class="pl-lg-5 offset-lg-0 col-lg-4 offset-sm-1 col-sm-10">
-        <div class="row mb-5">
+        <div class="row mb-4">
           <div class="col-md-12 text-center">
             <a routerLink="/leagues/{{leagueId}}/top-players"><h2 class="text-black">Top Players</h2></a>
           </div>

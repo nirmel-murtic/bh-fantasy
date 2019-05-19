@@ -78,7 +78,8 @@ export class FixturesComponent implements OnInit, OnDestroy {
   public selectRound(index: number, event) {
     this.currentRound = this.league.rounds[index];
 
-    this.router.navigateByUrl('/leagues/' + this.league.id + '/rounds/' + this.currentRound.id);
+    this.router.navigateByUrl(
+      '/leagues/' + this.league.id + '/rounds/' + this.currentRound.id);
 
     event.preventDefault();
   }

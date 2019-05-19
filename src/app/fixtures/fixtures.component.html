@@ -46,8 +46,9 @@
 
   <div class="row align-items-center mb-5" *ngIf="currentRound">
     <div class="col-md-12">
-      <div *ngFor="let match of currentRound.matches;" class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
-        <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
+      <div *ngFor="let match of currentRound.matches;"
+           class="row bg-white align-items-center ml-0 mr-0 py-4 match-entry">
+        <div class="col-md-4 col-lg-4 mb-4 mb-lg-0 col-sm-4">
 
           <div class="text-center text-lg-left">
             <div class="d-block d-lg-flex align-items-center">
@@ -61,7 +62,7 @@
           </div>
 
         </div>
-        <div class="col-md-4 col-lg-4 text-center mb-4 mb-lg-0">
+        <div class="col-md-4 col-lg-4 col-sm-4 text-center mb-4 mb-lg-0">
           <div class="d-inline-block">
             <a class="match-link" routerLink="/leagues/{{league.id}}/rounds/{{currentRound.id}}/matches/{{match.id}}">
               <div class="bg-black py-2 px-4 mb-2 text-white d-inline-block rounded">
@@ -76,7 +77,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-lg-4 text-center text-lg-right">
+        <div class="col-md-4 col-lg-4 col-sm-4 text-center text-lg-right">
           <div class="">
             <div class="d-block d-lg-flex align-items-center">
               <div class="image image-small ml-lg-3 mb-3 mb-lg-0 order-2" *ngIf="match.team2.profilePicture">

@@ -34,11 +34,13 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe(value => {
       if(value instanceof NavigationStart) {
-        window.scroll({
-          'left': 0,
-          'top': 0,
-          'behavior': 'smooth'
-        });
+        if(!/\/leagues\/\d*\/rounds\/\d*/gm.test(value.url)) {
+          window.scroll({
+            'left': 0,
+            'top': 0,
+            'behavior': 'smooth'
+          });
+        }
 
         this.closeMenu();
       }

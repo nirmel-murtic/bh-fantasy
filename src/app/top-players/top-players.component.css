@@ -14,3 +14,7 @@ th {
 .full-view-button {
   padding: 2px 8px 2px 0;
 }
+
+.order-number {
+  width: 46px;
+}
