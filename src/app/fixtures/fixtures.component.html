@@ -4,7 +4,7 @@
       <div class="site-block-27">
         <ul>
           <li class="round-navigation-button" (click)="selectVisibleRound(
-              visibleRoundIndex - 1, selectedRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
+              visibleRoundIndex - 1, selectedRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 0">
             <a href="#">&lt;</a>
           </li>
           <li class="round-navigation-left active" *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
@@ -36,7 +36,7 @@
 
           <li class="round-navigation-button"
               (click)="selectVisibleRound(visibleRoundIndex + 1, selectedRoundIndex + 1, $event)"
-              *ngIf="visibleRoundIndex < league.rounds.length - 2">
+              *ngIf="visibleRoundIndex < league.rounds.length - 1">
             <a href="#">&gt;</a>
           </li>
         </ul>
