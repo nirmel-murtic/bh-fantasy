@@ -15,3 +15,7 @@
 .match-entry {
   flex-wrap: unset;
 }
+
+.match-entry .col-sm-4 {
+  max-width: 33%;
+}

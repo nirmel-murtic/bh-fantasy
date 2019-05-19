@@ -14,9 +14,11 @@ th {
   .partial-view {
     display: none;
   }
+}
 
+@media (max-width: 700px) {
   .standings {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
