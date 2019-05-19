@@ -53,10 +53,6 @@ export class StandingsComponent implements OnInit, OnDestroy {
       ));
 
       this.subscriptions.push(this.store.select(getLeagueById, {id: value}).subscribe(league => {
-        if(!this.league) {
-          this.leagueService.loadLeagueDetails(value);
-        }
-
         this.league = league;
       }));
     }

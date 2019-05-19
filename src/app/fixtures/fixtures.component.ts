@@ -26,7 +26,7 @@ export class FixturesComponent implements OnInit, OnDestroy {
 
   private static LOADING_IDS = [];
 
-  private static LOADING_ROUNDS = false;
+  private static LOADING_ROUNDS = [];
 
   @Input('league')
   set league(value: League) {
@@ -34,17 +34,16 @@ export class FixturesComponent implements OnInit, OnDestroy {
       if (this._league && value.id !== this._league.id) {
         this.selectedRoundIndex = null;
         this.visibleRoundIndex = null;
-        FixturesComponent.LOADING_ROUNDS = false;
+        FixturesComponent.LOADING_ROUNDS = [];
         FixturesComponent.LOADING_IDS = [];
       }
 
       if (!value.rounds) {
-        if (!FixturesComponent.LOADING_ROUNDS) {
-          FixturesComponent.LOADING_ROUNDS = true;
+        if(addIfNotExist(FixturesComponent.LOADING_ROUNDS, value.id)) {
           this.leagueService.loadRounds(value.id);
         }
       } else {
-        FixturesComponent.LOADING_ROUNDS = false;
+        removeItem(FixturesComponent.LOADING_ROUNDS, value.id);
       }
     }
 

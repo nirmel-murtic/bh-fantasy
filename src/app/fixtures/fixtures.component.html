@@ -3,14 +3,15 @@
     <div class="col-md-12 text-center">
       <div class="site-block-27">
         <ul>
-          <li (click)="selectVisibleRound(visibleRoundIndex - 1, selectedRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
+          <li class="round-navigation-button" (click)="selectVisibleRound(
+              visibleRoundIndex - 1, selectedRoundIndex - 1, $event)" *ngIf="visibleRoundIndex > 1">
             <a href="#">&lt;</a>
           </li>
-          <li *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
-              (click)="selectRound(visibleRoundIndex - 1, $event)" class="active">
+          <li class="round-navigation-left active" *ngIf="selectedRoundIndex === visibleRoundIndex - 1 && visibleRoundIndex > 0"
+              (click)="selectRound(visibleRoundIndex - 1, $event)" >
             <span>{{league.rounds[visibleRoundIndex - 1].name}}</span>
           </li>
-          <li *ngIf="selectedRoundIndex !== visibleRoundIndex - 1 && visibleRoundIndex > 0"
+          <li class="round-navigation-left" *ngIf="selectedRoundIndex !== visibleRoundIndex - 1 && visibleRoundIndex > 0"
               (click)="selectRound(visibleRoundIndex - 1, $event)">
             <a href="#">{{league.rounds[visibleRoundIndex - 1].name}}</a>
           </li>
@@ -24,16 +25,17 @@
             <a href="#">{{league.rounds[visibleRoundIndex].name}}</a>
           </li>
 
-          <li *ngIf="selectedRoundIndex === visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
-              (click)="selectRound(visibleRoundIndex + 1, $event)" class="active">
+          <li class="round-navigation-right active" *ngIf="selectedRoundIndex === visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+              (click)="selectRound(visibleRoundIndex + 1, $event)">
             <span>{{league.rounds[visibleRoundIndex + 1].name}}</span>
           </li>
-          <li *ngIf="selectedRoundIndex !== visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
+          <li class="round-navigation-right" *ngIf="selectedRoundIndex !== visibleRoundIndex + 1 && visibleRoundIndex < league.rounds.length - 1"
               (click)="selectRound(visibleRoundIndex + 1, $event)">
             <a href="#">{{league.rounds[visibleRoundIndex + 1].name}}</a>
           </li>
 
-          <li (click)="selectVisibleRound(visibleRoundIndex + 1, selectedRoundIndex + 1, $event)"
+          <li class="round-navigation-button"
+              (click)="selectVisibleRound(visibleRoundIndex + 1, selectedRoundIndex + 1, $event)"
               *ngIf="visibleRoundIndex < league.rounds.length - 2">
             <a href="#">&gt;</a>
           </li>

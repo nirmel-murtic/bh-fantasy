@@ -34,7 +34,7 @@
          ngClass="{{i % 2 === 0 ? 'pl-lg-5' : 'pr-lg-5'}}">
       <div class="row pb-3">
         <div class="col-md-12 text-center">
-          <h2 class="text-black">{{group.name}}</h2>
+          <h2 routerLink="/leagues/{{group.id}}" class="text-black d-inline-block">{{group.name}}</h2>
         </div>
       </div>
       <app-standings [showHeader]="false" [fullView]="false"

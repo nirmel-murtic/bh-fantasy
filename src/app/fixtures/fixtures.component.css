@@ -1,3 +1,15 @@
 .match-link {
   color: #fff;
 }
+
+@media (max-width: 1200px) {
+  .round-navigation-button a {
+    width: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .round-navigation-right, .round-navigation-left {
+    display: none;
+  }
+}

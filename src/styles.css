@@ -1245,3 +1245,7 @@ a:hover {
 .site-mobile-menu-body .website-slogan {
   display: none !important;
 }
+
+[ng-reflect-router-link] {
+  cursor: pointer;
+}
