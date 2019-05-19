@@ -2,9 +2,6 @@
   width: 20px;
 }
 
-th {
-  font-size: 10px;
-}
 
 .full-view-button {
   padding: 2px 8px 2px 0;
@@ -19,6 +16,10 @@ th {
 @media (max-width: 700px) {
   .standings {
     font-size: 12px;
+  }
+
+  th {
+    font-size: 10px;
   }
 }
 
