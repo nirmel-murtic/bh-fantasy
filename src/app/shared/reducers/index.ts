@@ -31,6 +31,12 @@ export const getCurrentLeague = createSelector(getLeagues, selectRouteParameters
     return league.id === +route.leagueId;
 }));
 
+export const getCurrentLeagueWithId = createSelector(getLeagues, selectRouteParameters,
+  (leagues, route) => [leagues.find(league => {
+    return league.id === +route.leagueId;
+  }), +route.leagueId] as [League, number]);
+
+
 export const getCurrentRound = createSelector(getCurrentLeague, selectRouteParameters,
   (league, route) => {
     if (league && league.rounds) {
