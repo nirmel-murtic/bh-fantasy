@@ -1,5 +1,5 @@
 import * as leagues from '../actions/leagues.actions';
-import {League} from '../models/league';
+import {League, LeagueType} from '../models/league';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Id} from '../models/id';
@@ -26,7 +26,10 @@ export function reducer(state = initialState, action: Action): State {
       action.payload.forEach(league => {
         if(league.groups) {
          league.groups.forEach(group => {
-           leagues.push(group);
+           leagues.push({
+             ...group,
+             type: LeagueType.LeagueGroup
+           });
          });
         }
       });
