@@ -91,7 +91,9 @@ export class LineupComponent implements OnInit {
 
       for(let i = 0; i < formationParts.length; i++) {
         for(let j = 0; j < formationParts[i]; j++) {
-          this.startingPlayers[i].push(sorted[counter]);
+          if(sorted[counter]) {
+            this.startingPlayers[i].push(sorted[counter]);
+          }
 
           counter++;
         }

@@ -13,5 +13,6 @@ export interface League extends Id {
 
 export enum LeagueType {
   RegularLeague = 'RegularLeague',
-  FantasyLeague = 'FantasyLeague'
+  FantasyLeague = 'FantasyLeague',
+  LeagueGroup = 'LeagueGroup'
 }

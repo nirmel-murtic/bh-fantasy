@@ -1,11 +1,11 @@
 import * as fromLeagues from './leagues.reducer';
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
-import {TopPlayerValue} from "../models/top-player-value";
-import {League} from "../models/league";
-import {StandingValue} from "../models/standing-value";
-import {Round} from "../models/round";
-import {Match} from "../models/match";
+import {TopPlayerValue} from '../models/top-player-value';
+import {League, LeagueType} from '../models/league';
+import {StandingValue} from '../models/standing-value';
+import {Round} from '../models/round';
+import {Match} from '../models/match';
 
 export interface State {
   leagues: fromLeagues.State;
@@ -21,20 +21,23 @@ export const selectRouteParameters = createSelector(
 
 export const getLeaguesState = createFeatureSelector<fromLeagues.State>('leagues');
 
-export const getLeagues = createSelector(getLeaguesState, fromLeagues.getLeagues);
+export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.getLeagues);
+
 export const getStandings = createSelector(getLeaguesState, fromLeagues.getStandings);
 
 export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopPlayers);
 
-export const getCurrentLeague = createSelector(getLeagues, selectRouteParameters,
+export const getLeagues = createSelector(getLeaguesAndGroups, leagues => {
+  return leagues.filter(league => league.type !== LeagueType.LeagueGroup);
+});
+
+export const getCurrentLeague = createSelector(getLeaguesAndGroups, selectRouteParameters,
   (leagues, route) => leagues.find(league => {
     return league.id === +route.leagueId;
 }));
 
-export const getCurrentLeagueWithId = createSelector(getLeagues, selectRouteParameters,
-  (leagues, route) => [leagues.find(league => {
-    return league.id === +route.leagueId;
-  }), +route.leagueId] as [League, number]);
+export const getCurrentLeagueWithId = createSelector(getCurrentLeague, selectRouteParameters,
+  (league, route) => [league, +route.leagueId] as [League, number]);
 
 
 export const getCurrentRound = createSelector(getCurrentLeague, selectRouteParameters,
@@ -68,7 +71,7 @@ export const getCurrentStandings = createSelector(getCurrentLeague, getStandings
 export const getStandingsForLeague = createSelector(getStandings,
   (standings, props) => standings.get(props.id));
 
-export const getLeagueById = createSelector(getLeagues,
+export const getLeagueById = createSelector(getLeaguesAndGroups,
   (leagues, props) => leagues.find(league => {
     return league.id === props.id;
   })

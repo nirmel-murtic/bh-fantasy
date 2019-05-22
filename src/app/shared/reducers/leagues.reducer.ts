@@ -21,9 +21,19 @@ const initialState: State = {
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case leagues.LOAD_LEAGUES: {
+      const leagues = [...action.payload];
+
+      action.payload.forEach(league => {
+        if(league.groups) {
+         league.groups.forEach(group => {
+           leagues.push(group);
+         });
+        }
+      });
+
       return {
         ...state,
-        leagues: action.payload
+        leagues: leagues
       };
     }
     case leagues.LOAD_STANDINGS: {

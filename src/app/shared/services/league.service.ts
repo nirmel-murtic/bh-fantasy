@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
-import {getLeagues, State} from '../reducers';
+import {State} from '../reducers';
 import {Observable} from 'rxjs';
 import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
@@ -22,11 +22,8 @@ import {share} from "rxjs/operators";
 @Injectable()
 export class LeagueService {
 
-  public leagues: Observable<League[]>;
-
   constructor(private http: HttpClient,
               private store: Store<State>) {
-    this.leagues = store.select(getLeagues);
   }
 
   loadLeagues(): void {
