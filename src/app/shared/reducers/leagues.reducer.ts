@@ -3,6 +3,7 @@ import {League, LeagueType} from '../models/league';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Id} from '../models/id';
+import {Player} from '../models/player';
 
 export type Action = leagues.Actions;
 
@@ -10,12 +11,14 @@ export interface State {
   leagues: League[];
   standings: Map<number, StandingValue[]>;
   topPlayers: Map<number, TopPlayerValue[]>;
+  players: Map<number, Player[]>;
 }
 
 const initialState: State = {
   leagues: [],
   standings: new Map(),
-  topPlayers: new Map()
+  topPlayers: new Map(),
+  players : new Map()
 };
 
 export function reducer(state = initialState, action: Action): State {
@@ -66,6 +69,20 @@ export function reducer(state = initialState, action: Action): State {
           ...state,
           topPlayers: map
         };
+    }
+    case leagues.LOAD_PLAYER: {
+      const map = new Map();
+
+      state.players.forEach((value, key) => {
+        map.set(key, value);
+      });
+
+      map.set(action.leagueId, action.payload);
+
+      return {
+        ...state,
+        players: map
+      };
     }
     case leagues.LOAD_ROUNDS: {
       const league = {
@@ -180,3 +197,4 @@ function updateModelInModels(models: Id[], model: Id) {
 export const getLeagues = (state: State) => state.leagues;
 export const getStandings = (state: State) => state.standings;
 export const getTopPlayers = (state: State) => state.topPlayers;
+export const getPlayers = (state: State) => state.players;

@@ -3,5 +3,6 @@ export const Endpoint = {
   STANDINGS: '/standings',
   TOP_PLAYERS: '/top-players',
   ROUNDS: '/rounds',
-  MATCHES: '/matches'
+  MATCHES: '/matches',
+  PLAYERS: '/players'
 };

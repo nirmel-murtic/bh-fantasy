@@ -7,7 +7,7 @@ import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
 import {
   LoadLeagueAction,
-  LoadLeaguesAction, LoadMatchAction,
+  LoadLeaguesAction, LoadMatchAction, LoadPlayerAction,
   LoadRoundAction,
   LoadRoundsAction,
   LoadStandingsAction,
@@ -18,6 +18,7 @@ import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {share} from "rxjs/operators";
+import {Player} from '../models/player';
 
 @Injectable()
 export class LeagueService {
@@ -58,6 +59,18 @@ export class LeagueService {
     return result;
   }
 
+  loadPlayers(leagueId: number): Observable<Player[]> {
+    const result: Observable<Player[]> = this.http
+      .get<Player[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.PLAYERS))
+      .pipe(share());
+
+    result.subscribe(data => {
+      this.store.dispatch(new LoadPlayerAction(data, leagueId));
+    });
+
+    return result;
+  }
+
   loadRounds(leagueId: number): void {
     this.http
       .get<Round[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.ROUNDS))
@@ -92,4 +105,5 @@ export class LeagueService {
         this.store.dispatch(new LoadMatchAction(data, leagueId, roundId, matchId));
       });
   }
+
 }

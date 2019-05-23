@@ -1,24 +1,50 @@
 <div ngClass="{{showHeader ? 'site-section offset-1 col-10' : ''}}">
   <div class="row mb-5" *ngIf="showHeader">
     <div class="col-md-12 text-center">
-      <h2 class="text-black">Player Info</h2>
+      <h2 class="text-black">Players:</h2>
     </div>
   </div>
-<div class='card-body'>
-  <div class='row'>
-    <div class='col-md-8'>
-      <div class='row'>
-        <div class='col-md-4'>First Name:</div>
-        <div class='col-md-8'>{{value.firstName}}</div>
-      </div>
-      <div class='row'>
-        <div class='col-md-4'>Last Name:</div>
-        <div class='col-md-8'>{{player.lastName}}</div>
-      </div>
-      </div>
-    </div>
- </div>
+  <div class="feature-matchs standings">
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th class="order-number">#</th>
+        <th>Team</th>
+        <th>Played</th>
+        <th class="partial-view">W</th>
+        <th class="partial-view">D</th>
+        <th class="partial-view">L</th>
+        <th *ngIf="fullView" class="full-view">Goals</th>
+        <th *ngIf="fullView" class="full-view">+/-</th>
+        <th class="points">Points</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let value of standings; let i = index">
+        <td>{{i + 1}}</td>
+        <td>
+          <div class="image image-small float-left mr-2" *ngIf="value.profilePicture">
+            <img [src]="value.profilePicture" class="img-fluid">
+          </div>
+          <div class="float-left">{{value.teamName}}</div>
+        </td>
+        <td>{{value.counterPlayed}}</td>
+        <td class="partial-view">{{value.won}}</td>
+        <td class="partial-view">{{value.draw}}</td>
+        <td class="partial-view">{{value.lose}}</td>
+        <td class="full-view" *ngIf="fullView">{{value.goalsScored}}:{{value.goalsConceded}}</td>
+        <td class="full-view" *ngIf="fullView">{{value.goalsDifference}}</td>
+        <td><b>{{value.points}}</b></td>
+      </tr>
+      <tr *ngIf="!fullView && league">
+        <td colspan="7" class="full-view-button">
+          <a *ngIf="!viewLeagueDetails" routerLink="/leagues/{{league.id}}/standings"
+             class="float-right">View Full Table</a>
+          <a *ngIf="viewLeagueDetails" routerLink="/leagues/{{league.id}}"
+             class="float-right">View League Details</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
-

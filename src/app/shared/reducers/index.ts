@@ -6,6 +6,7 @@ import {League, LeagueType} from '../models/league';
 import {StandingValue} from '../models/standing-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
+import {Player} from '../models/player';
 
 export interface State {
   leagues: fromLeagues.State;
@@ -26,6 +27,8 @@ export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.g
 export const getStandings = createSelector(getLeaguesState, fromLeagues.getStandings);
 
 export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopPlayers);
+
+export const getPlayers = createSelector(getLeaguesState, fromLeagues.getPlayers);
 
 export const getLeagues = createSelector(getLeaguesAndGroups, leagues => {
   return leagues.filter(league => league.type !== LeagueType.LeagueGroup);
@@ -71,12 +74,16 @@ export const getCurrentStandings = createSelector(getCurrentLeague, getStandings
 export const getStandingsForLeague = createSelector(getStandings,
   (standings, props) => standings.get(props.id));
 
+export const getCurrentPlayer = createSelector(getCurrentLeague, getPlayers,
+  (league, players) => [league ? players.get(league.id) : null, league] as [Player[], League]);
+
+
+
 export const getLeagueById = createSelector(getLeaguesAndGroups,
   (leagues, props) => leagues.find(league => {
     return league.id === props.id;
   })
 );
-
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer

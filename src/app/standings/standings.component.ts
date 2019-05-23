@@ -45,6 +45,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
           if(result) {
             this.standings = result;
           } else {
+            // tslint:disable-next-line:no-shadowed-variable
             this.subscriptions.push(this.leagueService.loadStandings(value).subscribe(result => {
               this.standings = result;
             }));
