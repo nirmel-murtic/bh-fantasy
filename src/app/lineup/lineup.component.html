@@ -29,8 +29,11 @@
       <span *ngIf="event.player.id === player.id && !event.ownGoal && !event.penalty">
         Scored goal for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
       </span>
-      <span *ngIf="event.assist && event.assist.id === player.id">
+      <span *ngIf="event.assist && event.assist.id === player.id && !event.ownAssist && !event.penalty">
         Assisted for {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
+      </span>
+      <span *ngIf="event.assist && event.assist.id === player.id && event.ownAssist && event.penalty">
+        Conceded penalty {{event.score1}}:{{event.score2}} in {{event.minute}} minute.
       </span>
     </ng-container>
     <ng-container *ngIf="event.eventType === 'card'">
@@ -93,7 +96,7 @@
                   (mouseenter)="!touch && p1.open({player: player})">{{player.numberoOnDress}}</span>
 
             <div class="player-name"
-                 placement="right"
+                 placement="{{touch ? 'auto' : 'right'}}"
                  triggers="manual"
                  #p1="ngbPopover"
                  (click)="p1.open({player: player})"
@@ -103,7 +106,7 @@
 
             <div class="icons-container">
               <div *ngFor="let event of playerEvents.get(player.id)" class="icons-sprite icon-lineup"
-                  placement="right"
+                  placement="{{touch ? 'auto' : 'right'}}"
                   triggers="manual"
                   #p3="ngbPopover"
                   (click)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"
@@ -120,7 +123,7 @@
     <div *ngFor="let player of lineup.availableSubstitutions" class="player">
       <span class="team-number mr-3">{{player.numberoOnDress}}</span>
       <div class="player-name pr-2"
-           placement="right"
+           placement="{{touch ? 'auto' : 'right'}}"
            triggers="manual"
            #p2="ngbPopover"
            (click)="p2.open({player: player})"
@@ -130,7 +133,7 @@
       <span class="icons-container">
         <span *ngFor="let event of playerEvents.get(player.id)"
               class="icons-sprite icon-lineup"
-              placement="right"
+              placement="{{touch ? 'auto' : 'right'}}"
               triggers="manual"
               #p3="ngbPopover"
               (click)="event.eventType !== 'capiten' && p3.open({player: player, event: event})"

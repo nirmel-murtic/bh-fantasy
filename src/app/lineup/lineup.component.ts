@@ -180,8 +180,10 @@ export class LineupComponent implements OnInit {
         return "icon-penalty";
       } else if(event.player.id === player.id) {
         return "icon-goal";
-      } else if(event.assist && event.assist.id === player.id) {
+      } else if(event.assist && event.assist.id === player.id && !event.ownAssist && !event.penalty) {
         return "icon-assist";
+      } else if(event.assist && event.assist.id === player.id && event.ownAssist && event.penalty) {
+        return "icon-own-assist";
       }
     } else if(event.eventType === 'card') {
       if(event.cardType === CardType.RED) {
