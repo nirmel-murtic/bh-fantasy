@@ -1,0 +1,24 @@
+<div ngClass="{{showHeader ? 'site-section offset-1 col-10' : ''}}">
+  <div class="row mb-5" *ngIf="showHeader">
+    <div class="col-md-12 text-center">
+      <h2 class="text-black">Player Info</h2>
+    </div>
+  </div>
+<div class='card-body'>
+  <div class='row'>
+    <div class='col-md-8'>
+      <div class='row'>
+        <div class='col-md-4'>First Name:</div>
+        <div class='col-md-8'>{{value.firstName}}</div>
+      </div>
+      <div class='row'>
+        <div class='col-md-4'>Last Name:</div>
+        <div class='col-md-8'>{{player.lastName}}</div>
+      </div>
+      </div>
+    </div>
+ </div>
+</div>
+
+
+
