@@ -1,4 +1,5 @@
 import {Id} from './id';
+import {Team} from "./team";
 
 export interface Player extends Id {
   firstName: string;
@@ -11,6 +12,7 @@ export interface Player extends Id {
   position: PlayerPosition;
   positionName: string;
   type: string;
+  teams: Team[];
 }
 
 export enum PlayerType {
