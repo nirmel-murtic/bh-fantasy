@@ -5,6 +5,7 @@ import {StandingsComponent} from "./standings/standings.component";
 import {TopPlayersComponent} from "./top-players/top-players.component";
 import {MatchComponent} from "./match/match.component";
 import {LeaguesComponent} from './leagues/leagues.component';
+import {PlayerInfoComponent} from './player-info/player-info.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,9 @@ const routes: Routes = [
     path: 'leagues/:leagueId/rounds/:roundId',
     component: LeagueComponent
   },
+  {path: 'players/:playerId',
+    component: PlayerInfoComponent
+  }
 ];
 
 @NgModule({

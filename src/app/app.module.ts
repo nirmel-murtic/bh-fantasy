@@ -17,6 +17,7 @@ import { LineupComponent } from './lineup/lineup.component';
 import { MatchComponent } from './match/match.component';
 import { LeaguesComponent } from './leagues/leagues.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PlayerInfoComponent } from './player-info/player-info.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FixturesComponent,
     LineupComponent,
     MatchComponent,
-    LeaguesComponent
+    LeaguesComponent,
+    PlayerInfoComponent
   ],
   imports: [
     BrowserModule,

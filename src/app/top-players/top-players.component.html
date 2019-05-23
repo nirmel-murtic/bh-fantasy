@@ -23,7 +23,8 @@
             <div class="image image-small float-left mr-2" *ngIf="value.teamProfilePicture">
               <img [src]="value.teamProfilePicture" class="img-fluid">
             </div>
-            <div class="float-left">{{value.fullName}}</div>
+            <div class="float-left">
+              <a routerLink="/players/{{value.playerId}}">{{value.fullName}}</a></div>
           </div>
         </td>
         <td *ngIf="value.points != null"><b>{{value.points}}</b></td>
