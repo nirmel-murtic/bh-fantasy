@@ -18,6 +18,7 @@ import { MatchComponent } from './match/match.component';
 import { LeaguesComponent } from './leagues/leagues.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PlayerInfoComponent } from './player-info/player-info.component';
+import {PlayerService} from "./shared/services/player.service";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PlayerInfoComponent } from './player-info/player-info.component';
   ],
   providers: [
     LeagueService,
+    PlayerService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

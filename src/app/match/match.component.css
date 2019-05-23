@@ -11,3 +11,7 @@
   min-width: 160px;
   font-size: 12px;
 }
+
+.goal-info a {
+  color: #000;
+}

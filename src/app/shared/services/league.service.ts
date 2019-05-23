@@ -7,7 +7,7 @@ import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
 import {
   LoadLeagueAction,
-  LoadLeaguesAction, LoadMatchAction, LoadPlayerAction,
+  LoadLeaguesAction, LoadMatchAction, LoadPlayersAction,
   LoadRoundAction,
   LoadRoundsAction,
   LoadStandingsAction,
@@ -65,7 +65,7 @@ export class LeagueService {
       .pipe(share());
 
     result.subscribe(data => {
-      this.store.dispatch(new LoadPlayerAction(data, leagueId));
+      this.store.dispatch(new LoadPlayersAction(data, leagueId));
     });
 
     return result;
@@ -105,5 +105,4 @@ export class LeagueService {
         this.store.dispatch(new LoadMatchAction(data, leagueId, roundId, matchId));
       });
   }
-
 }

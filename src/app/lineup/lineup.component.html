@@ -99,10 +99,11 @@
                  placement="{{touch ? 'auto' : 'right'}}"
                  triggers="manual"
                  #p1="ngbPopover"
-                 (click)="p1.open({player: player})"
                  (mouseenter)="!touch && p1.open({player: player})"
                  (mouseleave)="!touch && p1.close()"
-                 [ngbPopover]="playerInfoContentTemplate">{{player.lastName}}</div>
+                 [ngbPopover]="playerInfoContentTemplate">
+              <a routerLink="/players/{{player.id}}">{{player.lastName}}</a>
+            </div>
 
             <div class="icons-container">
               <div *ngFor="let event of playerEvents.get(player.id)" class="icons-sprite icon-lineup"
@@ -126,10 +127,11 @@
            placement="{{touch ? 'auto' : 'right'}}"
            triggers="manual"
            #p2="ngbPopover"
-           (click)="p2.open({player: player})"
            (mouseenter)="!touch && p2.open({player: player})"
            (mouseleave)="!touch && p2.close()"
-           [ngbPopover]="playerInfoContentTemplate">{{player.fullName}}</div>
+           [ngbPopover]="playerInfoContentTemplate">
+        <a routerLink="/players/{{player.id}}">{{player.fullName}}</a>
+      </div>
       <span class="icons-container">
         <span *ngFor="let event of playerEvents.get(player.id)"
               class="icons-sprite icon-lineup"

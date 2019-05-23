@@ -36,7 +36,8 @@ const routes: Routes = [
     path: 'leagues/:leagueId/rounds/:roundId',
     component: LeagueComponent
   },
-  {path: 'players/:playerId',
+  {
+    path: 'players/:playerId',
     component: PlayerInfoComponent
   }
 ];

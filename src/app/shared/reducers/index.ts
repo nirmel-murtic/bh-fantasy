@@ -1,4 +1,6 @@
 import * as fromLeagues from './leagues.reducer';
+import * as fromPlayers from './players.reducer';
+
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
 import {TopPlayerValue} from '../models/top-player-value';
@@ -10,6 +12,7 @@ import {Player} from '../models/player';
 
 export interface State {
   leagues: fromLeagues.State;
+  players: fromPlayers.State;
 }
 
 export const selectRouterState =
@@ -21,6 +24,7 @@ export const selectRouteParameters = createSelector(
 );
 
 export const getLeaguesState = createFeatureSelector<fromLeagues.State>('leagues');
+export const getCurrentPlayerState = createFeatureSelector<fromPlayers.State>('players');
 
 export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.getLeagues);
 
@@ -29,6 +33,14 @@ export const getStandings = createSelector(getLeaguesState, fromLeagues.getStand
 export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopPlayers);
 
 export const getPlayers = createSelector(getLeaguesState, fromLeagues.getPlayers);
+
+export const getCurrentPlayer = createSelector(getCurrentPlayerState, fromPlayers.getCurrentPlayer);
+
+export const getCurrentPlayerWithId = createSelector(getCurrentPlayer,
+  selectRouteParameters,(player, route) => {
+      return [player && player.id === +route.playerId ? player : null, +route.playerId] as [Player, number];
+    }
+);
 
 export const getLeagues = createSelector(getLeaguesAndGroups, leagues => {
   return leagues.filter(league => league.type !== LeagueType.LeagueGroup);
@@ -74,11 +86,6 @@ export const getCurrentStandings = createSelector(getCurrentLeague, getStandings
 export const getStandingsForLeague = createSelector(getStandings,
   (standings, props) => standings.get(props.id));
 
-export const getCurrentPlayer = createSelector(getCurrentLeague, getPlayers,
-  (league, players) => [league ? players.get(league.id) : null, league] as [Player[], League]);
-
-
-
 export const getLeagueById = createSelector(getLeaguesAndGroups,
   (leagues, props) => leagues.find(league => {
     return league.id === props.id;
@@ -86,5 +93,6 @@ export const getLeagueById = createSelector(getLeaguesAndGroups,
 );
 
 export const reducers: ActionReducerMap<State> = {
-  leagues: fromLeagues.reducer
+  leagues: fromLeagues.reducer,
+  players: fromPlayers.reducer
 };

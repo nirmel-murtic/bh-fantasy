@@ -18,7 +18,7 @@
             <div class="w-100">
               <ng-container *ngFor="let goal of match.goals;">
                 <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup2 : match.lineup1)" class="float-right w-100">
-                  <small class="goal-info float-lg-right text-right">{{goal.player.fullName}} - {{goal.minute}}'</small>
+                  <small class="goal-info float-lg-right text-right"><a routerLink="/players/{{goal.player.id}}">{{goal.player.fullName}}</a> - {{goal.minute}}'</small>
                 </div>
               </ng-container>
             </div>
@@ -49,7 +49,7 @@
             <div class="w-100">
               <ng-container *ngFor="let goal of match.goals;">
                 <div *ngIf="isPlayingFor(goal.player, goal.ownGoal ? match.lineup1 : match.lineup2)" class="float-left w-100">
-                  <small class="goal-info float-lg-left text-left" >{{goal.minute}}' - {{goal.player.fullName}}</small>
+                  <small class="goal-info float-lg-left text-left" >{{goal.minute}}' - <a routerLink="/players/{{goal.player.id}}">{{goal.player.fullName}}</a></small>
                 </div>
               </ng-container>
             </div>

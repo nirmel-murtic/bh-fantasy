@@ -12,7 +12,7 @@ export const LOAD_ROUNDS = 'LOAD_ROUNDS';
 export const LOAD_ROUND = 'LOAD_ROUND';
 export const LOAD_LEAGUE = 'LOAD_LEAGUE';
 export const LOAD_MATCH = 'LOAD_MATCH';
-export const LOAD_PLAYER = 'LOAD_PLAYER';
+export const LOAD_PLAYERS = 'LOAD_PLAYERS';
 
 export class LoadLeaguesAction implements Action {
     readonly type = LOAD_LEAGUES;
@@ -62,8 +62,8 @@ export class LoadMatchAction implements Action {
   constructor(public payload: Match, public leagueId: number, public roundId: number, public matchId: number) {
   }
 }
-export class LoadPlayerAction implements Action {
-  readonly type = LOAD_PLAYER;
+export class LoadPlayersAction implements Action {
+  readonly type = LOAD_PLAYERS;
 
   constructor(public payload: Player[], public leagueId: number) {
   }
@@ -77,4 +77,4 @@ export type Actions
     | LoadRoundAction
     | LoadLeagueAction
     | LoadMatchAction
-    | LoadPlayerAction;
+    | LoadPlayersAction;

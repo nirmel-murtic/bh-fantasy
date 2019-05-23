@@ -1,78 +1,37 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {
-  getCurrentLeague, getCurrentPlayer, getCurrentTopPlayers,
-  State
-} from '../shared/reducers';
-import {ActivatedRoute} from '@angular/router';
-import {LeagueService} from '../shared/services/league.service';
-import {StandingValue} from '../shared/models/standing-value';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Player} from '../shared/models/player';
-import {addIfNotExist, removeItem} from '../shared/utils/utils';
+import {PlayerService} from "../shared/services/player.service";
+import {Store} from "@ngrx/store";
+import {getCurrentPlayerWithId, State} from "../shared/reducers";
 
 @Component({
   selector: 'app-player-info',
   templateUrl: './player-info.component.html',
   styleUrls: ['./player-info.component.css']
 })
-export class PlayerInfoComponent implements OnInit{
-  [x: string]: any;
-
-  _leagueId: number;
-
-  public players: Player[];
-
-  public standalone = true;
+export class PlayerInfoComponent implements OnInit, OnDestroy {
 
   private subscriptions = [];
 
-  private static LOADING_IDS = [];
-
   @Input()
-  public showHeader = true;
-
-  @Input()
-  public fullView = true;
-
-  @Input()
-  set leagueId(value: number) {
-    this.standalone = false;
-
-
-    if(value && value !== this._leagueId) {
-      this.leagueService.loadPlayers(value).subscribe(result => {
-        this.players = !this.limit || !result ? result : result.slice(0, this.limit);
-      });
-
-      this.subscriptions.push(this.store.select(getCurrentLeague).subscribe(league => {
-        this.league = league;
-      }));
-    }
-
-    this._leagueId = value;
-  }
+  public player: Player;
 
   ngOnInit() {
-    if(this.standalone) {
-      this.subscriptions.push(this.store.select(getCurrentPlayer).subscribe(([players, league]) => {
-        if (league && !players && addIfNotExist(PlayerInfoComponent.LOADING_IDS, league.id)) {
-          this.leagueService.loadPlayers(league.id);
-        }
+    this.subscriptions.push(this.store.select(getCurrentPlayerWithId).subscribe(([player, playerId]) => {
+      if(player) {
+        this.player = player;
+      }
 
-        this.league = league;
-        this.players = !this.limit || !players ? players : players.slice(0, this.limit);
-
-        if (this.players) {
-          removeItem(PlayerInfoComponent.LOADING_IDS, league.id);
-        }
-      }));
-    }
-  }
-  constructor(
-    private store: Store<State>,
-    private route: ActivatedRoute,
-    private leagueService: LeagueService) {
+      if(!this.player && playerId) {
+        this.playerService.loadPlayer(playerId);
+      }
+    }));
   }
 
+  constructor(private playerService: PlayerService, private store: Store<State>,) { }
 
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(value => value.unsubscribe());
+  }
 }

@@ -92,8 +92,11 @@
 
 .player-name {
   text-shadow: 1px 1px 1px #fff;
-  color: #000;
   text-align: center;
+}
+
+.player-name a {
+  color: #000;
 }
 
 .player .team-number {

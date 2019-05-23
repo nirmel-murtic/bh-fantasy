@@ -28,12 +28,12 @@ export function reducer(state = initialState, action: Action): State {
 
       action.payload.forEach(league => {
         if(league.groups) {
-         league.groups.forEach(group => {
-           leagues.push({
-             ...group,
-             type: LeagueType.LeagueGroup
-           });
-         });
+          league.groups.forEach(group => {
+            leagues.push({
+              ...group,
+              type: LeagueType.LeagueGroup
+            });
+          });
         }
       });
 
@@ -70,7 +70,7 @@ export function reducer(state = initialState, action: Action): State {
           topPlayers: map
         };
     }
-    case leagues.LOAD_PLAYER: {
+    case leagues.LOAD_PLAYERS: {
       const map = new Map();
 
       state.players.forEach((value, key) => {

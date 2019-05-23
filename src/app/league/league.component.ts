@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {getCurrentLeague, getCurrentLeagueWithId, State} from '../shared/reducers';
+import {getCurrentLeagueWithId, State} from '../shared/reducers';
 import {Store} from '@ngrx/store';
 import {League} from '../shared/models/league';
 import {LeagueService} from "../shared/services/league.service";
@@ -21,8 +20,7 @@ export class LeagueComponent implements OnInit, OnDestroy {
   private loading = false;
 
   constructor(private store: Store<State>,
-              private leagueService: LeagueService,
-              private route: ActivatedRoute) {
+              private leagueService: LeagueService) {
   }
 
   ngOnInit() {
