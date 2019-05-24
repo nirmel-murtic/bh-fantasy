@@ -1271,3 +1271,7 @@ a:hover {
 [ng-reflect-router-link] {
   cursor: pointer;
 }
+
+.link-to {
+  cursor: pointer;
+}

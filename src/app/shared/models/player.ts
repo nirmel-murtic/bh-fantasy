@@ -9,6 +9,7 @@ export interface Player extends Id {
   marketValueRaw: string;
   profilePicture: string;
   birthDate: Date;
+  yearsCount: number;
   position: PlayerPosition;
   positionName: string;
   type: string;

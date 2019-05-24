@@ -19,6 +19,7 @@ import { LeaguesComponent } from './leagues/leagues.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PlayerInfoComponent } from './player-info/player-info.component';
 import {PlayerService} from "./shared/services/player.service";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {PlayerService} from "./shared/services/player.service";
       router: routerReducer,
     }),
     StoreRouterConnectingModule.forRoot(),
-    NgbModule
+    NgbModule,
+    ScrollingModule
   ],
   providers: [
     LeagueService,

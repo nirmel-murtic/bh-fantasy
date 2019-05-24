@@ -9,6 +9,7 @@ export interface League extends Id {
   currentRoundId: number;
   teams: Team[];
   groups: League[];
+  season: string;
 }
 
 export enum LeagueType {

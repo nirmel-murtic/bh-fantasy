@@ -1,32 +1,18 @@
-img {
+.profile-image img {
   max-width: 100%;
-  height: 300px;
-}
-.player-name{
-  font-size: 30px;
-  font-style: bold;
-  font-family: Ivy;
-  color: #000;
-  right: 30px;
+  height: 250px;
 }
 
-.player-birthday{
-  font-size: 30px;
-  font-style: bold;
-  font-family: Ivy;
-  color: #000;
+.team-profile-picture img {
+  width: 100%;
 }
 
-.player-type{
-  font-size: 30px;
-  font-style: bold;
-  font-family: Ivy;
-  color: #000;
+.table.leagues {
+  font-size: 14px;
+  font-weight: 400;
 }
 
-.player-market-value{
-  font-size: 30px;
-  font-style: bold;
-  font-family: Ivy;
-  color: #000;
+.stats .card-header h6 {
+  font-size: 12px;
+  margin: 0;
 }

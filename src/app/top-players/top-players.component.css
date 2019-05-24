@@ -20,3 +20,7 @@
 .order-number {
   width: 46px;
 }
+
+cdk-virtual-scroll-viewport {
+  height: 100vh;
+}
