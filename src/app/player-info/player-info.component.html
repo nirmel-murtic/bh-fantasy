@@ -7,15 +7,27 @@
   <div class='card-body'>
     <div class='row'>
       <div class='col-md-8'>
-        <div class='row'>
-          <div class='col-md-4'>First Name:</div>
-          <div class='col-md-8'>{{player.firstName}}</div>
+        <div class='img profile-image'>
+          <img src="{{player.profilePicture}}">
         </div>
         <div class='row'>
-          <div class='col-md-4'>Last Name:</div>
-          <div class='col-md-8'>{{player.lastName}}</div>
+          <div class='player-name'>Name: </div>
+          <div class='player-name'>{{player.fullName}}</div>
+        </div>
+        <div class='row'>
+          <div class='player-birthday'>Birth date: </div>
+          <div class='player-birthday'>{{player.birthDate}}</div>
+        </div>
+        <div class='row'>
+          <div class='player-type'>Position: </div>
+          <div class='player-type'>{{player.type}}</div>
+        </div>
+        <div class='row'>
+          <div class='player-market-value'>Market value: </div>
+          <div class='player-market-value'>{{player.marketValueRaw}}</div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
