@@ -187,6 +187,12 @@ a:hover {
   background: #333333;
 }
 
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 0;
+  }
+}
+
 .site-footer p {
   color: #737373;
 }
