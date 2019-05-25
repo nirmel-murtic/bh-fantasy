@@ -19,11 +19,13 @@ import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {share} from "rxjs/operators";
 import {Player} from '../models/player';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class LeagueService {
 
   constructor(private http: HttpClient,
+              private router: Router,
               private store: Store<State>) {
   }
 
@@ -42,6 +44,8 @@ export class LeagueService {
 
     result.subscribe(data => {
       this.store.dispatch(new LoadStandingsAction(data, leagueId));
+    }, error => {
+      this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
     });
 
     return result;
@@ -54,6 +58,8 @@ export class LeagueService {
 
     result.subscribe(data => {
       this.store.dispatch(new LoadTopPlayersAction(data, leagueId));
+    }, error => {
+      this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
     });
 
     return result;
@@ -76,6 +82,8 @@ export class LeagueService {
       .get<Round[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.ROUNDS))
       .subscribe(data => {
         this.store.dispatch(new LoadRoundsAction(data, leagueId));
+      }, error => {
+        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
       });
   }
 
@@ -84,6 +92,8 @@ export class LeagueService {
       .get<League>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()))
       .subscribe(data => {
         this.store.dispatch(new LoadLeagueAction(data, leagueId));
+      }, error => {
+        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
       });
   }
 
@@ -93,6 +103,8 @@ export class LeagueService {
         .concat(Endpoint.ROUNDS).concat('/').concat(roundId.toString()))
       .subscribe(data => {
         this.store.dispatch(new LoadRoundAction(data, leagueId, roundId));
+      }, error => {
+        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
       });
   }
 
@@ -103,6 +115,8 @@ export class LeagueService {
         .concat(Endpoint.MATCHES).concat('/').concat(matchId.toString()))
       .subscribe(data => {
         this.store.dispatch(new LoadMatchAction(data, leagueId, roundId, matchId));
+      }, error => {
+        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
       });
   }
 }

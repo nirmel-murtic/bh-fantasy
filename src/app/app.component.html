@@ -82,7 +82,12 @@
             <a routerLink="/leagues">Fantasy</a>
             <ul class="dropdown arrow-top">
               <ng-container *ngFor="let value of leagues | async">
-                <li *ngIf="value.type == LeagueType.FantasyLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
+                <li class="has-children" *ngIf="value.type == LeagueType.FantasyLeague">
+                  <a routerLink="/leagues/{{value.id}}">{{value.name}}</a>
+                  <ul class="dropdown">
+                    <li><a routerLink="/leagues/{{value.id}}/manage-team">Manage your Team</a></li>
+                  </ul>
+                </li>
               </ng-container>
             </ul>
           </li>

@@ -5,40 +5,38 @@
     </div>
   </div>
   <div class="feature-matchs">
-    <cdk-virtual-scroll-viewport itemSize="100">
-      <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-          <th class="order-number">#</th>
-          <th>Player</th>
-          <th *ngIf="topPlayers && topPlayers.length && topPlayers[0].points != null">Points</th>
-          <th>Goals</th>
-          <th class="full-view">Assists</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *cdkVirtualFor="let value of topPlayers; let i = index">
-          <td>{{i + 1}}</td>
-          <td>
-            <div class="float-left name-container">
-              <div class="image image-small float-left mr-2" *ngIf="value.teamProfilePicture">
-                <img [src]="value.teamProfilePicture" class="img-fluid">
-              </div>
-              <div class="float-left">
-                <a routerLink="/players/{{value.playerId}}">{{value.fullName}}</a></div>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th class="order-number">#</th>
+        <th>Player</th>
+        <th *ngIf="topPlayers && topPlayers.length && topPlayers[0].points != null">Points</th>
+        <th>Goals</th>
+        <th class="full-view">Assists</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let value of topPlayers; let i = index">
+        <td>{{i + 1}}</td>
+        <td>
+          <div class="float-left name-container">
+            <div class="image image-small float-left mr-2" *ngIf="value.teamProfilePicture">
+              <img [src]="value.teamProfilePicture" class="img-fluid">
             </div>
-          </td>
-          <td *ngIf="value.points != null"><b>{{value.points}}</b></td>
-          <td><b>{{value.goalsScored}}</b></td>
-          <td class="full-view"><b>{{value.assistsMade}}</b></td>
-        </tr>
-        <tr *ngIf="!fullView && league">
-          <td colspan="5" class="full-view">
-            <a routerLink="/leagues/{{league.id}}/top-players" class="float-right">View Full Table</a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </cdk-virtual-scroll-viewport>
+            <div class="float-left">
+              <a routerLink="/players/{{value.playerId}}">{{value.fullName}}</a></div>
+          </div>
+        </td>
+        <td *ngIf="value.points != null"><b>{{value.points}}</b></td>
+        <td><b>{{value.goalsScored}}</b></td>
+        <td class="full-view"><b>{{value.assistsMade}}</b></td>
+      </tr>
+      <tr *ngIf="!fullView && league">
+        <td colspan="5" class="full-view">
+          <a routerLink="/leagues/{{league.id}}/top-players" class="float-right">View Full Table</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -6,11 +6,17 @@ import {TopPlayersComponent} from "./top-players/top-players.component";
 import {MatchComponent} from "./match/match.component";
 import {LeaguesComponent} from './leagues/leagues.component';
 import {PlayerInfoComponent} from './player-info/player-info.component';
+import {ManageFantasyTeamComponent} from "./manage-fantasy-team/manage-fantasy-team.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
     path: '',
     component: LeaguesComponent
+  },
+  {
+    path: 'page-not-found',
+    component: PageNotFoundComponent
   },
   {
     path: 'leagues/:leagueId',
@@ -31,6 +37,10 @@ const routes: Routes = [
   {
     path: 'leagues',
     component: LeaguesComponent
+  },
+  {
+    path: 'leagues/:leagueId/manage-team',
+    component: ManageFantasyTeamComponent
   },
   {
     path: 'leagues/:leagueId/rounds/:roundId',

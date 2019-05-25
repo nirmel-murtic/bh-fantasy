@@ -19,7 +19,8 @@ import { LeaguesComponent } from './leagues/leagues.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PlayerInfoComponent } from './player-info/player-info.component';
 import {PlayerService} from "./shared/services/player.service";
-import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ManageFantasyTeamComponent } from './manage-fantasy-team/manage-fantasy-team.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     LineupComponent,
     MatchComponent,
     LeaguesComponent,
-    PlayerInfoComponent
+    PlayerInfoComponent,
+    ManageFantasyTeamComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -41,8 +44,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
       router: routerReducer,
     }),
     StoreRouterConnectingModule.forRoot(),
-    NgbModule,
-    ScrollingModule
+    NgbModule
   ],
   providers: [
     LeagueService,

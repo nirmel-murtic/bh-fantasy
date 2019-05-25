@@ -5,11 +5,13 @@ import {State} from '../reducers';
 import {Endpoint} from '../constants/endpoints';
 import {Player} from "../models/player";
 import {SetCurrentPlayerAction} from "../actions/players.actions";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class PlayerService {
 
   constructor(private http: HttpClient,
+              private router: Router,
               private store: Store<State>) {
   }
 
@@ -18,6 +20,8 @@ export class PlayerService {
       .get<Player>(Endpoint.PLAYERS.concat('/').concat(playerId.toString()))
       .subscribe(data => {
         this.store.dispatch(new SetCurrentPlayerAction(data));
+      }, error => {
+        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
       });
   }
 }
