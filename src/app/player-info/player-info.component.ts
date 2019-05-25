@@ -40,6 +40,14 @@ export class PlayerInfoComponent implements OnInit, OnDestroy {
     this.statsTeam = team;
     this.statsLeague = league;
 
+    if(document.body.clientWidth < 1000) {
+      window.scroll({
+        'left': 0,
+        'top': document.body.scrollHeight,
+        'behavior': 'smooth'
+      });
+    }
+
     //TODO: Load stats
   }
 
