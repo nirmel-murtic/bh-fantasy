@@ -43,7 +43,7 @@ export class PlayerInfoComponent implements OnInit, OnDestroy {
     if(document.body.clientWidth < 1000) {
       window.scroll({
         'left': 0,
-        'top': document.body.scrollHeight,
+        'top': document.body.scrollHeight - 300,
         'behavior': 'smooth'
       });
     }
