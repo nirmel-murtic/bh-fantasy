@@ -1,29 +1,73 @@
 <div class="mt-5 offset-md-1 col-md-10 col-sm-12 offset-sm-0" *ngIf="team">
   <div class='row'>
     <div class='col'>
-      <div class="card mb-4 shadow-sm player-info-container">
+      <div class="card mb-4 shadow-sm team-info-container">
         <div class="card-header">
-          <h4 class="my-0 font-weight-normal">{{team.name}}</h4>
+          <h4 class="font-weight-normal">{{team.name}}</h4>
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-3 player-info-col">
-              <div class='img profile-image'>
-                <img src="{{team.profilePicture}}">
-
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <div class="row">
+                <div class='img profile-image'>
+                  <img src="{{team.profilePicture}}">
+                </div>
+                <div class="offset-1 col">
+                  <ul class="list-unstyled">
+                    <li>
+                      Squad size: {{team.players.length}}
+                    </li>
+                    <li>
+                      Average age: TODO
+                    </li>
+                    <li>
+                      Stadium: TODO
+                    </li>
+                    <li>
+                      Market value: TODO
+                    </li>
+                    <li>
+                      Next match: TODO
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card mb-4 shadow-sm mt-4">
+                <div class="card-header">
+                  <h6 class="font-weight-normal">Leagues</h6>
+                </div>
+                <div class="card-body">
+                  <table class="table table-bordered leagues">
+                    <tr *ngFor="let league of leagues">
+                      <td><a routerLink="/leagues/{{league.id}}">{{league.name}}</a></td>
+                      <td *ngIf="league.groups && league.groups.length">
+                        <a routerLink="/leagues/{{league.groups[0].id}}">{{league.groups[0].name}}</a>
+                      </td>
+                      <td>{{league.season}}</td>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
-            <div class="col-lg">
-              <div class="card col-12 p-0 shadow-sm mb-4 stats">
+            <div class="col-lg-6 players-container">
+              <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                  <h6 class="font-weight-normal">
-                    Stats<span *ngIf="statsPlayer"> for {{statsPlayer.fullName}}</span>
-                    <span *ngIf="statsLeague"> / {{statsLeague.name}}</span></h6>
+                  <h6 class="font-weight-normal">Players</h6>
                 </div>
-                <div class="m-5 text-center">
-                  TODO
+                <div class="card-body">
+                  <table class="table table-bordered leagues">
+                    <tr *ngFor="let player of players">
+                      <td>
+                        <div class="image image-small float-left mr-2" *ngIf="player.profilePicture">
+                          <img [src]="player.profilePicture" class="img-fluid">
+                        </div>
+                        <a routerLink="/players/{{player.id}}">{{player.fullName}}</a>
+                      </td>
+                      <td>
+                        {{player.type}}
+                      </td>
+                    </tr>
+                  </table>
                 </div>
               </div>
             </div>
@@ -33,4 +77,3 @@
     </div>
   </div>
 </div>
-

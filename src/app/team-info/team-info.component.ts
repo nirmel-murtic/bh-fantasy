@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Player} from "../shared/models/player";
-import {League} from "../shared/models/league";
 import {Team} from "../shared/models/team";
 import {
   getCurrentTeamWithId,
@@ -8,25 +6,57 @@ import {
 } from "../shared/reducers";
 import {Store} from "@ngrx/store";
 import {TeamService} from "../shared/services/team.service";
+import {BaseComponent} from "../base.component";
+import {League} from "../shared/models/league";
+import {Player, PlayerCoefficients, PlayerType} from "../shared/models/player";
 
 @Component({
   selector: 'app-team-info',
   templateUrl: './team-info.component.html',
   styleUrls: ['./team-info.component.css']
 })
-export class TeamInfoComponent implements OnInit {
+export class TeamInfoComponent extends BaseComponent implements OnInit {
 
   @Input()
   public team: Team;
 
-  public statsLeague: League;
+  public leagues: League[];
 
-  public statsPlayer: Player;
+  public players: Player[];
 
   ngOnInit() {
     this.subscriptions.push(this.store.select(getCurrentTeamWithId).subscribe(([team, teamId]) => {
       if(team) {
         this.team = team;
+
+        this.leagues = [];
+
+        const groupsMap: Map<number, League> = new Map<number, League>();
+
+        this.team.leagues.forEach(
+          league => {
+            if(league.type === 'LeagueGroup') {
+              groupsMap.set(league.id, league);
+            }
+          }
+        );
+
+        this.team.leagues.forEach(
+          league => {
+            if(league.groups && league.groups.length > 0) {
+              this.leagues.push({
+                  ...league,
+                  groups: league.groups.filter(group => groupsMap.has(group.id))
+                }
+              )
+            } else if(league.type !== 'LeagueGroup') {
+              this.leagues.push(league);
+            }
+          }
+        );
+
+        this.players = this.team.players.sort((a, b) =>
+          this.getCoeficient(a) > this.getCoeficient(b) ? -1 : 1);
       }
 
       if(!this.team && teamId) {
@@ -35,20 +65,19 @@ export class TeamInfoComponent implements OnInit {
     }));
   }
 
-  constructor(private teamService: TeamService, private store: Store<State>, ) {
-
+  getCoeficient(player: Player) {
+    if(player.type === PlayerType.DEFENDER) {
+      return PlayerCoefficients.DEFENDER;
+    } else if(player.type === PlayerType.MIDDLE) {
+      return PlayerCoefficients.MIDDLE;
+    } else if(player.type === PlayerType.STRIKER) {
+      return PlayerCoefficients.STRIKER;
+    } else if(player.type === PlayerType.GOALKEEPER) {
+      return PlayerCoefficients.GOALKEEPER;
+    } else return 0;
   }
 
-  openStats(player: Player, league: League) {
-    this.statsPlayer = player;
-    this.statsLeague = league;
-
-    if(document.body.clientWidth < 1000) {
-      window.scroll({
-        'left': 0,
-        'top': document.body.scrollHeight - 400,
-        'behavior': 'smooth'
-      });
-    }
+  constructor(private teamService: TeamService, private store: Store<State>) {
+    super();
   }
 }

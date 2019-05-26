@@ -23,6 +23,13 @@ export enum PlayerType {
   MIDDLE = 'Middle'
 }
 
+export enum PlayerCoefficients {
+  GOALKEEPER = 1,
+  DEFENDER = 2,
+  MIDDLE = 3,
+  STRIKER = 4
+}
+
 export interface PlayerEvent {
   eventType: string;
   [key: string]: any;

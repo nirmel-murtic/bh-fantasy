@@ -12,7 +12,6 @@ import {
   LoadRoundsAction,
   LoadStandingsAction,
   LoadTopPlayersAction,
-  LoadTeamsAction
 } from '../actions/leagues.actions';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
@@ -23,7 +22,7 @@ import {Player} from '../models/player';
 import {Router} from "@angular/router";
 import {handleApiError} from "../utils/utils";
 import {Team} from "../models/team";
-import {SetCurrentTeamAction, SetMyFantasyTeamAction} from "../actions/teams.actions";
+import {SetMyFantasyTeamAction} from "../actions/teams.actions";
 
 @Injectable()
 export class LeagueService {
@@ -72,17 +71,6 @@ export class LeagueService {
 
     result.subscribe(data => {
       this.store.dispatch(new LoadPlayersAction(data, leagueId));
-    });
-
-    return result;
-  }
-  loadTeam(leagueId: number): Observable<Team[]> {
-    const result: Observable<Team[]> = this.http
-      .get<Team[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.TEAMS))
-      .pipe(share());
-
-    result.subscribe(data => {
-      this.store.dispatch(new LoadTeamsAction(data, leagueId));
     });
 
     return result;
