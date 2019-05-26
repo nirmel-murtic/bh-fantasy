@@ -4,6 +4,7 @@ import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
 import {Id} from '../models/id';
 import {Player} from '../models/player';
+import {Team} from '../models/team';
 
 export type Action = leagues.Actions;
 
@@ -12,18 +13,21 @@ export interface State {
   standings: Map<number, StandingValue[]>;
   topPlayers: Map<number, TopPlayerValue[]>;
   players: Map<number, Player[]>;
+  teams: Map<number, Team[]>;
 }
 
 const initialState: State = {
   leagues: [],
   standings: new Map(),
   topPlayers: new Map(),
-  players : new Map()
+  players : new Map(),
+  teams: new Map()
 };
 
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case leagues.LOAD_LEAGUES: {
+      // tslint:disable-next-line:no-shadowed-variable
       const leagues = [...action.payload];
 
       action.payload.forEach(league => {
@@ -39,7 +43,7 @@ export function reducer(state = initialState, action: Action): State {
 
       return {
         ...state,
-        leagues: leagues
+        leagues
       };
     }
     case leagues.LOAD_STANDINGS: {
@@ -82,6 +86,20 @@ export function reducer(state = initialState, action: Action): State {
       return {
         ...state,
         players: map
+      };
+    }
+    case leagues.LOAD_TEAMS: {
+      const map = new Map();
+
+      state.teams.forEach((value, key) => {
+        map.set(key, value);
+      });
+
+      map.set(action.leagueId, action.payload);
+
+      return {
+        ...state,
+        teams: map
       };
     }
     case leagues.LOAD_ROUNDS: {
@@ -169,7 +187,7 @@ function getMatch(state: State, leagueId: number, roundId: number, matchId: numb
 }
 
 function updateModelInModels(models: Id[], model: Id) {
-  if(!models) {
+  if (!models) {
     return [model];
   }
 

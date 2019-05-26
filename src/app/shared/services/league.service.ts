@@ -11,7 +11,8 @@ import {
   LoadRoundAction,
   LoadRoundsAction,
   LoadStandingsAction,
-  LoadTopPlayersAction
+  LoadTopPlayersAction,
+  LoadTeamsAction
 } from '../actions/leagues.actions';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
@@ -71,6 +72,17 @@ export class LeagueService {
 
     result.subscribe(data => {
       this.store.dispatch(new LoadPlayersAction(data, leagueId));
+    });
+
+    return result;
+  }
+  loadTeam(leagueId: number): Observable<Team[]> {
+    const result: Observable<Team[]> = this.http
+      .get<Team[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.TEAMS))
+      .pipe(share());
+
+    result.subscribe(data => {
+      this.store.dispatch(new LoadTeamsAction(data, leagueId));
     });
 
     return result;

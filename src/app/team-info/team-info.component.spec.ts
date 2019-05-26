@@ -1,25 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 
-import { TeamInfoComponent } from './team-info.component';
+@Component({
+  selector: 'app-team-info',
+  templateUrl: './team-info.component.html',
+  styleUrls: ['./team-info.component.css']
+})
+export class TeamInfoComponent implements OnInit {
 
-describe('TeamInfoComponent', () => {
-  let component: TeamInfoComponent;
-  let fixture: ComponentFixture<TeamInfoComponent>;
+  constructor() { }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TeamInfoComponent ]
-    })
-    .compileComponents();
-  }));
+  ngOnInit() {
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TeamInfoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+}

@@ -5,6 +5,7 @@ import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {Player} from '../models/player';
+import {Team} from "../models/team";
 export const LOAD_LEAGUES = 'LOAD_LEAGUES';
 export const LOAD_STANDINGS = 'LOAD_STANDINGS';
 export const LOAD_TOP_PLAYERS = 'LOAD_TOP_PLAYERS';
@@ -13,6 +14,7 @@ export const LOAD_ROUND = 'LOAD_ROUND';
 export const LOAD_LEAGUE = 'LOAD_LEAGUE';
 export const LOAD_MATCH = 'LOAD_MATCH';
 export const LOAD_PLAYERS = 'LOAD_PLAYERS';
+export const LOAD_TEAMS = 'LOAD_TEAMS';
 
 export class LoadLeaguesAction implements Action {
     readonly type = LOAD_LEAGUES;
@@ -68,7 +70,12 @@ export class LoadPlayersAction implements Action {
   constructor(public payload: Player[], public leagueId: number) {
   }
 }
+export class LoadTeamsAction implements Action {
+  readonly type = LOAD_TEAMS;
 
+  constructor(public payload: Team[], public leagueId: number) {
+  }
+}
 export type Actions
     = LoadLeaguesAction
     | LoadStandingsAction
@@ -77,4 +84,5 @@ export type Actions
     | LoadRoundAction
     | LoadLeagueAction
     | LoadMatchAction
-    | LoadPlayersAction;
+    | LoadPlayersAction
+    | LoadTeamsAction;

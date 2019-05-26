@@ -10,6 +10,7 @@ import {StandingValue} from '../models/standing-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {Player} from '../models/player';
+import {Team} from "../models/team";
 
 export interface State {
   leagues: fromLeagues.State;
@@ -53,6 +54,11 @@ export const getCurrentPlayerWithId = createSelector(getCurrentPlayer,
   selectRouteParameters,(player, route) => {
       return [player && player.id === +route.playerId ? player : null, +route.playerId] as [Player, number];
     }
+);
+export const getCurrentTeamWithId = createSelector(getCurrentTeam,
+  selectRouteParameters,(team, route) => {
+    return [team && team.id === +route.teamId ? team : null, +route.teamId] as [Team, number];
+  }
 );
 
 export const getLeagues = createSelector(getLeaguesAndGroups, leagues => {

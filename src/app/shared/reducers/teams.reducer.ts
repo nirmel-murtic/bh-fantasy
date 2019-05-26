@@ -1,5 +1,5 @@
 import * as teams from '../actions/teams.actions';
-import {Team} from "../models/team";
+import {Team} from '../models/team';
 
 export type Action = teams.Actions;
 
