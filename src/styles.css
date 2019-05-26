@@ -1281,3 +1281,13 @@ a:hover {
 .link-to {
   cursor: pointer;
 }
+
+.card-header {
+  background-color: #f23a2e;
+  color: #fff
+}
+
+.table th {
+  background-color: #f23a2e;
+  color: #fff
+}
