@@ -22,8 +22,9 @@ import {PlayerService} from "./shared/services/player.service";
 import { ManageFantasyTeamComponent } from './manage-fantasy-team/manage-fantasy-team.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
-import {TeamService} from "./shared/services/team.service";
+import { TeamService } from "./shared/services/team.service";
 import { FormsModule } from '@angular/forms';
+import { TeamInfoComponent } from './team-info/team-info.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     PlayerInfoComponent,
     ManageFantasyTeamComponent,
     PageNotFoundComponent,
-    MaintenanceComponent
+    MaintenanceComponent,
+    TeamInfoComponent
   ],
   imports: [
     BrowserModule,

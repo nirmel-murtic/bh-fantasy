@@ -26,7 +26,7 @@
             <div class="image image-small float-left mr-2" *ngIf="value.profilePicture">
               <img [src]="value.profilePicture" class="img-fluid">
             </div>
-            <div class="float-left">{{value.teamName}}</div>
+            <div class="float-left"><a routerLink="/teams/{{value.teamId}}">{{value.teamName}}</a></div>
           </td>
           <td>{{value.counterPlayed}}</td>
           <td class="partial-view">{{value.won}}</td>
