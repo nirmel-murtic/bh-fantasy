@@ -1,9 +1,9 @@
 .players-container img {
   height: 32px;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 .profile-image img {
-  border-radius: 60px;
+  border-radius: 12px;
   height: 120px;
 }
