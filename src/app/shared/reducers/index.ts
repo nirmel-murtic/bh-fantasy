@@ -1,5 +1,6 @@
 import * as fromLeagues from './leagues.reducer';
 import * as fromPlayers from './players.reducer';
+import * as fromTeams from './teams.reducer';
 
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
@@ -13,6 +14,7 @@ import {Player} from '../models/player';
 export interface State {
   leagues: fromLeagues.State;
   players: fromPlayers.State;
+  teams: fromTeams.State;
 }
 
 export const selectRouterState =
@@ -25,6 +27,7 @@ export const selectRouteParameters = createSelector(
 
 export const getLeaguesState = createFeatureSelector<fromLeagues.State>('leagues');
 export const getCurrentPlayerState = createFeatureSelector<fromPlayers.State>('players');
+export const getCurrentTeamState = createFeatureSelector<fromTeams.State>('teams');
 
 export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.getLeagues);
 
@@ -35,6 +38,16 @@ export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopP
 export const getPlayers = createSelector(getLeaguesState, fromLeagues.getPlayers);
 
 export const getCurrentPlayer = createSelector(getCurrentPlayerState, fromPlayers.getCurrentPlayer);
+
+export const getCurrentTeam = createSelector(getCurrentTeamState, fromTeams.getCurrentTeam);
+
+export const getFantasyTeams = createSelector(getCurrentTeamState, fromTeams.getFantasyTeams);
+
+export const getFantasyTeam = createSelector(getFantasyTeams,
+  (teamsMap, props) => {
+    return teamsMap.get(props.leagueId)
+  }
+);
 
 export const getCurrentPlayerWithId = createSelector(getCurrentPlayer,
   selectRouteParameters,(player, route) => {
@@ -94,5 +107,6 @@ export const getLeagueById = createSelector(getLeaguesAndGroups,
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer,
-  players: fromPlayers.reducer
+  players: fromPlayers.reducer,
+  teams: fromTeams.reducer
 };

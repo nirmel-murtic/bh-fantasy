@@ -1,26 +1,26 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {getCurrentLeagueWithId, State} from '../shared/reducers';
 import {Store} from '@ngrx/store';
 import {League} from '../shared/models/league';
 import {LeagueService} from "../shared/services/league.service";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-league',
   templateUrl: './league.component.html',
   styleUrls: ['./league.component.css']
 })
-export class LeagueComponent implements OnInit, OnDestroy {
+export class LeagueComponent extends BaseComponent implements OnInit {
 
   public leagueId: number;
 
   public league: League;
 
-  private subscriptions = [];
-
   private loading = false;
 
   constructor(private store: Store<State>,
               private leagueService: LeagueService) {
+    super();
   }
 
   ngOnInit() {
@@ -38,9 +38,5 @@ export class LeagueComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     }));
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
   }
 }

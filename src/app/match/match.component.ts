@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {getCurrentLeague, getCurrentMatch, getCurrentRound, State} from '../shared/reducers';
 import {LeagueService} from '../shared/services/league.service';
@@ -7,13 +7,14 @@ import {Match} from '../shared/models/match';
 import {Lineup} from '../shared/models/lineup';
 import {Player, PlayerEvent} from '../shared/models/player';
 import {Team} from "../shared/models/team";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
   styleUrls: ['./match.component.css'],
 })
-export class MatchComponent implements OnInit, OnDestroy {
+export class MatchComponent extends BaseComponent implements OnInit {
 
   public matchId: number;
 
@@ -22,8 +23,6 @@ export class MatchComponent implements OnInit, OnDestroy {
   public roundId: number;
 
   public match: Match;
-
-  private subscriptions = [];
 
   private leagueSubscription: any;
 
@@ -38,7 +37,9 @@ export class MatchComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>,
               private route: ActivatedRoute,
-              private leagueService: LeagueService) { }
+              private leagueService: LeagueService) {
+    super();
+  }
 
   ngOnInit() {
     this.subscriptions.push(this.route.params.subscribe(params => {
@@ -251,9 +252,5 @@ export class MatchComponent implements OnInit, OnDestroy {
     }
 
     return false;
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
   }
 }

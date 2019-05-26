@@ -3,7 +3,7 @@
     <div class="col">
       <div class="card mb-4 shadow-sm">
         <div class="card-header">
-          <h4 class="font-weight-normal">Manage your Team</h4>
+          <h4 class="font-weight-normal">Manage your Team<span *ngIf="league"> for "{{league.name}}"</span></h4>
         </div>
         <div class="card-body">
           <div class="row mb-3 mt-3">
@@ -11,13 +11,14 @@
               <div class="row">
                 <div class="col-md-4 mb-3">
                   <label for="teamName">Team name</label>
-                  <input type="text" class="form-control" id="teamName" placeholder="e.g. BH-Fantasy Team">
+                  <input type="text" class="form-control" id="teamName"
+                         placeholder="e.g. BH-Fantasy Team" [(ngModel)]="team.name">
                   <div class="invalid-feedback">
                     Valid team name is required.
                   </div>
                 </div>
               </div>
-              <div class="row float-right pr-3">
+              <div class="row float-md-right pr-3 pl-3 float-sm-none align-items-sm-center">
                 <button (click)="saveTeam(team)" class="btn btn-primary btn-lg btn-block" *ngIf="team.id" type="submit">Update</button>
                 <button (click)="saveTeam(team)" class="btn btn-primary btn-lg btn-block" *ngIf="!team.id" type="submit">Create</button>
               </div>

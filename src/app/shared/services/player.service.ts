@@ -6,6 +6,7 @@ import {Endpoint} from '../constants/endpoints';
 import {Player} from "../models/player";
 import {SetCurrentPlayerAction} from "../actions/players.actions";
 import {Router} from "@angular/router";
+import {handleApiError} from "../utils/utils";
 
 @Injectable()
 export class PlayerService {
@@ -20,8 +21,6 @@ export class PlayerService {
       .get<Player>(Endpoint.PLAYERS.concat('/').concat(playerId.toString()))
       .subscribe(data => {
         this.store.dispatch(new SetCurrentPlayerAction(data));
-      }, error => {
-        this.router.navigateByUrl('/page-not-found', { skipLocationChange: true });
-      });
+      }, error => handleApiError(error, this.router));
   }
 }

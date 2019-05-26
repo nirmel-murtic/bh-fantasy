@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LeagueService} from '../shared/services/league.service';
 import {Store} from '@ngrx/store';
 import {getCurrentStandings, getLeagueById, getStandingsForLeague, State} from '../shared/reducers';
@@ -6,19 +6,18 @@ import {StandingValue} from '../shared/models/standing-value';
 import {ActivatedRoute} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
 import {League} from "../shared/models/league";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-standings',
   templateUrl: './standings.component.html',
   styleUrls: ['./standings.component.css']
 })
-export class StandingsComponent implements OnInit, OnDestroy {
+export class StandingsComponent extends BaseComponent implements OnInit {
 
   public standings: StandingValue[];
 
   _leagueId: number;
-
-  private subscriptions = [];
 
   @Input()
   public showHeader = true;
@@ -77,13 +76,10 @@ export class StandingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
-  }
-
   constructor(
     private store: Store<State>,
     private route: ActivatedRoute,
     private leagueService: LeagueService) {
+    super();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {getCurrentLeague, getCurrentTopPlayers, State} from '../shared/reducers';
 import {LeagueService} from "../shared/services/league.service";
@@ -6,19 +6,18 @@ import {TopPlayerValue} from "../shared/models/top-player-value";
 import {ActivatedRoute} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
 import {League} from "../shared/models/league";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-top-players',
   templateUrl: './top-players.component.html',
   styleUrls: ['./top-players.component.css']
 })
-export class TopPlayersComponent implements OnInit, OnDestroy {
+export class TopPlayersComponent extends BaseComponent implements OnInit {
 
   public topPlayers: TopPlayerValue[];
 
   _leagueId: number;
-
-  private subscriptions = [];
 
   @Input()
   public showHeader = true;
@@ -68,13 +67,10 @@ export class TopPlayersComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
-  }
-
   constructor(
     private store: Store<State>,
     private route: ActivatedRoute,
     private leagueService: LeagueService) {
+    super();
   }
 }

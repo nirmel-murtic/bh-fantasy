@@ -21,6 +21,9 @@ import { PlayerInfoComponent } from './player-info/player-info.component';
 import {PlayerService} from "./shared/services/player.service";
 import { ManageFantasyTeamComponent } from './manage-fantasy-team/manage-fantasy-team.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
+import {TeamService} from "./shared/services/team.service";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LeaguesComponent,
     PlayerInfoComponent,
     ManageFantasyTeamComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MaintenanceComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +48,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       router: routerReducer,
     }),
     StoreRouterConnectingModule.forRoot(),
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
     LeagueService,
     PlayerService,
+    TeamService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

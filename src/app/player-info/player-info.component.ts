@@ -1,19 +1,18 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Player} from '../shared/models/player';
 import {PlayerService} from "../shared/services/player.service";
 import {Store} from "@ngrx/store";
 import {getCurrentPlayerWithId, State} from "../shared/reducers";
 import {Team} from "../shared/models/team";
 import {League} from "../shared/models/league";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-player-info',
   templateUrl: './player-info.component.html',
   styleUrls: ['./player-info.component.css']
 })
-export class PlayerInfoComponent implements OnInit, OnDestroy {
-
-  private subscriptions = [];
+export class PlayerInfoComponent extends BaseComponent implements OnInit {
 
   @Input()
   public player: Player;
@@ -34,7 +33,9 @@ export class PlayerInfoComponent implements OnInit, OnDestroy {
     }));
   }
 
-  constructor(private playerService: PlayerService, private store: Store<State>,) { }
+  constructor(private playerService: PlayerService, private store: Store<State>,) {
+    super();
+  }
 
   openStats(team: Team, league: League) {
     this.statsTeam = team;
@@ -49,9 +50,5 @@ export class PlayerInfoComponent implements OnInit, OnDestroy {
     }
 
     //TODO: Load stats
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
   }
 }

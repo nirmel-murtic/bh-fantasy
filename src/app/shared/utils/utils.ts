@@ -20,3 +20,11 @@ export function addIfNotExist(array, value): boolean {
 export function detectTouch() {
   return 'ontouchstart' in document.documentElement;
 }
+
+export function handleApiError(error, router) {
+  if(error.status === 404) {
+    router.navigateByUrl('/page-not-found', {skipLocationChange: true});
+  } else {
+    router.navigateByUrl('/maintenance', {skipLocationChange: true});
+  }
+}

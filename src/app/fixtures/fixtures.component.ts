@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {getCurrentLeague, getCurrentRound, State} from '../shared/reducers';
 import {LeagueService} from '../shared/services/league.service';
@@ -6,13 +6,14 @@ import {League} from '../shared/models/league';
 import {Round} from '../shared/models/round';
 import {ActivatedRoute, Router} from "@angular/router";
 import {addIfNotExist, removeItem} from "../shared/utils/utils";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'app-fixtures',
   templateUrl: './fixtures.component.html',
   styleUrls: ['./fixtures.component.css']
 })
-export class FixturesComponent implements OnInit, OnDestroy {
+export class FixturesComponent extends BaseComponent implements OnInit {
 
   _league: League;
 
@@ -21,8 +22,6 @@ export class FixturesComponent implements OnInit, OnDestroy {
   public selectedRoundIndex = null;
 
   public currentRound: Round;
-
-  private subscriptions = [];
 
   private static LOADING_IDS = [];
 
@@ -73,6 +72,7 @@ export class FixturesComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private leagueService: LeagueService) {
+    super();
   }
 
   public selectRound(index: number, event) {
@@ -122,9 +122,5 @@ export class FixturesComponent implements OnInit, OnDestroy {
     }
 
     return true;
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(value => value.unsubscribe());
   }
 }
