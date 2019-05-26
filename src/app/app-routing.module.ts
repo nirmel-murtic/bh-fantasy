@@ -8,6 +8,7 @@ import {LeaguesComponent} from './leagues/leagues.component';
 import {PlayerInfoComponent} from './player-info/player-info.component';
 import {ManageFantasyTeamComponent} from "./manage-fantasy-team/manage-fantasy-team.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
+import {TeamInfoComponent} from "./team-info/team-info.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'players/:playerId',
     component: PlayerInfoComponent
+  },
+  {
+    path: 'teams/:teamId',
+    component: TeamInfoComponent
   }
 ];
 

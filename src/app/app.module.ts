@@ -21,6 +21,7 @@ import { PlayerInfoComponent } from './player-info/player-info.component';
 import {PlayerService} from "./shared/services/player.service";
 import { ManageFantasyTeamComponent } from './manage-fantasy-team/manage-fantasy-team.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TeamInfoComponent } from './team-info/team-info.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     LeaguesComponent,
     PlayerInfoComponent,
     ManageFantasyTeamComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TeamInfoComponent
   ],
   imports: [
     BrowserModule,
