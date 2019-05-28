@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Team} from "../shared/models/team";
+import {Team} from '../shared/models/team';
 import {
   getCurrentTeamWithId,
   State
-} from "../shared/reducers";
-import {Store} from "@ngrx/store";
-import {TeamService} from "../shared/services/team.service";
-import {BaseComponent} from "../base.component";
-import {League} from "../shared/models/league";
-import {Player, PlayerCoefficients, PlayerType} from "../shared/models/player";
+} from '../shared/reducers';
+import {Store} from '@ngrx/store';
+import {TeamService} from '../shared/services/team.service';
+import {BaseComponent} from '../base.component';
+import {League} from '../shared/models/league';
+import {Player, PlayerCoefficients, PlayerType} from '../shared/models/player';
 
 @Component({
   selector: 'app-team-info',
@@ -17,6 +17,8 @@ import {Player, PlayerCoefficients, PlayerType} from "../shared/models/player";
 })
 export class TeamInfoComponent extends BaseComponent implements OnInit {
 
+  public averageAge: number;
+
   @Input()
   public team: Team;
 
@@ -24,9 +26,15 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
 
   public players: Player[];
 
+  public statsLeague: League;
+
+  public statsPlayer: Player;
+
+
+
   ngOnInit() {
     this.subscriptions.push(this.store.select(getCurrentTeamWithId).subscribe(([team, teamId]) => {
-      if(team) {
+      if (team) {
         this.team = team;
 
         this.leagues = [];
@@ -35,49 +43,72 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
 
         this.team.leagues.forEach(
           league => {
-            if(league.type === 'LeagueGroup') {
+            if (league.type === 'LeagueGroup') {
               groupsMap.set(league.id, league);
             }
           }
         );
-
         this.team.leagues.forEach(
           league => {
-            if(league.groups && league.groups.length > 0) {
+            if (league.groups && league.groups.length > 0) {
               this.leagues.push({
                   ...league,
                   groups: league.groups.filter(group => groupsMap.has(group.id))
                 }
-              )
-            } else if(league.type !== 'LeagueGroup') {
+              );
+            } else if (league.type !== 'LeagueGroup') {
               this.leagues.push(league);
+              this.getAverageAge(team);
             }
           }
         );
 
         this.players = this.team.players.sort((a, b) =>
-          this.getCoeficient(a) > this.getCoeficient(b) ? -1 : 1);
+          this.getCoeficient(a) < this.getCoeficient(b) ? -1 : 1);
       }
 
-      if(!this.team && teamId) {
+      if (!this.team && teamId) {
         this.teamService.loadTeam(teamId);
       }
     }));
   }
 
-  getCoeficient(player: Player) {
-    if(player.type === PlayerType.DEFENDER) {
+   getCoeficient(player: Player) {
+    if (player.type === PlayerType.DEFENDER) {
       return PlayerCoefficients.DEFENDER;
-    } else if(player.type === PlayerType.MIDDLE) {
+    } else if (player.type === PlayerType.MIDDLE) {
       return PlayerCoefficients.MIDDLE;
-    } else if(player.type === PlayerType.STRIKER) {
+    } else if (player.type === PlayerType.STRIKER) {
       return PlayerCoefficients.STRIKER;
-    } else if(player.type === PlayerType.GOALKEEPER) {
+    } else if (player.type === PlayerType.GOALKEEPER) {
       return PlayerCoefficients.GOALKEEPER;
-    } else return 0;
+    } else { return 0; }
   }
 
   constructor(private teamService: TeamService, private store: Store<State>) {
     super();
   }
+
+  openStats(player: Player, league: League) {
+    this.statsPlayer = player;
+    this.statsLeague = league;
+
+    if (document.body.clientWidth < 1000) {
+      window.scroll({
+        left: 0,
+        top: document.body.scrollHeight - 400,
+        behavior: 'smooth'
+      });
+    }
+    // TODO: Load stats
+  }
+
+  getAverageAge(team: Team) {
+    for (const player of this.team.players) {
+      this.averageAge += player.yearsCount;
+    }
+    this.averageAge = this.averageAge / team.players.length;
+  }
+
 }
+
