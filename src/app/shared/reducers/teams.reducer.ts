@@ -35,6 +35,25 @@ export function reducer(state = initialState, action: Action): State {
         myFantasyTeams: map
       };
     }
+    case teams.ADD_PLAYER: {
+      const map = new Map();
+
+      state.myFantasyTeams.forEach((value, key) => {
+        if(value.id === action.teamId) {
+          map.set(key, {
+            ...value,
+            players: value.players ? [...value.players, action.player].reverse() : [action.player]
+          } as Team);
+        } else {
+          map.set(key, value);
+        }
+      });
+
+      return {
+        ...state,
+        myFantasyTeams: map
+      };
+    }
     default:
       return state;
   }

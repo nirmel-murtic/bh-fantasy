@@ -55,6 +55,7 @@ export const getCurrentPlayerWithId = createSelector(getCurrentPlayer,
       return [player && player.id === +route.playerId ? player : null, +route.playerId] as [Player, number];
     }
 );
+
 export const getCurrentTeamWithId = createSelector(getCurrentTeam,
   selectRouteParameters,(team, route) => {
     return [team && team.id === +route.teamId ? team : null, +route.teamId] as [Team, number];
@@ -110,6 +111,10 @@ export const getLeagueById = createSelector(getLeaguesAndGroups,
     return league.id === props.id;
   })
 );
+
+export const getLeaguePlayers = createSelector(getPlayers,
+  (playersMap, props) => playersMap.get(props.leagueId));
+
 
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer,

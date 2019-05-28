@@ -1262,6 +1262,19 @@ a:hover {
   transform: rotate(180deg);
 }
 
+.bh-icon-arrow-right {
+  background-position: -99px -129px;
+  width: 28px;
+  height: 28px;
+}
+
+.bh-icon-arrow-left {
+  background-position: -99px -129px;
+  width: 28px;
+  height: 28px;
+  transform: rotate(180deg);
+}
+
 .event-info {
   width: 220px;
 }
@@ -1290,4 +1303,11 @@ a:hover {
 .table th {
   background-color: #f23a2e;
   color: #fff
+}
+
+@media (max-width: 768px) {
+  .team-info-container .table td, .team-info-container .table th {
+    padding: 4px;
+    font-size: 12px !important;
+  }
 }

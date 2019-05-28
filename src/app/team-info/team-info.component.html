@@ -58,10 +58,12 @@
                   <table class="table table-bordered leagues">
                     <tr *ngFor="let player of players">
                       <td>
-                        <div class="image image-small float-left mr-2" *ngIf="player.profilePicture">
+                        <div class="image image-small float-left mr-md-2 mr-sm-0" *ngIf="player.profilePicture">
                           <img [src]="player.profilePicture" class="img-fluid">
                         </div>
-                        <a routerLink="/players/{{player.id}}">{{player.fullName}}</a>
+                        <div class="mt-1 mt-md-0">
+                          <a routerLink="/players/{{player.id}}">{{player.fullName}}</a>
+                        </div>
                       </td>
                       <td>
                         {{player.type}}

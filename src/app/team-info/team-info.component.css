@@ -7,3 +7,8 @@
   border-radius: 12px;
   height: 120px;
 }
+
+.image.image-small {
+  width: 32px;
+  flex: 0 0 32px;
+}

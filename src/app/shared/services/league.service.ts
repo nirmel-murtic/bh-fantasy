@@ -7,7 +7,7 @@ import {League} from '../models/league';
 import {Endpoint} from '../constants/endpoints';
 import {
   LoadLeagueAction,
-  LoadLeaguesAction, LoadMatchAction, LoadPlayersAction,
+  LoadLeaguesAction, LoadMatchAction,
   LoadRoundAction,
   LoadRoundsAction,
   LoadStandingsAction,
@@ -18,7 +18,6 @@ import {TopPlayerValue} from '../models/top-player-value';
 import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {map, share} from "rxjs/operators";
-import {Player} from '../models/player';
 import {Router} from "@angular/router";
 import {handleApiError} from "../utils/utils";
 import {Team} from "../models/team";
@@ -60,18 +59,6 @@ export class LeagueService {
     result.subscribe(data => {
       this.store.dispatch(new LoadTopPlayersAction(data, leagueId));
     }, error => handleApiError(error, this.router));
-
-    return result;
-  }
-
-  loadPlayers(leagueId: number): Observable<Player[]> {
-    const result: Observable<Player[]> = this.http
-      .get<Player[]>(Endpoint.LEAGUES.concat('/').concat(leagueId.toString()).concat(Endpoint.PLAYERS))
-      .pipe(share());
-
-    result.subscribe(data => {
-      this.store.dispatch(new LoadPlayersAction(data, leagueId));
-    });
 
     return result;
   }

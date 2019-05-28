@@ -25,6 +25,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { TeamService } from "./shared/services/team.service";
 import { FormsModule } from '@angular/forms';
 import { TeamInfoComponent } from './team-info/team-info.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { TeamInfoComponent } from './team-info/team-info.component';
     }),
     StoreRouterConnectingModule.forRoot(),
     NgbModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [
     LeagueService,
