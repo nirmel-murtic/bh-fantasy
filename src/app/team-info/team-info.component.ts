@@ -26,10 +26,6 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
 
   public players: Player[];
 
-  public statsLeague: League;
-
-  public statsPlayer: Player;
-
 
 
   ngOnInit() {
@@ -89,23 +85,9 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
     super();
   }
 
-  openStats(player: Player, league: League) {
-    this.statsPlayer = player;
-    this.statsLeague = league;
-
-    if (document.body.clientWidth < 1000) {
-      window.scroll({
-        left: 0,
-        top: document.body.scrollHeight - 400,
-        behavior: 'smooth'
-      });
-    }
-    // TODO: Load stats
-  }
-
   getAverageAge(team: Team) {
-    for (const player of this.team.players) {
-      this.averageAge += player.yearsCount;
+    for ( const player of this.team.players) {
+      this.averageAge +=  player.yearsCount;
     }
     this.averageAge = this.averageAge / team.players.length;
   }
