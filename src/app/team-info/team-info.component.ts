@@ -86,10 +86,15 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
   }
 
   getAverageAge(team: Team) {
+    var age  = 0;
+
     for ( const player of this.team.players) {
-      this.averageAge +=  player.yearsCount;
+      age +=  player.yearsCount;
     }
-    this.averageAge = this.averageAge / team.players.length;
+
+    age = age / team.players.length;
+
+    return age;
   }
 
 }
