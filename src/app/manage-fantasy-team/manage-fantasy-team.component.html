@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-5 mb-3">
                   <div class="row mb-3">
-                    <label for="teamName">Available players ({{playersMap.size}})</label>
+                    <label for="teamName">Available players ({{!filterType ? playersMap.size : filteredPlayersMap.size}})</label>
                     <select class="form-control" (change)="selectType($event.target.value)">
                       <option *ngFor="let type of playerTypes">{{type}}</option>
                     </select>
