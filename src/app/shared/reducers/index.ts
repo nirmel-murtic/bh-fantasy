@@ -2,7 +2,7 @@ import * as fromLeagues from './leagues.reducer';
 import * as fromPlayers from './players.reducer';
 import * as fromTeams from './teams.reducer';
 
-import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
+import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
 import {TopPlayerValue} from '../models/top-player-value';
 import {League, LeagueType} from '../models/league';
@@ -11,6 +11,7 @@ import {Round} from '../models/round';
 import {Match} from '../models/match';
 import {Player} from '../models/player';
 import {Team} from "../models/team";
+import {Log} from "../utils/log";
 
 export interface State {
   leagues: fromLeagues.State;
@@ -121,3 +122,10 @@ export const reducers: ActionReducerMap<State> = {
   players: fromPlayers.reducer,
   teams: fromTeams.reducer
 };
+
+export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
+  return function (state: State, action: any): State {
+    Log.action(action);
+    return reducer(state, action);
+  };
+}

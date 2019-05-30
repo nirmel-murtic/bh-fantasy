@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {InjectionToken, NgModule} from '@angular/core';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,8 +8,8 @@ import { StandingsComponent } from './standings/standings.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiInterceptor} from './shared/http/api-interceptor';
 import {LeagueService} from './shared/services/league.service';
-import {StoreModule} from '@ngrx/store';
-import {reducers} from './shared/reducers/index';
+import {ActionReducerMap, META_REDUCERS, MetaReducer, StoreModule} from '@ngrx/store';
+import {logger} from './shared/reducers';
 import { LeagueComponent } from './league/league.component';
 import { TopPlayersComponent } from './top-players/top-players.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
@@ -26,6 +26,19 @@ import { TeamService } from "./shared/services/team.service";
 import { FormsModule } from '@angular/forms';
 import { TeamInfoComponent } from './team-info/team-info.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import * as fromRoot from './shared/reducers';
+
+export const REDUCER_TOKEN = new InjectionToken<
+  ActionReducerMap<fromRoot.State>
+  >('Registered Reducers');
+
+export function getMetaReducers(): MetaReducer<fromRoot.State>[] {
+  return [logger];
+}
+
+export function getReducers() {
+  return {...fromRoot.reducers, router: routerReducer};
+}
 
 @NgModule({
   declarations: [
@@ -47,9 +60,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({...reducers,
-      router: routerReducer,
-    }),
+    StoreModule.forRoot(REDUCER_TOKEN),
     StoreRouterConnectingModule.forRoot(),
     NgbModule,
     FormsModule,
@@ -60,6 +71,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     PlayerService,
     TeamService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
+    {provide: META_REDUCERS, useFactory: getMetaReducers},
+    {provide: REDUCER_TOKEN, useFactory: getReducers}
   ],
   bootstrap: [AppComponent]
 })

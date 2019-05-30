@@ -7,7 +7,7 @@ export interface State {
   currentPlayer: Player;
 }
 
-const initialState: State = {
+export const initialState: State = {
   currentPlayer : null
 };
 

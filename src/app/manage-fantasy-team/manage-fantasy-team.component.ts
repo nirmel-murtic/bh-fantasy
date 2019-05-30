@@ -22,7 +22,7 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
 
   public playersMap: Map<number, Player> = new Map<number, Player>();
 
-  private league: League;
+  public league: League;
 
   private static LOADING_LEAGUE_IDS = [];
 

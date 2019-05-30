@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {getLeagues, State} from "./shared/reducers";
 import {LeagueService} from "./shared/services/league.service";
 import {League, LeagueType} from "./shared/models/league";
 import {Observable} from "rxjs";
 import {NavigationStart, Router} from "@angular/router";
-
-declare var $: any;
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +22,7 @@ export class AppComponent implements OnInit {
   public menuOpened = false;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private store: Store<State>,
     private router: Router,
     private leagueService: LeagueService) {
@@ -45,42 +45,42 @@ export class AppComponent implements OnInit {
         this.closeMenu();
       }
     });
+  }
 
-    $(window).resize(function() {
-      var $this = $(this),
-        w = $this.width();
-
-      if ( w > 768 ) {
-        if ( $('body').hasClass('offcanvas-menu') ) {
-          $('body').removeClass('offcanvas-menu');
-        }
+  @HostListener('document:mouseup', ['$event'])
+  onMouseUp(event) {
+    if(event.target.className === 'site-wrap') {
+      if ( this.document.body.classList.contains('offcanvas-menu') ) {
+        this.document.body.classList.remove('offcanvas-menu');
       }
-    });
+    }
+  }
 
-    $(document).mouseup(function(e) {
-      var container = $(".site-mobile-menu");
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        if ( $('body').hasClass('offcanvas-menu') ) {
-          $('body').removeClass('offcanvas-menu');
-        }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if ( event.target.innerWidth > 768 ) {
+      if ( this.document.body.classList.contains('offcanvas-menu') ) {
+        this.document.body.classList.remove('offcanvas-menu');
       }
-    });
+    }
+
+    event.target.innerWidth;
   }
 
   private closeMenu() {
-    if ($('body').hasClass('offcanvas-menu') ) {
-      $('body').removeClass('offcanvas-menu');
+    if (this.document.body.classList.contains('offcanvas-menu') ) {
+      this.document.body.classList.remove('offcanvas-menu');
 
       this.menuOpened = false;
     }
   }
 
   public toggleMenu() {
-    if($('body').hasClass('offcanvas-menu')) {
-      $('body').removeClass('offcanvas-menu');
+    if(this.document.body.classList.contains('offcanvas-menu')) {
+      this.document.body.classList.remove('offcanvas-menu');
       this.menuOpened = true;
     } else {
-      $('body').addClass('offcanvas-menu');
+      this.document.body.classList.add('offcanvas-menu');
       this.menuOpened = false;
     }
   }

@@ -14,7 +14,7 @@ export interface State {
   players: Map<number, Player[]>;
 }
 
-const initialState: State = {
+export const initialState: State = {
   leagues: [],
   standings: new Map(),
   topPlayers: new Map(),
@@ -194,7 +194,10 @@ function updateModelInModels(models: Id[], model: Id) {
   return newRounds;
 }
 
-export const getLeagues = (state: State) => state.leagues;
+export const getLeagues = (state: State) => {
+  return state.leagues;
+};
+
 export const getStandings = (state: State) => state.standings;
 export const getTopPlayers = (state: State) => state.topPlayers;
 export const getPlayers = (state: State) => state.players;

@@ -8,7 +8,7 @@ export interface State {
   myFantasyTeams: Map<number, Team>;
 }
 
-const initialState: State = {
+export const initialState: State = {
   currentTeam : null,
   myFantasyTeams : new Map<number, Team>()
 };
