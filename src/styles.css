@@ -1305,6 +1305,10 @@ a:hover {
   color: #fff
 }
 
+.table tbody {
+  font-weight: 400;
+}
+
 @media (max-width: 768px) {
   .team-info-container .table td, .team-info-container .table th {
     padding: 4px;
