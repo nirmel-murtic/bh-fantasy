@@ -54,10 +54,11 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
               );
             } else if (league.type !== 'LeagueGroup') {
               this.leagues.push(league);
-              this.getAverageAge(team);
             }
           }
         );
+
+        this.averageAge = this.getAverageAge(team);
 
         this.players = this.team.players.sort((a, b) =>
           this.getCoeficient(a) < this.getCoeficient(b) ? -1 : 1);
@@ -94,8 +95,7 @@ export class TeamInfoComponent extends BaseComponent implements OnInit {
 
     age = age / team.players.length;
 
-    return age;
+    return Math.round(age);
   }
-
 }
 
