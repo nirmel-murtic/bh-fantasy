@@ -1,4 +1,4 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 
 import {environment} from '../../../environments/environment';
 
@@ -11,7 +11,14 @@ export class ApiInterceptor implements HttpInterceptor {
 
     const baseUrl = environment.apiUrl;
 
-    const apiReq = req.clone({ url: `${baseUrl}${req.url}` });
+    const token = localStorage.token;
+
+    const apiReq = req.clone({
+      url: `${baseUrl}${req.url}`,
+      headers: new HttpHeaders(token ? {
+        'Authorization': 'Bearer ' + token
+      } : {})
+    });
 
     return next.handle(apiReq);
   }

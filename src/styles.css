@@ -1315,3 +1315,7 @@ a:hover {
     font-size: 12px !important;
   }
 }
+
+app-user-profile .popover-body {
+  padding: 0 !important;
+}

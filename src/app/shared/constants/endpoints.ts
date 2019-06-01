@@ -5,5 +5,6 @@ export const Endpoint = {
   ROUNDS: '/rounds',
   MATCHES: '/matches',
   PLAYERS: '/players',
-  TEAMS: '/teams'
+  TEAMS: '/teams',
+  USER: '/user'
 };

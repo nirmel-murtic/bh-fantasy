@@ -27,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { TeamInfoComponent } from './team-info/team-info.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import * as fromRoot from './shared/reducers';
+import {AuthService} from "./shared/services/auth.service";
+import { LoginButtonComponent } from './login-button/login-button.component';
 
 export const REDUCER_TOKEN = new InjectionToken<
   ActionReducerMap<fromRoot.State>
@@ -54,7 +56,8 @@ export function getReducers() {
     ManageFantasyTeamComponent,
     PageNotFoundComponent,
     MaintenanceComponent,
-    TeamInfoComponent
+    TeamInfoComponent,
+    LoginButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ export function getReducers() {
     LeagueService,
     PlayerService,
     TeamService,
+    AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     {provide: META_REDUCERS, useFactory: getMetaReducers},
     {provide: REDUCER_TOKEN, useFactory: getReducers}

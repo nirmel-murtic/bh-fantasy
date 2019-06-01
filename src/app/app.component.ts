@@ -1,11 +1,14 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {getLeagues, State} from "./shared/reducers";
+import {getCurrentUser, getLeagues, State} from "./shared/reducers";
 import {LeagueService} from "./shared/services/league.service";
 import {League, LeagueType} from "./shared/models/league";
 import {Observable} from "rxjs";
 import {NavigationStart, Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
+import {AuthService} from "./shared/services/auth.service";
+import {User} from "./shared/models/user";
+import {SetCurrentUserAction} from "./shared/actions/user.actions";
 
 @Component({
   selector: 'app-root',
@@ -21,10 +24,13 @@ export class AppComponent implements OnInit {
 
   public menuOpened = false;
 
+  public user: User;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private store: Store<State>,
     private router: Router,
+    private authService: AuthService,
     private leagueService: LeagueService) {
     this.leagues = store.select(getLeagues);
   }
@@ -45,6 +51,20 @@ export class AppComponent implements OnInit {
         this.closeMenu();
       }
     });
+
+    if(localStorage.token) {
+      this.authService.loadUserInfo();
+    }
+
+    this.store.select(getCurrentUser).subscribe(user => {
+      this.user = user;
+    });
+  }
+
+  logout() {
+    delete localStorage.token;
+
+    this.store.dispatch(new SetCurrentUserAction(null));
   }
 
   @HostListener('document:mouseup', ['$event'])

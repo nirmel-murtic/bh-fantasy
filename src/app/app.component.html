@@ -3,8 +3,14 @@
   <div class="site-mobile-menu">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-logo">
-        <a routerLink="/"><img src="assets/images/logo.png" alt="Image"></a>
+        <a routerLink="/" *ngIf="!user">
+          <img src="assets/images/logo.png" alt="Image">
+        </a>
+        <a *ngIf="user">
+          <img [src]="user.photo" /><span>{{user.fullName}}</span>
+        </a>
       </div>
+
       <div class="site-mobile-menu-close mt-3">
         <span class="icon-close2 js-menu-toggle"
               ngClass="{{menuOpened ? 'active' : ''}}"
@@ -38,9 +44,19 @@
           <a routerLink="/leagues">Fantasy</a>
           <ul class="dropdown arrow-top" [ngbCollapse]="!expandedIndices.get('Fantasy')">
             <ng-container *ngFor="let value of leagues | async">
-              <li *ngIf="value.type == LeagueType.FantasyLeague"><a routerLink="/leagues/{{value.id}}">{{value.name}}</a></li>
+              <li class="has-children" *ngIf="value.type == LeagueType.FantasyLeague">
+                <div class="arrow-collapse" ngClass="{{!expandedIndices.get(value.name) ? 'collapsed' : ''}}"
+                     (click)="expandedIndices.set(value.name, !expandedIndices.get(value.name))"></div>
+                <a routerLink="/leagues/{{value.id}}">{{value.name}}</a>
+                <ul class="dropdown" [ngbCollapse]="!expandedIndices.get(value.name)">
+                  <li><a routerLink="/leagues/{{value.id}}/manage-team">Manage your Team</a></li>
+                </ul>
+              </li>
             </ng-container>
           </ul>
+        </li>
+        <li class="has-children link-to" *ngIf="user">
+          <a (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -55,6 +71,14 @@
         </div>
 
         <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3">
+          <div *ngIf="!user" class="mr-3 d-inline">
+            <a>
+              <app-login-button type="facebook"></app-login-button>
+            </a>
+            <a>
+              <app-login-button type="google"></app-login-button>
+            </a>
+          </div>
           <a class="site-menu-toggle js-menu-toggle text-white"
              ngClass="{{menuOpened ? 'active' : ''}}" (click)="toggleMenu()">
             <span class="icon-menu h3"></span>
@@ -89,6 +113,23 @@
                   </ul>
                 </li>
               </ng-container>
+            </ul>
+          </li>
+          <ng-container *ngIf="!user">
+            <li>
+              <app-login-button type="facebook"></app-login-button>
+            </li>
+            <li>
+              <app-login-button type="google"></app-login-button>
+            </li>
+          </ng-container>
+          <li *ngIf="user" class="has-children user-profile">
+            <a routerLink="/leagues" class="user-profile-content"><img [src]="user.photo" /></a>
+            <ul class="dropdown arrow-top">
+              <li class="name">{{user.fullName}}</li>
+              <li class="has-children">
+                <a (click)="logout()">Logout</a>
+              </li>
             </ul>
           </li>
         </ul>

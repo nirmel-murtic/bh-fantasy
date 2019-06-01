@@ -1,8 +1,9 @@
 import * as fromLeagues from './leagues.reducer';
 import * as fromPlayers from './players.reducer';
 import * as fromTeams from './teams.reducer';
+import * as fromUser from './user.reducer';
 
-import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
+import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
 import {TopPlayerValue} from '../models/top-player-value';
 import {League, LeagueType} from '../models/league';
@@ -17,6 +18,7 @@ export interface State {
   leagues: fromLeagues.State;
   players: fromPlayers.State;
   teams: fromTeams.State;
+  user: fromUser.State;
 }
 
 export const selectRouterState =
@@ -30,6 +32,7 @@ export const selectRouteParameters = createSelector(
 export const getLeaguesState = createFeatureSelector<fromLeagues.State>('leagues');
 export const getCurrentPlayerState = createFeatureSelector<fromPlayers.State>('players');
 export const getCurrentTeamState = createFeatureSelector<fromTeams.State>('teams');
+export const getCurrentUserState = createFeatureSelector<fromUser.State>('user');
 
 export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.getLeagues);
 
@@ -40,6 +43,8 @@ export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopP
 export const getPlayers = createSelector(getLeaguesState, fromLeagues.getPlayers);
 
 export const getCurrentPlayer = createSelector(getCurrentPlayerState, fromPlayers.getCurrentPlayer);
+
+export const getCurrentUser = createSelector(getCurrentUserState, fromUser.getCurrentUser);
 
 export const getCurrentTeam = createSelector(getCurrentTeamState, fromTeams.getCurrentTeam);
 
@@ -120,7 +125,8 @@ export const getLeaguePlayers = createSelector(getPlayers,
 export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer,
   players: fromPlayers.reducer,
-  teams: fromTeams.reducer
+  teams: fromTeams.reducer,
+  user: fromUser.reducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {

@@ -1,0 +1,11 @@
+<button class="loginBtn loginBtn--facebook"
+        (click)="facebookLogin($event)"
+        *ngIf="type === 'facebook'">
+  Login
+</button>
+
+<button class="loginBtn loginBtn--google"
+        (click)="googleLogin($event)"
+        *ngIf="type === 'google'">
+  Login
+</button>
