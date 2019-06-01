@@ -38,8 +38,13 @@ export class AuthService {
     }
 
     this.clearListener();
+
+    const marginLeft = window.innerWidth * 0.1;
+    const marginTop = window.innerHeight * 0.1;
+
     const pw = window.open(environment.apiUrl + '/login/' + type, '_blank',
-      'width=500,height=800,toolbar=no,scrollbars=yes,resizable=yes');
+      'width=' + (window.innerWidth - marginLeft * 2) + ',height=' + (window.innerHeight - marginTop * 2) + ',' +
+      'toolbar=no,scrollbars=yes,resizable=yes,left=' + marginLeft + ',top=' + marginTop);
     this.setListener(this.renderer.listen('window', 'message', (ev) => {
       if (ev.data && typeof ev.data === 'string') {
         pw.close();

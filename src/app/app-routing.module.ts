@@ -59,6 +59,11 @@ const routes: Routes = [
   {
     path: 'teams/:teamId',
     component: TeamInfoComponent
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

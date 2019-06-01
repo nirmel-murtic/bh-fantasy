@@ -65,6 +65,8 @@ export class AppComponent implements OnInit {
     delete localStorage.token;
 
     this.store.dispatch(new SetCurrentUserAction(null));
+
+    this.closeMenu();
   }
 
   @HostListener('document:mouseup', ['$event'])
