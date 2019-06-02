@@ -22,7 +22,7 @@ export class TeamService {
 
   createTeam(team: Team): Observable<Team> {
     return this.http
-      .post<Team>(Endpoint.TEAMS.concat('/'), team)
+      .post<Team>(Endpoint.TEAMS, team)
   }
 
   loadTeam(teamId: number): Observable<Team> {

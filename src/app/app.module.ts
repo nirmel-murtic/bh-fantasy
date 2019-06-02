@@ -5,7 +5,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StandingsComponent } from './standings/standings.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
 import {ApiInterceptor} from './shared/http/api-interceptor';
 import {LeagueService} from './shared/services/league.service';
 import {ActionReducerMap, META_REDUCERS, MetaReducer, StoreModule} from '@ngrx/store';
@@ -67,7 +67,8 @@ export function getReducers() {
     StoreRouterConnectingModule.forRoot(),
     NgbModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'})
   ],
   providers: [
     LeagueService,
