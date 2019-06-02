@@ -62,3 +62,10 @@
 .loginBtn--google:focus {
   background: #E74B37;
 }
+
+@media (max-width: 768px) {
+  .loginBtn {
+    font-size: 10px;
+    padding: 0 8px 0 43px;
+  }
+}

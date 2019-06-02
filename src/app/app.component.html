@@ -79,6 +79,9 @@
               <app-login-button type="google"></app-login-button>
             </a>
           </div>
+          <div *ngIf="user" class="user-profile d-inline mobile">
+            <img [src]="user.photo" />
+          </div>
           <a class="site-menu-toggle js-menu-toggle text-white"
              ngClass="{{menuOpened ? 'active' : ''}}" (click)="toggleMenu()">
             <span class="icon-menu h3"></span>
