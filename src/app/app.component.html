@@ -55,6 +55,9 @@
             </ng-container>
           </ul>
         </li>
+        <li class="has-children" *ngIf="user && user.admin">
+          <a routerLink="/admin">Administration</a>
+        </li>
         <li class="has-children link-to" *ngIf="user">
           <a (click)="logout()">Logout</a>
         </li>
@@ -130,6 +133,9 @@
             <a routerLink="/leagues" class="user-profile-content"><img [src]="user.photo" /></a>
             <ul class="dropdown arrow-top">
               <li class="name">{{user.fullName}}</li>
+              <li class="has-children" *ngIf="user && user.admin">
+                <a routerLink="/admin">Administration</a>
+              </li>
               <li class="has-children">
                 <a (click)="logout()">Logout</a>
               </li>

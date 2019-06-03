@@ -6,5 +6,6 @@ export const Endpoint = {
   MATCHES: '/matches',
   PLAYERS: '/players',
   TEAMS: '/teams',
-  USER: '/user'
+  USER: '/user',
+  ADMIN: '/admin'
 };

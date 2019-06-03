@@ -10,6 +10,7 @@ import {ManageFantasyTeamComponent} from "./manage-fantasy-team/manage-fantasy-t
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import {TeamInfoComponent} from "./team-info/team-info.component";
+import {AdminComponent} from "./admin/admin.component";
 
 const routes: Routes = [
   {
@@ -59,6 +60,10 @@ const routes: Routes = [
   {
     path: 'teams/:teamId',
     component: TeamInfoComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
   },
   {
     path: '**',

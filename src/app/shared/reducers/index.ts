@@ -2,6 +2,7 @@ import * as fromLeagues from './leagues.reducer';
 import * as fromPlayers from './players.reducer';
 import * as fromTeams from './teams.reducer';
 import * as fromUser from './user.reducer';
+import * as fromAdmin from './admin.reducer';
 
 import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterReducerState} from '@ngrx/router-store';
@@ -19,6 +20,7 @@ export interface State {
   players: fromPlayers.State;
   teams: fromTeams.State;
   user: fromUser.State;
+  admin: fromAdmin.State;
 }
 
 export const selectRouterState =
@@ -30,9 +32,10 @@ export const selectRouteParameters = createSelector(
 );
 
 export const getLeaguesState = createFeatureSelector<fromLeagues.State>('leagues');
-export const getCurrentPlayerState = createFeatureSelector<fromPlayers.State>('players');
-export const getCurrentTeamState = createFeatureSelector<fromTeams.State>('teams');
-export const getCurrentUserState = createFeatureSelector<fromUser.State>('user');
+export const getPlayersState = createFeatureSelector<fromPlayers.State>('players');
+export const getTeamsState = createFeatureSelector<fromTeams.State>('teams');
+export const getUserState = createFeatureSelector<fromUser.State>('user');
+export const getAdminState = createFeatureSelector<fromAdmin.State>('admin');
 
 export const getLeaguesAndGroups = createSelector(getLeaguesState, fromLeagues.getLeagues);
 
@@ -42,13 +45,21 @@ export const getTopPlayers = createSelector(getLeaguesState, fromLeagues.getTopP
 
 export const getPlayers = createSelector(getLeaguesState, fromLeagues.getPlayers);
 
-export const getCurrentPlayer = createSelector(getCurrentPlayerState, fromPlayers.getCurrentPlayer);
+export const getCurrentPlayer = createSelector(getPlayersState, fromPlayers.getCurrentPlayer);
 
-export const getCurrentUser = createSelector(getCurrentUserState, fromUser.getCurrentUser);
+export const getCurrentUser = createSelector(getUserState, fromUser.getCurrentUser);
 
-export const getCurrentTeam = createSelector(getCurrentTeamState, fromTeams.getCurrentTeam);
+export const getCurrentTeam = createSelector(getTeamsState, fromTeams.getCurrentTeam);
 
-export const getFantasyTeams = createSelector(getCurrentTeamState, fromTeams.getFantasyTeams);
+export const getFantasyTeams = createSelector(getTeamsState, fromTeams.getFantasyTeams);
+
+// Admin
+
+export const getLeagueSetups = createSelector(getAdminState, fromAdmin.getLeagueSetups);
+
+
+
+// End Admin
 
 export const getFantasyTeam = createSelector(getFantasyTeams,
   (teamsMap, props) => {
@@ -126,7 +137,8 @@ export const reducers: ActionReducerMap<State> = {
   leagues: fromLeagues.reducer,
   players: fromPlayers.reducer,
   teams: fromTeams.reducer,
-  user: fromUser.reducer
+  user: fromUser.reducer,
+  admin: fromAdmin.reducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {

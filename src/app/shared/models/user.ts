@@ -7,7 +7,8 @@ export interface User extends Id {
   photo: string;
   created: Date;
   lastLogin: Date;
-  loginType: LoginType
+  loginType: LoginType;
+  admin: boolean;
 }
 
 export enum LoginType {

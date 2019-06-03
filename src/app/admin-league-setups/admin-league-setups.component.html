@@ -1,0 +1,29 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Info</th>
+      <th>League</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let value of leagueSetups; let i = index">
+    <td>{{i + 1}}</td>
+    <td>{{value.name}}</td>
+    <td>
+      <div *ngIf="value.transfermarktUrl">
+        <div class="small">TransferMarkt URL:</div>
+        <small>{{value.transfermarktUrl}}</small>
+      </div>
+    </td>
+    <td><a *ngIf="value.league" routerLink="/leagues/{{value.league.id}}">{{value.league.name}}</a></td>
+    <td>
+      <span (click)="process(value)" class="icon-play pr-2 link-to" title="Process"></span>
+      <span class="icon-edit pr-2" title="Edit"></span>
+      <span class="icon-delete pr-2" title="Delete"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
