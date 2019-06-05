@@ -2,11 +2,12 @@
   <div class="container">
     <div class="row mb-5">
       <div class="col-md-12 text-center mb-4 mt-4">
-        <h2 class="text-black">We'll be back soon!</h2>
+        <h2 class="text-black" *ngIf="!error">We'll be back soon!</h2>
         <div>
-          <p>Sorry for the inconvenience but we're performing some maintenance at the moment.</p>
+          <p *ngIf="!error">Sorry for the inconvenience but we're performing some maintenance at the moment.</p>
           <p>BH-Fantasy Team</p>
         </div>
+        <h2 class="text-black" *ngIf="error">{{error}}</h2>
       </div>
     </div>
   </div>

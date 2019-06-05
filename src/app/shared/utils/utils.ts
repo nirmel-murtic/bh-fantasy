@@ -1,4 +1,5 @@
 import {Id} from "../models/id";
+import {NavigationExtras} from "@angular/router";
 
 export function removeItem(array, value) {
   const index = array.indexOf(value);
@@ -22,10 +23,16 @@ export function detectTouch() {
   return 'ontouchstart' in document.documentElement;
 }
 
-export function handleApiError(error, router) {
-  if(error.status === 404) {
+export function handleApiError(response, router, showError=false) {
+  if(response.status === 404) {
     router.navigateByUrl('/page-not-found', {skipLocationChange: true});
   } else {
+    if(showError) {
+      sessionStorage.error = response.error.message;
+    } else {
+      delete sessionStorage.error;
+    }
+
     router.navigateByUrl('/maintenance', {skipLocationChange: true});
   }
 }

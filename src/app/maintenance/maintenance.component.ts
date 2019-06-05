@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaintenanceComponent implements OnInit {
 
+  public error: string;
+
   constructor() { }
 
   ngOnInit() {
+    this.error = sessionStorage.error;
   }
 
 }

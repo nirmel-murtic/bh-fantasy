@@ -21,7 +21,7 @@ export class AdminService {
       .get<LeagueSetup[]>(Endpoint.ADMIN.concat('/setups'))
       .subscribe(data => {
         this.store.dispatch(new SetLeagueSetupsAction(data));
-      }, error => handleApiError(error, this.router));
+      }, error => handleApiError(error, this.router, true));
   }
 
   processLeagueSetup(setup: LeagueSetup): void {
@@ -29,7 +29,7 @@ export class AdminService {
       .post<LeagueSetup>(Endpoint.ADMIN.concat('/setups/'.concat(setup.id.toString()).concat('/process')), null)
       .subscribe(data => {
         this.store.dispatch(new UpdateLeagueSetupAction(data));
-      }, error => handleApiError(error, this.router));
+      }, error => handleApiError(error, this.router, true));
   }
 
   createFantasyLeague(setup: LeagueSetup): void {
@@ -37,6 +37,6 @@ export class AdminService {
       .post<LeagueSetup>(Endpoint.ADMIN.concat('/setups/'.concat(setup.id.toString()).concat('/createFantasyLeague')), null)
       .subscribe(data => {
         this.store.dispatch(new UpdateLeagueSetupAction(data));
-      }, error => handleApiError(error, this.router));
+      }, error => handleApiError(error, this.router, true));
   }
 }
