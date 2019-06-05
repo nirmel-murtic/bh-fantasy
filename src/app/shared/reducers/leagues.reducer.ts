@@ -2,8 +2,8 @@ import * as leagues from '../actions/leagues.actions';
 import {League, LeagueType} from '../models/league';
 import {StandingValue} from '../models/standing-value';
 import {TopPlayerValue} from '../models/top-player-value';
-import {Id} from '../models/id';
 import {Player} from '../models/player';
+import {updateModelInModels} from "../utils/utils";
 
 export type Action = leagues.Actions;
 
@@ -168,31 +168,6 @@ function getMatch(state: State, leagueId: number, roundId: number, matchId: numb
   return round && round.matches ? round.matches.find(match => match.id === matchId) : null;
 }
 
-function updateModelInModels(models: Id[], model: Id) {
-  if (!models) {
-    return [model];
-  }
-
-  const newRounds = [];
-
-  let updated = false;
-
-  models.forEach(value => {
-    if (value.id === model.id) {
-      newRounds.push(model);
-
-      updated = true;
-    } else {
-      newRounds.push(value);
-    }
-  });
-
-  if (!updated) {
-    newRounds.push(model);
-  }
-
-  return newRounds;
-}
 
 export const getLeagues = (state: State) => {
   return state.leagues;

@@ -28,7 +28,11 @@ export class AdminLeagueSetupsComponent extends BaseComponent implements OnInit 
     ));
   }
 
-  process(setup: LeagueSetup) {
+  processLeague(setup: LeagueSetup) {
     this.adminService.processLeagueSetup(setup);
+  }
+
+  createFantasyLeague(setup: LeagueSetup) {
+    this.adminService.createFantasyLeague(setup);
   }
 }

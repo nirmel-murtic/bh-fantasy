@@ -1,5 +1,6 @@
 import * as admin from '../actions/admin.actions';
 import {LeagueSetup} from "../models/league-setup";
+import {updateModelInModels} from "../utils/utils";
 
 export type Action = admin.Actions;
 
@@ -18,6 +19,12 @@ export function reducer(state = initialState, action: Action): State {
         ...state,
         leagueSetups: action.payload
       };
+    }
+    case admin.UPDATE_LEAGUE_SETUP: {
+      return {
+        ...state,
+        leagueSetups: updateModelInModels(state.leagueSetups, action.payload)
+      }
     }
     default:
       return state;

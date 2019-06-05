@@ -1,3 +1,4 @@
+import {Id} from "../models/id";
 
 export function removeItem(array, value) {
   const index = array.indexOf(value);
@@ -27,4 +28,30 @@ export function handleApiError(error, router) {
   } else {
     router.navigateByUrl('/maintenance', {skipLocationChange: true});
   }
+}
+
+export function updateModelInModels(models: Id[], model: Id) {
+  if (!models) {
+    return [model];
+  }
+
+  const newModels = [];
+
+  let updated = false;
+
+  models.forEach(value => {
+    if (value.id === model.id) {
+      newModels.push(model);
+
+      updated = true;
+    } else {
+      newModels.push(value);
+    }
+  });
+
+  if (!updated) {
+    newModels.push(model);
+  }
+
+  return newModels;
 }

@@ -31,4 +31,12 @@ export class AdminService {
         this.store.dispatch(new UpdateLeagueSetupAction(data));
       }, error => handleApiError(error, this.router));
   }
+
+  createFantasyLeague(setup: LeagueSetup): void {
+    this.http
+      .post<LeagueSetup>(Endpoint.ADMIN.concat('/setups/'.concat(setup.id.toString()).concat('/createFantasyLeague')), null)
+      .subscribe(data => {
+        this.store.dispatch(new UpdateLeagueSetupAction(data));
+      }, error => handleApiError(error, this.router));
+  }
 }
