@@ -1,4 +1,5 @@
 import {Id} from './id';
+import {Team} from "./team";
 
 export interface User extends Id {
   fullName: string;
@@ -9,6 +10,7 @@ export interface User extends Id {
   lastLogin: Date;
   loginType: LoginType;
   admin: boolean;
+  teams: Team[];
 }
 
 export enum LoginType {

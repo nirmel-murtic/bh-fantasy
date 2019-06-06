@@ -11,11 +11,16 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import {TeamInfoComponent} from "./team-info/team-info.component";
 import {AdminComponent} from "./admin/admin.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: LeaguesComponent
+    component: DashboardComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
   },
   {
     path: 'page-not-found',

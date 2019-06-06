@@ -18,10 +18,14 @@
         <small>{{value.transfermarktUrl}}</small>
       </div>
     </td>
-    <td><a *ngIf="value.league" routerLink="/leagues/{{value.league.id}}">{{value.league.name}}</a></td>
+    <td>
+      <a class="d-block" *ngIf="value.league" routerLink="/leagues/{{value.league.id}}">{{value.league.name}}</a>
+      <a class="d-block" *ngIf="value.fantasyLeague" routerLink="/leagues/{{value.fantasyLeague.id}}">{{value.fantasyLeague.name}}</a>
+    </td>
     <td>
       <span (click)="processLeague(value)" class="icon-play pr-2 link-to" title="Process"></span>
-      <span (click)="createFantasyLeague(value)" class="icon-create_new_folder pr-2 link-to" title="Process"></span>
+      <span *ngIf="!value.fantasyLeague" (click)="createFantasyLeague(value)"
+            class="icon-create_new_folder pr-2 link-to" title="Create Fantasy League"></span>
       <span class="icon-edit pr-2" title="Edit"></span>
       <span class="icon-delete pr-2" title="Delete"></span>
     </td>

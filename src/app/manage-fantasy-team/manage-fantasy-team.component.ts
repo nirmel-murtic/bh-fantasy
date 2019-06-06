@@ -24,7 +24,9 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
 
   public league: League;
 
-  private static LOADING_LEAGUE_IDS = [];
+  private static LOADING_LEAGUE_IDS_PLAYERS = [];
+
+  private static LOADING_LEAGUE_DETAILS = [];
 
   public filterType: string = null;
 
@@ -50,6 +52,14 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
           if (team) {
             this.team = team;
 
+            if(addIfNotExist(ManageFantasyTeamComponent.LOADING_LEAGUE_DETAILS, this.league.id)) {
+              this.teamService.loadTeam(team.id).subscribe(team => {
+                this.store.dispatch(new SetMyFantasyTeamAction(team, this.league.id));
+
+                removeItem(ManageFantasyTeamComponent.LOADING_LEAGUE_DETAILS, this.league.id);
+              });
+            }
+
             this.removePlayersFromAvailablePlayers();
           } else {
             this.team = {} as Team;
@@ -59,7 +69,7 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
         this.subscriptions.push(this.store.select(getLeaguePlayers,
           {leagueId: this.league.regularLeague.id}).subscribe(
           players => {
-            if(!players && addIfNotExist(ManageFantasyTeamComponent.LOADING_LEAGUE_IDS, this.league.id)) {
+            if(!players && addIfNotExist(ManageFantasyTeamComponent.LOADING_LEAGUE_IDS_PLAYERS, this.league.id)) {
               this.playerService.loadPlayers(this.league.regularLeague.id);
 
               //this.loadTeam();
@@ -73,7 +83,7 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
 
               this.removePlayersFromAvailablePlayers();
 
-              removeItem(ManageFantasyTeamComponent.LOADING_LEAGUE_IDS, this.league.id);
+              removeItem(ManageFantasyTeamComponent.LOADING_LEAGUE_IDS_PLAYERS, this.league.id);
             }
           }
         ));

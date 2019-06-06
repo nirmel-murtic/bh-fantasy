@@ -32,6 +32,7 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLeagueSetupsComponent } from './admin-league-setups/admin-league-setups.component';
 import {AdminService} from "./shared/services/admin.service";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const REDUCER_TOKEN = new InjectionToken<
   ActionReducerMap<fromRoot.State>
@@ -62,7 +63,8 @@ export function getReducers() {
     TeamInfoComponent,
     LoginButtonComponent,
     AdminComponent,
-    AdminLeagueSetupsComponent
+    AdminLeagueSetupsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

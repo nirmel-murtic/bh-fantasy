@@ -1,0 +1,21 @@
+<div *ngIf="hasTeams" class="site-section my-teams">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let value of user.teams" class="col-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 routerLink="/leagues/{{value.leagues[0].id}}" class="font-weight-normal">{{value.leagues[0].name}}</h4>
+          </div>
+          <div class="card-body">
+            Your team: <span class="font-weight-bold">{{value.name}}</span>
+            <div class="text-center mt-4">
+              <div routerLink="/leagues/{{value.leagues[0].id}}/manage-team" class="btn btn-primary">Manage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-leagues *ngIf="!hasTeams"></app-leagues>

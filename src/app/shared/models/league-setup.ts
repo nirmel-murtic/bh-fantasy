@@ -6,4 +6,5 @@ export interface LeagueSetup extends Id {
   transfermarktUrl: string;
   leagueSetups: LeagueSetup[];
   league: League;
+  fantasyLeague: League;
 }

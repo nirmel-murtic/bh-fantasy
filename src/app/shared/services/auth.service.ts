@@ -10,6 +10,7 @@ import {SetCurrentUserAction} from "../actions/user.actions";
 import {User} from "../models/user";
 import {Observable} from "rxjs";
 import {share} from "rxjs/operators";
+import {SetMyFantasyTeamAction} from "../actions/teams.actions";
 
 @Injectable()
 export class AuthService {
@@ -62,6 +63,12 @@ export class AuthService {
 
     result.subscribe(data => {
       this.store.dispatch(new SetCurrentUserAction(data));
+
+      if(data.teams) {
+        data.teams.forEach(team => {
+          this.store.dispatch(new SetMyFantasyTeamAction(team, team.leagues[0].id));
+        });
+      }
     }, error => handleApiError(error, this.router));
 
     return result;
