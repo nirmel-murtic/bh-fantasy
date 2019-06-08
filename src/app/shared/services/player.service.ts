@@ -29,7 +29,7 @@ export class PlayerService {
 
   loadPlayers(leagueId: number): Observable<Player[]> {
     const result: Observable<Player[]> = this.http
-      .get<Player[]>(Endpoint.PLAYERS.concat('?leagueId=').concat(leagueId.toString()))
+      .get<Player[]>(Endpoint.PLAYERS.concat(Endpoint.LEAGUES).concat('/').concat(leagueId.toString()))
       .pipe(share());
 
     result.subscribe(data => {

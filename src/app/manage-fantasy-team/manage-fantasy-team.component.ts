@@ -30,7 +30,11 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
 
   public filterType: string = null;
 
+  public filterTeam: number = null;
+
   public filteredPlayersMap: Map<number, Player> = new Map<number, Player>();
+
+  public playerTeams: Map<number, Team> = new Map<number, Team>();
 
   public searchValue: string = null;
 
@@ -73,13 +77,17 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
           players => {
             if(!players && addIfNotExist(ManageFantasyTeamComponent.LOADING_LEAGUE_IDS_PLAYERS, this.league.id)) {
               this.playerService.loadPlayers(this.league.regularLeague.id);
-
-              //this.loadTeam();
             } else {
               this.playersMap = new Map<number, Player>();
               if(players) {
                 players.forEach(player => {
                   this.playersMap.set(player.id, player);
+
+                  player.teams.forEach(team => {
+                    if(!this.playerTeams.has(team.id)) {
+                      this.playerTeams.set(team.id, team);
+                    }
+                  });
                 });
               }
 
@@ -146,9 +154,21 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
     this.refreshPlayersMap();
   }
 
+  selectTeam(id: number) {
+    this.filterTeam = id;
+
+    this.refreshPlayersMap();
+  }
+
   checkFilter(player: Player) {
     if(this.searchValue && player.fullName.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) === -1) {
       return false;
+    }
+
+    if(this.filterTeam && this.filterTeam !== 0) {
+      if(player.teams.map(team => team.id).indexOf(this.filterTeam) === -1) {
+        return false;
+      }
     }
 
     if(this.filterType === 'All') {
