@@ -32,6 +32,8 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
 
   public filteredPlayersMap: Map<number, Player> = new Map<number, Player>();
 
+  public searchValue: string = null;
+
   constructor(
     private teamService: TeamService,
     private leagueService: LeagueService,
@@ -141,18 +143,14 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
   selectType(type: string) {
     this.filterType = type;
 
-    this.filteredPlayersMap.clear();
-
-    if(this.filterType) {
-      this.playersMap.forEach((value, key) => {
-        if(this.checkFilter(value)) {
-          this.filteredPlayersMap.set(key, value);
-        }
-      });
-    }
+    this.refreshPlayersMap();
   }
 
   checkFilter(player: Player) {
+    if(this.searchValue && player.fullName.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) === -1) {
+      return false;
+    }
+
     if(this.filterType === 'All') {
       return true;
     }
@@ -162,5 +160,21 @@ export class ManageFantasyTeamComponent extends BaseComponent implements OnInit 
     }
 
     return !this.filterType || player.type === this.filterType;
+  }
+
+  search(value: string) {
+    this.searchValue = value;
+
+    this.refreshPlayersMap();
+  }
+
+  refreshPlayersMap() {
+    this.filteredPlayersMap.clear();
+
+    this.playersMap.forEach((value, key) => {
+      if(this.checkFilter(value)) {
+        this.filteredPlayersMap.set(key, value);
+      }
+    });
   }
 }

@@ -26,4 +26,20 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   get hasTeams() {
     return this.user && this.user.teams && this.user.teams.length;
   }
+
+  get rowLength() {
+    if(!this.hasTeams) {
+      return 12;
+    }
+
+    const count = this.user.teams.length;
+
+    if(count % 3 == 0) {
+      return 4;
+    } else if(count % 2 == 0) {
+      return 6;
+    }
+
+    return 12;
+  }
 }

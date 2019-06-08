@@ -1,7 +1,7 @@
 <div *ngIf="hasTeams" class="site-section my-teams">
   <div class="container">
     <div class="row">
-      <div *ngFor="let value of user.teams" class="col-4">
+      <div *ngFor="let value of user.teams" class="col-md-{{rowLength}} col-sm-12">
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
             <h4 routerLink="/leagues/{{value.leagues[0].id}}" class="font-weight-normal">{{value.leagues[0].name}}</h4>
